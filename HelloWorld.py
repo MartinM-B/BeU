@@ -1,2 +1,2 @@
 __author__ = 'win8'
-print("Hello World!")
+print("Hello süper World!")

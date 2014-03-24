@@ -1,9 +1,12 @@
 __author__ = 'win8'
 
 import pyglet
+
 from pyglet.window import key
+
 from pyglet.window import mouse
 
+""" TODO"""
 
 print("Be aware that pyglet requires 32bit version of python!")
 

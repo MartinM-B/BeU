@@ -27,7 +27,10 @@ spritePositionX = window.width / 2
 spritePositionY = window.height / 2
 
 starSprite = pyglet.sprite.Sprite(starLeft, spritePositionX, spritePositionY)
-lookLeft = 1
+lookFlag = 1
+"""lookLFlag: 0 = animation is running, 1 = left, 2 = right"""
+moveFlag = 0
+"""moveFlag: 0 = don't move, 1 = move left, 2 = move right"""
 
 danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([starLeft, starLeftEvent, starRight, starRightEvent], 0.5, True)
@@ -37,29 +40,58 @@ def on_key_press(symbol, modifiers):
     print "a key was pressed"
     if symbol == key.LEFT:
         print "left key was pressed"
-        starSprite.x -= 5
-        if lookLeft != 1:
-            global lookLeft
-            lookLeft = 1
+        """starSprite.x -= 2"""
+        global lookFlag
+        global moveFlag
+        if lookFlag != 1:
+            lookFlag = 1
             starSprite.image = starLeft
+
+        if moveFlag != 1:
+            moveFlag = 1
 
 
     if symbol == key.RIGHT:
         print "right key was pressed"
-        starSprite.x += 5
-        global lookLeft
-        if lookLeft != 0:
-            lookLeft = 0
+        """starSprite.x += 2"""
+        global lookFlag
+        global moveFlag
+        if lookFlag != 2:
+            lookFlag = 2
             starSprite.image = starRight
+
+        if moveFlag != 2:
+            moveFlag = 2
 
     if symbol == key.SPACE:
         print "space was pressed"
         """animation dance"""
-        global lookLeft
-        if(lookLeft != 2):
-            lookLeft = 2
+        global lookFlag
+        global moveFlag
+        if(lookFlag != 0):
+            lookFlag = 0
             starSprite.image = danceAnimation
 
+        if moveFlag != 0:
+            moveFlag = 0
+
+
+@window.event()
+def on_key_release(symbol, modifiers):
+    print "a key was released"
+    global moveFlag
+    if symbol == key.LEFT:
+        print "left key was released"
+
+        if moveFlag != 0:
+            moveFlag = 0
+
+
+    if symbol == key.RIGHT:
+        print "right key was released"
+
+        if moveFlag != 0:
+            moveFlag = 0
 
 
 @window.event()
@@ -71,14 +103,28 @@ def on_mouse_press(x, y, button, modifiers):
         print "right mouse pressed"
 
 
+@window.event
+def update(dt):
+    if moveFlag == 1:
+        starSprite.x -= 2
+        print "move left"
+    elif moveFlag == 2:
+        starSprite.x += 2
+        print "move right"
+    else:
+        print "don't move"
 
+# Call update 60 times a second
+pyglet.clock.schedule_interval(update, 1/60.)
 
 @window.event
 def on_draw():
     window.clear()
     label.draw()
     """image.blit(0, 0)"""
+
     starSprite.draw()
+
 
 
 pyglet.app.run()

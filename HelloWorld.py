@@ -31,6 +31,8 @@ lookFlag = 1
 """lookLFlag: 0 = animation is running, 1 = left, 2 = right"""
 moveFlag = 0
 """moveFlag: 0 = don't move, 1 = move left, 2 = move right"""
+jumpFlag = 0
+"""moveFlag: 0 = don't jump, 1-5 = jump up quick, 6-10 = jump up slow, 11-16 = jump down"""
 
 danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([starLeft, starLeftEvent, starRight, starRightEvent], 0.5, True)
@@ -62,6 +64,12 @@ def on_key_press(symbol, modifiers):
 
         if moveFlag != 2:
             moveFlag = 2
+
+    if symbol == key.UP:
+        print "up key was pressed"
+        global jumpFlag
+        if jumpFlag == 0:
+            jumpFlag = 1
 
     if symbol == key.SPACE:
         print "space was pressed"
@@ -113,6 +121,21 @@ def update(dt):
         print "move right"
     else:
         print "don't move"
+
+    global jumpFlag
+    if jumpFlag > 0:
+        if jumpFlag < 6:
+            starSprite.y += 5
+        elif jumpFlag < 11:
+            starSprite.y += 1
+        elif jumpFlag < 17:
+            starSprite.y -= 5
+
+        jumpFlag += 1
+        if jumpFlag > 16:
+            jumpFlag = 0
+
+
 
 # Call update 60 times a second
 pyglet.clock.schedule_interval(update, 1/60.)

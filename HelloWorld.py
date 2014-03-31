@@ -91,14 +91,16 @@ def on_key_release(symbol, modifiers):
     if symbol == key.LEFT:
         print "left key was released"
 
-        if moveFlag != 0:
+        #if he was walking left stop it
+        if moveFlag == 1:
             moveFlag = 0
 
 
     if symbol == key.RIGHT:
         print "right key was released"
 
-        if moveFlag != 0:
+        #if he was walking right stop it
+        if moveFlag == 2:
             moveFlag = 0
 
 

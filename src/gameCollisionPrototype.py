@@ -14,7 +14,6 @@ foreground = pyglet.graphics.OrderedGroup(1)
 
 # load our images
 block = resources.block
-world = resources.world
 
 # create the level as an entity
 player = Player(batch, foreground)

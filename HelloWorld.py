@@ -27,12 +27,16 @@ spritePositionX = window.width / 2
 spritePositionY = window.height / 2
 
 starSprite = pyglet.sprite.Sprite(starLeft, spritePositionX, spritePositionY)
+#lookLFlag: 0 = animation is running, 1 = left, 2 = right
 lookFlag = 1
-"""lookLFlag: 0 = animation is running, 1 = left, 2 = right"""
+#moveFlag: 0 = don't move, 1 = move left, 2 = move right
 moveFlag = 0
-"""moveFlag: 0 = don't move, 1 = move left, 2 = move right"""
+#leftKeyFlag: 0 = left key not pressed, 1 = left key pressed
+leftKeyFlag = 0
+#rightKeyFlag: 0 = left key not pressed, 1 = left key pressed
+rightKeyFlag = 0
+#moveFlag: 0 = don't jump, 1-5 = jump up quick, 6-10 = jump up slow, 11-16 = jump down
 jumpFlag = 0
-"""moveFlag: 0 = don't jump, 1-5 = jump up quick, 6-10 = jump up slow, 11-16 = jump down"""
 
 danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([starLeft, starLeftEvent, starRight, starRightEvent], 0.5, True)
@@ -42,12 +46,13 @@ def on_key_press(symbol, modifiers):
     print "a key was pressed"
     if symbol == key.LEFT:
         print "left key was pressed"
-        """starSprite.x -= 2"""
+        global leftKeyFlag
+        leftKeyFlag = 1
+
         global lookFlag
         global moveFlag
         if lookFlag != 1:
             lookFlag = 1
-            starSprite.image = starLeft
 
         if moveFlag != 1:
             moveFlag = 1
@@ -55,15 +60,19 @@ def on_key_press(symbol, modifiers):
 
     if symbol == key.RIGHT:
         print "right key was pressed"
-        """starSprite.x += 2"""
+        global rightKeyFlag
+        rightKeyFlag = 1
+
+
         global lookFlag
         global moveFlag
         if lookFlag != 2:
             lookFlag = 2
-            starSprite.image = starRight
 
         if moveFlag != 2:
             moveFlag = 2
+
+
 
     if symbol == key.UP:
         print "up key was pressed"
@@ -78,7 +87,6 @@ def on_key_press(symbol, modifiers):
         global moveFlag
         if(lookFlag != 0):
             lookFlag = 0
-            starSprite.image = danceAnimation
 
         if moveFlag != 0:
             moveFlag = 0
@@ -87,9 +95,13 @@ def on_key_press(symbol, modifiers):
 @window.event()
 def on_key_release(symbol, modifiers):
     print "a key was released"
+
     global moveFlag
     if symbol == key.LEFT:
         print "left key was released"
+
+        global leftKeyFlag
+        leftKeyFlag = 0
 
         #if he was walking left stop it
         if moveFlag == 1:
@@ -99,9 +111,13 @@ def on_key_release(symbol, modifiers):
     if symbol == key.RIGHT:
         print "right key was released"
 
+        global rightKeyFlag
+        rightKeyFlag = 0
+
         #if he was walking right stop it
         if moveFlag == 2:
             moveFlag = 0
+
 
 
 @window.event()
@@ -115,6 +131,29 @@ def on_mouse_press(x, y, button, modifiers):
 
 @window.event
 def update(dt):
+    global lookFlag
+    global moveFlag
+    global leftKeyFlag
+    global rightKeyFlag
+    #check keys to see if there is still one pressed that wasn't released
+    if moveFlag == 0:
+        if leftKeyFlag == 1:
+            moveFlag = 1
+            lookFlag = 1
+        elif rightKeyFlag == 1:
+            moveFlag = 2
+            lookFlag = 2
+
+
+    #change sprite according to lookFlag
+    if lookFlag == 0:
+        starSprite.image = danceAnimation
+    elif lookFlag == 1:
+        starSprite.image = starLeft
+    elif lookFlag == 2:
+        starSprite.image = starRight
+
+    #move
     if moveFlag == 1:
         starSprite.x -= 2
         print "move left"

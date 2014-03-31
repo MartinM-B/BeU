@@ -7,6 +7,9 @@ from player import *
 # create a simple window
 window = pyglet.window.Window(640, 480, caption="collision", visible=False)
 
+label = pyglet.text.Label('Click to create falling objects (collision is pixel perfect but used image not)!', font_name='Times New Roman', font_size=10, x=window.width // 2,
+                          y=4 * window.height // 5, anchor_x='center', anchor_y='center', color=(0, 0, 0, 255))
+
 # create the render structures
 batch = pyglet.graphics.Batch()
 background = pyglet.graphics.OrderedGroup(0)
@@ -127,6 +130,8 @@ def on_mouse_press(x, y, button, modifiers):
 def on_draw():
         # clear the window
         window.clear()
+
+        label.draw()
 
         # draw our background and blocks
         batch.draw()

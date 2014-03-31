@@ -7,6 +7,7 @@ from pyglet.window import key
 from pyglet.window import mouse
 
 import resources
+from player import Player
 
 """ TODO"""
 
@@ -16,6 +17,8 @@ window = pyglet.window.Window(800, 600)
 
 label = pyglet.text.Label('Hello world!', font_name='Times New Roman', font_size=36, x=window.width // 2,
                           y=window.height // 2, anchor_x='center', anchor_y='center')
+
+player = Player()
 
 spritePositionX = window.width / 2
 spritePositionY = window.height / 2
@@ -179,7 +182,7 @@ pyglet.clock.schedule_interval(update, 1/60.)
 def on_draw():
     window.clear()
     label.draw()
-    """image.blit(0, 0)"""
+    player.draw()
 
     starSprite.draw()
 

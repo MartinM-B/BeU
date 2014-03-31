@@ -2,7 +2,7 @@ from pyglet.gl import *
 import resources
 
 from pyglet.window import key
-from player import *
+from Player import *
 
 # create a simple window
 window = pyglet.window.Window(640, 480, caption="collision", visible=False)

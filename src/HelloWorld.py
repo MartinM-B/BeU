@@ -6,27 +6,21 @@ from pyglet.window import key
 
 from pyglet.window import mouse
 
+import resources
+
 """ TODO"""
 
 print("Be aware that pyglet requires 32bit version of python!")
 
-window = pyglet.window.Window()
+window = pyglet.window.Window(800, 600)
 
 label = pyglet.text.Label('Hello world!', font_name='Times New Roman', font_size=36, x=window.width // 2,
                           y=window.height // 2, anchor_x='center', anchor_y='center')
 
-""" use any picture """
-image = pyglet.resource.image("small_cat.jpg")
-
-starLeft = pyglet.resource.image("walk_left.png")
-starRight = pyglet.resource.image("walk_right.png")
-starLeftEvent= pyglet.resource.image("catch_left.png")
-starRightEvent = pyglet.resource.image("catch_right.png")
-
 spritePositionX = window.width / 2
 spritePositionY = window.height / 2
 
-starSprite = pyglet.sprite.Sprite(starLeft, spritePositionX, spritePositionY)
+starSprite = pyglet.sprite.Sprite(resources.starLeft, spritePositionX, spritePositionY)
 #lookLFlag: 0 = animation is running, 1 = left, 2 = right
 lookFlag = 1
 #moveFlag: 0 = don't move, 1 = move left, 2 = move right
@@ -39,7 +33,7 @@ rightKeyFlag = 0
 jumpFlag = 0
 
 danceAnimation = pyglet.image.Animation.from_image_sequence\
-    ([starLeft, starLeftEvent, starRight, starRightEvent], 0.5, True)
+    ([resources.starLeft, resources.starLeftEvent, resources.starRight, resources.starRightEvent], 0.5, True)
 
 @window.event()
 def on_key_press(symbol, modifiers):
@@ -149,9 +143,9 @@ def update(dt):
     if lookFlag == 0:
         starSprite.image = danceAnimation
     elif lookFlag == 1:
-        starSprite.image = starLeft
+        starSprite.image = resources.starLeft
     elif lookFlag == 2:
-        starSprite.image = starRight
+        starSprite.image = resources.starRight
 
     #move
     if moveFlag == 1:

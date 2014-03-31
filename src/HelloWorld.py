@@ -5,25 +5,29 @@ import pyglet
 from pyglet.window import key
 
 from pyglet.window import mouse
-
 import resources
-from player import Player
 
 """ TODO"""
 
 print("Be aware that pyglet requires 32bit version of python!")
 
-window = pyglet.window.Window(800, 600)
+window = pyglet.window.Window()
 
 label = pyglet.text.Label('Hello world!', font_name='Times New Roman', font_size=36, x=window.width // 2,
                           y=window.height // 2, anchor_x='center', anchor_y='center')
 
-player = Player()
+""" use any picture """
+image = resources.image
+
+starLeft = resources.starLeft
+starRight = resources.starRight
+starLeftEvent= resources.starLeftEvent
+starRightEvent = resources.starRightEvent
 
 spritePositionX = window.width / 2
 spritePositionY = window.height / 2
 
-starSprite = pyglet.sprite.Sprite(resources.starLeft, spritePositionX, spritePositionY)
+starSprite = pyglet.sprite.Sprite(starLeft, spritePositionX, spritePositionY)
 #lookLFlag: 0 = animation is running, 1 = left, 2 = right
 lookFlag = 1
 #moveFlag: 0 = don't move, 1 = move left, 2 = move right
@@ -36,7 +40,7 @@ rightKeyFlag = 0
 jumpFlag = 0
 
 danceAnimation = pyglet.image.Animation.from_image_sequence\
-    ([resources.starLeft, resources.starLeftEvent, resources.starRight, resources.starRightEvent], 0.5, True)
+    ([starLeft, starLeftEvent, starRight, starRightEvent], 0.5, True)
 
 @window.event()
 def on_key_press(symbol, modifiers):
@@ -146,9 +150,9 @@ def update(dt):
     if lookFlag == 0:
         starSprite.image = danceAnimation
     elif lookFlag == 1:
-        starSprite.image = resources.starLeft
+        starSprite.image = starLeft
     elif lookFlag == 2:
-        starSprite.image = resources.starRight
+        starSprite.image = starRight
 
     #move
     if moveFlag == 1:
@@ -182,7 +186,7 @@ pyglet.clock.schedule_interval(update, 1/60.)
 def on_draw():
     window.clear()
     label.draw()
-    player.draw()
+    """image.blit(0, 0)"""
 
     starSprite.draw()
 

@@ -50,17 +50,6 @@ class Player(GameEntity):
 
 
     def update(self):
-        global look
-        #change sprite according to lookFlag
-        #done when setting the flag
-        """
-        if self.lookFlag == 0:
-            self.changeSpriteImage(self.danceAnimation)
-        elif self.lookFlag == 1:
-            self.changeSpriteImage(self.moveLeftImage)
-        elif self.lookFlag == 2:
-            self.changeSpriteImage(self.moveRightImage)
-        """
 
         #move
         if self.moveFlag == 1:

@@ -3,6 +3,7 @@ import resources
 
 from pyglet.window import key
 from Player import *
+from ChibiUsa import *
 
 # create a simple window
 window = pyglet.window.Window(640, 480, caption="collision", visible=False)
@@ -19,7 +20,8 @@ foreground = pyglet.graphics.OrderedGroup(1)
 block = resources.block
 
 # create the level as an entity
-player = Player(batch, foreground)
+#player = Player(batch, foreground)
+player = ChibiUsa(batch, foreground)
 
 # create a set to contain the blocks
 # a set has a very fast difference operation,
@@ -88,6 +90,16 @@ def on_key_press(symbol, modifiers):
         if player.move != 0:
             player.move = 0
 
+    if symbol == key.X:
+        print "X was pressed"
+        if(player.kick == 0):
+            player.kick = 5
+
+    #key H used to test damage and hitAnimation
+    if symbol == key.H:
+        print "H was pressed"
+        player.onHit()
+
 
 @window.event()
 def on_key_release(symbol, modifiers):
@@ -154,38 +166,6 @@ def update(dt):
     #change sprite according to lookFlag
     #done in player update
     player.update()
-    """
-    if lookFlag == 0:
-        player.changeSpriteImage(danceAnimation)
-    elif lookFlag == 1:
-        player.changeSpriteImage(resources.starLeft)
-    elif lookFlag == 2:
-        player.changeSpriteImage(resources.starRight)
-
-    #move
-    if moveFlag == 1:
-        player.moveX(-2)
-        print "move left"
-    elif moveFlag == 2:
-        player.moveX(2)
-        print "move right"
-    else:
-        print "don't move"
-
-    global jumpFlag
-    if jumpFlag > 0:
-        if jumpFlag < 6:
-            player.moveY(5)
-        elif jumpFlag < 11:
-            player.moveY(1)
-        elif jumpFlag < 17:
-            player.moveY(-5)
-
-        jumpFlag += 1
-        if jumpFlag > 16:
-            jumpFlag = 0
-
-    """
 
     for b in blocks:
             # don't let block fall out of the window bounds

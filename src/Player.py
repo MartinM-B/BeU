@@ -14,6 +14,34 @@ class Player(GameEntity):
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([resources.starLeft, resources.starLeftEvent, resources.starRight, resources.starRightEvent], 0.5, True)
 
+    punchLeft = 0
+    punchRight = 0
+    kickLeft = 0
+    kickRight = 0
+    blockLeft = 0
+    blockRight = 0
+    hitLeft = 0
+    hitRight = 0
+    duckLeft = 0
+    duckRight = 0
+    lowPunchLeft = 0
+    lowPunchRight = 0
+    lowKickLeft = 0
+    lowKickRight = 0
+    lowBlockLeft = 0
+    lowBlockRight = 0
+    jumpLeft = 0
+    jumpRight = 0
+
+    #initial health and damage
+    health = 100
+    damage = 5
+
+    #kickFlag: 0 = not kicking, > 0 kicking for x more frames
+    kickFlag = 0
+    #hitFlag: 0 = not hit, > 0 being hit for x more frames
+    hitFlag = 0
+
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.starLeft, x=0, y=0, batch=batch, group=group)
 
@@ -48,6 +76,38 @@ class Player(GameEntity):
     def jump(self, value):
         self.jumpFlag = value
 
+    @property
+    def kick(self):
+        return self.kickFlag
+
+    @kick.setter
+    def kick(self, value):
+        #check values here for being correct
+        self.kickFlag = value
+        if self.kickFlag == 0:
+            if self.lookFlag == 1:
+                self.changeSpriteImage(self.moveLeftImage)
+            if self.lookFlag == 2:
+                self.changeSpriteImage(self.moveRightImage)
+        elif self.kickFlag == 5:
+            if self.lookFlag == 1:
+                self.changeSpriteImage(self.kickLeft)
+            if self.lookFlag == 2:
+                self.changeSpriteImage(self.kickRight)
+
+
+    def onHit(self):
+        if self.health > 0:
+            self.health -= 5
+            self.hitFlag = 5
+            if self.lookFlag == 1:
+                self.changeSpriteImage(self.hitLeft)
+            if self.lookFlag == 2:
+                self.changeSpriteImage(self.hitRight)
+        if self.health <= 0:
+            print "ChibiUsa loses"
+            #TODO do sth. when losing??
+
 
     def update(self):
 
@@ -72,5 +132,20 @@ class Player(GameEntity):
             self.jumpFlag += 1
             if self.jumpFlag > 16:
                 self.jumpFlag = 0
+
+        if self.hitFlag > 0:
+            self.hitFlag -= 1
+        elif self.kickFlag > 0:
+            self.kickFlag -= 1
+        elif self.jumpFlag == 0:
+            if self.lookFlag == 1:
+                self.changeSpriteImage(self.moveLeftImage)
+            if self.lookFlag == 2:
+                self.changeSpriteImage(self.moveRightImage)
+        elif self.jumpFlag > 0:
+            if self.lookFlag == 1:
+                self.changeSpriteImage(self.jumpLeft)
+            if self.lookFlag == 2:
+                self.changeSpriteImage(self.jumpRight)
 
 

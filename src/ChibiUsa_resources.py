@@ -1,6 +1,6 @@
 __author__ = 'SARAH'
 import pyglet
-pyglet.resource.path = ['../resources/ChibiUsa']
+pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue']
 pyglet.resource.reindex()
 
 # Chibi Usa Images

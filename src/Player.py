@@ -41,6 +41,8 @@ class Player(GameEntity):
     kickFlag = 0
     #hitFlag: 0 = not hit, > 0 being hit for x more frames
     hitFlag = 0
+    #blockFlag: 0 = not blocking, 1 = blocking
+    blockFlag = 0
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.starLeft, x=0, y=0, batch=batch, group=group)
@@ -56,6 +58,14 @@ class Player(GameEntity):
     @property
     def jump(self):
         return self.jumpFlag
+
+    @property
+    def kick(self):
+        return self.kickFlag
+
+    @property
+    def block(self):
+        return self.blockFlag
 
     @look.setter
     def look(self, value):
@@ -74,26 +84,29 @@ class Player(GameEntity):
 
     @jump.setter
     def jump(self, value):
-        self.jumpFlag = value
+        if self.blockFlag == 0:
+            self.jumpFlag = value
 
-    @property
-    def kick(self):
-        return self.kickFlag
+    @block.setter
+    def block(self, value):
+        self.blockFlag = value
+
 
     @kick.setter
     def kick(self, value):
         #check values here for being correct
-        self.kickFlag = value
-        if self.kickFlag == 0:
-            if self.lookFlag == 1:
-                self.changeSpriteImage(self.moveLeftImage)
-            if self.lookFlag == 2:
-                self.changeSpriteImage(self.moveRightImage)
-        elif self.kickFlag == 5:
-            if self.lookFlag == 1:
-                self.changeSpriteImage(self.kickLeft)
-            if self.lookFlag == 2:
-                self.changeSpriteImage(self.kickRight)
+        if self.blockFlag == 0:
+            self.kickFlag = value
+            if self.kickFlag == 0:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.moveLeftImage)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.moveRightImage)
+            elif self.kickFlag == 5:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.kickLeft)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.kickRight)
 
 
     def onHit(self):
@@ -112,14 +125,15 @@ class Player(GameEntity):
     def update(self):
 
         #move
-        if self.moveFlag == 1:
-            self.moveX(-2)
-            print "move left"
-        elif self.moveFlag == 2:
-            self.moveX(2)
-            print "move right"
-        else:
-            print "don't move"
+        if self.blockFlag == 0: #no moving while blocking
+            if self.moveFlag == 1:
+                self.moveX(-2)
+                print "move left"
+            elif self.moveFlag == 2:
+                self.moveX(2)
+                print "move right"
+            else:
+                print "don't move"
 
         if self.jumpFlag > 0:
             if self.jumpFlag < 6:
@@ -133,19 +147,29 @@ class Player(GameEntity):
             if self.jumpFlag > 16:
                 self.jumpFlag = 0
 
+
         if self.hitFlag > 0:
             self.hitFlag -= 1
         elif self.kickFlag > 0:
             self.kickFlag -= 1
         elif self.jumpFlag == 0:
-            if self.lookFlag == 1:
-                self.changeSpriteImage(self.moveLeftImage)
-            if self.lookFlag == 2:
-                self.changeSpriteImage(self.moveRightImage)
+            if self.blockFlag == 0:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.moveLeftImage)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.moveRightImage)
+
+            elif self.blockFlag == 1:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.blockLeft)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.blockRight)
         elif self.jumpFlag > 0:
             if self.lookFlag == 1:
                 self.changeSpriteImage(self.jumpLeft)
             if self.lookFlag == 2:
                 self.changeSpriteImage(self.jumpRight)
+
+
 
 

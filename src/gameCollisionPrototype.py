@@ -3,7 +3,9 @@ import resources
 
 from pyglet.window import key
 from Player import *
+
 from ChibiUsa import *
+from ChibiUsa_blue import *
 
 # create a simple window
 window = pyglet.window.Window(640, 480, caption="collision", visible=False)
@@ -22,6 +24,7 @@ block = resources.block
 # create the level as an entity
 #player = Player(batch, foreground)
 player = ChibiUsa(batch, foreground)
+player2 = ChibiUsa_blue(batch, foreground)
 
 # create a set to contain the blocks
 # a set has a very fast difference operation,
@@ -95,6 +98,11 @@ def on_key_press(symbol, modifiers):
         if(player.kick == 0):
             player.kick = 5
 
+    if symbol == key.B:
+        print "B was pressed"
+        if(player.block == 0):
+            player.block = 1
+
     #key H used to test damage and hitAnimation
     if symbol == key.H:
         print "H was pressed"
@@ -126,6 +134,11 @@ def on_key_release(symbol, modifiers):
         #if he was walking right stop it
         if player.move == 2:
             player.move = 0
+
+    if symbol == key.B:
+        print "B was released"
+        if(player.block == 1):
+            player.block = 0
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
@@ -166,6 +179,7 @@ def update(dt):
     #change sprite according to lookFlag
     #done in player update
     player.update()
+    player2.update()
 
     for b in blocks:
             # don't let block fall out of the window bounds

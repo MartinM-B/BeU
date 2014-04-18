@@ -31,82 +31,31 @@ player2 = ChibiUsa_blue(batch, foreground)
 # which we will use in the update function
 blocks = set()
 
-#lookLFlag: 0 = animation is running, 1 = left, 2 = right
-#lookFlag = 1
-#moveFlag: 0 = don't move, 1 = move left, 2 = move right
-#moveFlag = 0
-#leftKeyFlag: 0 = left key not pressed, 1 = left key pressed
-leftKeyFlag = 0
-#rightKeyFlag: 0 = left key not pressed, 1 = left key pressed
-rightKeyFlag = 0
-#jumpFlag: 0 = don't jump, 1-5 = jump up quick, 6-10 = jump up slow, 11-16 = jump down
-#jumpFlag = 0
-
-"""danceAnimation = pyglet.image.Animation.from_image_sequence\
-    ([resources.starLeft, resources.starLeftEvent, resources.starRight, resources.starRightEvent], 0.5, True)
-"""
-
-
 @window.event()
 def on_key_press(symbol, modifiers):
     print "a key was pressed"
     if symbol == key.LEFT:
-        print "left key was pressed"
-        global leftKeyFlag
-        leftKeyFlag = 1
-
-        #global lookFlag
-        #global moveFlag
-        if player.look != 1:
-            player.look = 1
-
-        if player.move != 1:
-            player.move = 1
+        player.look(Direction.Left)
+        player.startMoving()
 
     if symbol == key.RIGHT:
-        print "right key was pressed"
-        global rightKeyFlag
-        rightKeyFlag = 1
-
-        #global lookFlag
-        #global moveFlag
-        if player.look != 2:
-            player.look = 2
-
-        if player.move != 2:
-            player.move = 2
+        player.look(Direction.Right)
+        player.startMoving()
 
     if symbol == key.UP:
-        print "up key was pressed"
-        #global jumpFlag
-        if player.jump == 0:
-            player.jump = 1
+        player.jump()
 
     if symbol == key.SPACE:
-        print "space was pressed"
-        """animation dance"""
-        #global lookFlag
-        #global moveFlag
-        if player.look != 0:
-            player.look = 0
-
-        if player.move != 0:
-            player.move = 0
+        player.dance()
 
     if symbol == key.X:
-        print "X was pressed"
-        if(player.kick == 0):
-            player.kick = 5
+        player.kick()
 
     if symbol == key.C:
-        print "C was pressed"
-        if(player.punch == 0):
-            player.punch = 5
+        player.punch()
 
     if symbol == key.B:
-        print "B was pressed"
-        if(player.block == 0):
-            player.block = 1
+        player.startBlocking()
 
     #key H used to test damage and hitAnimation
     if symbol == key.H:
@@ -120,30 +69,13 @@ def on_key_release(symbol, modifiers):
 
     #global moveFlag
     if symbol == key.LEFT:
-        print "left key was released"
-
-        global leftKeyFlag
-        leftKeyFlag = 0
-
-        #if he was walking left stop it
-        if player.move == 1:
-            player.move = 0
-
+        player.stopMoving()
 
     if symbol == key.RIGHT:
-        print "right key was released"
-
-        global rightKeyFlag
-        rightKeyFlag = 0
-
-        #if he was walking right stop it
-        if player.move == 2:
-            player.move = 0
+        player.stopMoving()
 
     if symbol == key.B:
-        print "B was released"
-        if(player.block == 1):
-            player.block = 0
+        player.stopBlocking()
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
@@ -165,29 +97,16 @@ def on_draw():
         batch.draw()
 
 def update(dt):
-
-    #todo refactor sprite image update code
-
-    #global lookFlag
-    #global moveFlag
-    global leftKeyFlag
-    global rightKeyFlag
-    #check keys to see if there is still one pressed that wasn't released
-    if player.move == 0:
-        if leftKeyFlag == 1:
-            player.move = 1
-            player.look = 1
-        elif rightKeyFlag == 1:
-            player.move = 2
-            player.look = 2
-
     #change sprite according to lookFlag
     #done in player update
     player.update()
     player2.update()
 
-    if (player.checkCollision(player2)):
+
+    if (player.actionState == ActionState.Attacking and player.checkCollision(player2)):
         print "Player Kollission"
+        player2.playerHit(player.lookDirection == Direction.Right and Direction.Left or Direction.Right)
+        player2.handleHitDamage()
 
     for b in blocks:
             # don't let block fall out of the window bounds

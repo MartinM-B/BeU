@@ -1,196 +1,143 @@
+from src.HelloWorld import danceAnimation
+
 __author__ = 'david_000'
 from gameEntity import *
 import resources
+from Enum import Enum
+
+ActionState = Enum('ActionState', Idle=0, Attacking=1, Blocking=2, Hit=3)
+ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4, Block=5, LowBlock=6, Hit=7)
+MovementState = Enum('MovementState', Standing=0, Dancing=1, Moving=2)
+JumpState = Enum('MovementState', NotJumping=0, Jumping=1)
+Direction = Enum('Direction', Left=0, Right=1)
 
 class Player(GameEntity):
-    #lookLFlag: 0 = animation is running, 1 = left, 2 = right
-    lookFlag = 1
-    #moveFlag: 0 = don't move, 1 = move left, 2 = move right
-    moveFlag = 0
-    #jumpFlag: 0 = don't jump, 1-5 = jump up quick, 6-10 = jump up slow, 11-16 = jump down
-    jumpFlag = 0
-    moveLeftImage = resources.starLeft
-    moveRightImage = resources.starRight
-    danceAnimation = pyglet.image.Animation.from_image_sequence\
-    ([resources.starLeft, resources.starLeftEvent, resources.starRight, resources.starRightEvent], 0.5, True)
-
-    punchLeft = 0
-    punchRight = 0
-    kickLeft = 0
-    kickRight = 0
-    blockLeft = 0
-    blockRight = 0
-    hitLeft = 0
-    hitRight = 0
-    duckLeft = 0
-    duckRight = 0
-    lowPunchLeft = 0
-    lowPunchRight = 0
-    lowKickLeft = 0
-    lowKickRight = 0
-    lowBlockLeft = 0
-    lowBlockRight = 0
-    jumpLeft = 0
-    jumpRight = 0
-
     #initial health and damage
     health = 100
     damage = 5
 
-    #kickFlag: 0 = not kicking, > 0 kicking for x more frames
-    kickFlag = 0
-    #punchFlag: 0 = not punching, > 0 punching for x more frames
-    punchFlag = 0
-    #hitFlag: 0 = not hit, > 0 being hit for x more frames
-    hitFlag = 0
-    #blockFlag: 0 = not blocking, 1 = blocking
-    blockFlag = 0
+    actionState = ActionState.Idle
+    movementState = MovementState.Standing
+    jumpState = JumpState.NotJumping
+    lookDirection = Direction.Left
+    actionType = ActionType.Idle
+    actionTimer = 0
+    jumpTimer = 0
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.starLeft, x=0, y=0, batch=batch, group=group)
 
-    @property
-    def look(self):
-        return self.lookFlag
+    def dance(self):
+        self.stopMoving()
+        self.stopBlocking()
+        self.changeToDanceAnimation()
 
-    @property
-    def move(self):
-        return self.moveFlag
-
-    @property
     def jump(self):
-        return self.jumpFlag
+        if self.jumpState == JumpState.NotJumping:
+            self.jumpState = JumpState.Jumping
+            self.jumpTimer = 1
 
-    @property
+    def stopMoving(self):
+        self.movementState = MovementState.Standing
+
+    def startMoving(self):
+        self.movementState = MovementState.Moving
+
+    def look(self, direction):
+        self.lookDirection = direction
+        self.changeToMoveAnimation()
+
     def kick(self):
-        return self.kickFlag
+        if self.actionState == ActionState.Idle:
+            self.actionState = ActionState.Attacking
+            self.actionType = ActionType.Kick
+            self.changeToKickAnimation()
+            self.actionTimer = 5
 
-    @property
     def punch(self):
-        return self.punchFlag
+        if self.actionState == ActionState.Idle:
+            self.actionState = ActionState.Attacking
+            self.actionType = ActionType.Punch
+            self.changeToPunchAnimation()
+            self.actionTimer = 5
 
-    @property
-    def block(self):
-        return self.blockFlag
+    def startBlocking(self):
+        if self.actionState == ActionState.Idle:
+            self.actionState = ActionState.Blocking
+            self.actionType = ActionType.Block
+            self.changeToBlockAnimation()
+            self.stopMoving()
 
-    @look.setter
-    def look(self, value):
-        #check values here for being correct
-        self.lookFlag = value
-        if self.lookFlag == 0:
-            self.changeSpriteImage(self.danceAnimation)
-        elif self.lookFlag == 1:
-            self.changeSpriteImage(self.moveLeftImage)
-        elif self.lookFlag == 2:
-            self.changeSpriteImage(self.moveRightImage)
+    def stopBlocking(self):
+        if self.actionState == ActionState.Blocking:
+            self.actionState = ActionState.Idle
+            self.actionType = ActionType.Idle
+            self.changeToMoveAnimation()
 
-    @move.setter
-    def move(self, value):
-        self.moveFlag = value
+    def playerHit(self, direction):
+        self.actionState = ActionState.Hit
+        self.actionType = ActionType.Hit
+        self.actionTimer = 5
+        self.lookDirection = direction
+        self.changeToHitAnimation(direction)
 
-    @jump.setter
-    def jump(self, value):
-        if self.blockFlag == 0:
-            self.jumpFlag = value
-
-    @block.setter
-    def block(self, value):
-        self.blockFlag = value
-
-    @punch.setter
-    def punch(self, value):
-         #check values here for being correct
-        if self.punchFlag == 0:
-            self.punchFlag = value
-            if self.punchFlag == 0:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.moveLeftImage)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.moveRightImage)
-            elif self.punchFlag == 5:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.punchLeft)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.punchRight)
-
-    @kick.setter
-    def kick(self, value):
-        #check values here for being correct
-        if self.blockFlag == 0:
-            self.kickFlag = value
-            if self.kickFlag == 0:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.moveLeftImage)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.moveRightImage)
-            elif self.kickFlag == 5:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.kickLeft)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.kickRight)
-
-
-    def onHit(self):
+    def handleHitDamage(self):
         if self.health > 0:
             self.health -= 5
-            self.hitFlag = 5
-            if self.lookFlag == 1:
-                self.changeSpriteImage(self.hitLeft)
-            if self.lookFlag == 2:
-                self.changeSpriteImage(self.hitRight)
         if self.health <= 0:
             print "ChibiUsa loses"
             #TODO do sth. when losing??
 
+    def changeToMoveAnimation(self):
+        self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+
+    def changeToHitAnimation(self, direction):
+        if direction == Direction.Left:
+            self.changeSpriteImage(self.hitLeft)
+        elif direction == Direction.Right:
+            self.changeSpriteImage(self.hitRight)
+
+    def changeToPunchAnimation(self):
+        self.changeSpriteBasedOnDirection(self.punchLeft, self.punchRight)
+
+    def changeToKickAnimation(self):
+        self.changeSpriteBasedOnDirection(self.kickLeft, self.kickRight)
+
+    def changeToBlockAnimation(self):
+        self.changeSpriteBasedOnDirection(self.blockLeft, self.blockRight)
+
+    def changeToDanceAnimation(self):
+        self.changeSpriteImage(self.danceAnimation)
+
+    def changeSpriteBasedOnDirection(self, leftRes, rightRes):
+        if self.lookDirection == Direction.Left:
+            self.changeSpriteImage(leftRes)
+        elif self.lookDirection == Direction.Right:
+            self.changeSpriteImage(rightRes)
 
     def update(self):
-
-        #move
-        if self.blockFlag == 0: #no moving while blocking
-            if self.moveFlag == 1:
+        if self.movementState == MovementState.Moving:
+            if self.lookDirection == Direction.Left:
                 self.moveX(-2)
-                print "move left"
-            elif self.moveFlag == 2:
+            elif self.lookDirection == Direction.Right:
                 self.moveX(2)
-                print "move right"
-
-        if self.jumpFlag > 0:
-            if self.jumpFlag < 6:
+        if self.jumpState == JumpState.Jumping:
+            if self.jumpTimer < 6:
                 self.moveY(5)
-            elif self.jumpFlag < 11:
+            elif self.jumpTimer < 11:
                 self.moveY(1)
-            elif self.jumpFlag < 17:
+            elif self.jumpTimer < 17:
                 self.moveY(-5)
 
-            self.jumpFlag += 1
-            if self.jumpFlag > 16:
-                self.jumpFlag = 0
+            self.jumpTimer += 1
+            if self.jumpTimer > 16:
+                self.jumpTimer = 0
+                self.jumpState = JumpState.NotJumping
 
-
-        if self.hitFlag > 0:
-            self.hitFlag -= 1
-        elif self.kickFlag > 0:
-            self.kickFlag -= 1
-        elif self.punchFlag > 0:
-            self.punchFlag -= 1
-        elif self.jumpFlag == 0:
-            if self.blockFlag == 0:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.moveLeftImage)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.moveRightImage)
-
-            elif self.blockFlag == 1:
-                if self.lookFlag == 1:
-                    self.changeSpriteImage(self.blockLeft)
-                if self.lookFlag == 2:
-                    self.changeSpriteImage(self.blockRight)
-        elif self.jumpFlag > 0:
-            if self.lookFlag == 1:
-                self.changeSpriteImage(self.jumpLeft)
-            if self.lookFlag == 2:
-                self.changeSpriteImage(self.jumpRight)
-
-
-
-
+        if self.actionTimer > 0:
+            self.actionTimer -= 1
+        elif self.actionTimer == 0:
+            self.actionState = ActionState.Idle
+            self.actionType = ActionType.Idle
+            self.changeToMoveAnimation()
+            self.actionTimer = -1

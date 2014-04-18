@@ -36,6 +36,7 @@ class Player(GameEntity):
         if self.jumpState == JumpState.NotJumping:
             self.jumpState = JumpState.Jumping
             self.jumpTimer = 1
+            self.changeToJumpAnimation()
 
     def stopMoving(self):
         self.movementState = MovementState.Standing
@@ -89,7 +90,11 @@ class Player(GameEntity):
             #TODO do sth. when losing??
 
     def changeToMoveAnimation(self):
-        self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+        if self.jumpState == JumpState.NotJumping:
+            self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+
+    def changeToJumpAnimation(self):
+        self.changeSpriteBasedOnDirection(self.jumpLeft, self.jumpRight)
 
     def changeToHitAnimation(self, direction):
         if direction == Direction.Left:
@@ -133,6 +138,7 @@ class Player(GameEntity):
             if self.jumpTimer > 16:
                 self.jumpTimer = 0
                 self.jumpState = JumpState.NotJumping
+                self.changeToMoveAnimation()
 
         if self.actionTimer > 0:
             self.actionTimer -= 1

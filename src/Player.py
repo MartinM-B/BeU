@@ -39,6 +39,8 @@ class Player(GameEntity):
 
     #kickFlag: 0 = not kicking, > 0 kicking for x more frames
     kickFlag = 0
+    #punchFlag: 0 = not punching, > 0 punching for x more frames
+    punchFlag = 0
     #hitFlag: 0 = not hit, > 0 being hit for x more frames
     hitFlag = 0
     #blockFlag: 0 = not blocking, 1 = blocking
@@ -62,6 +64,10 @@ class Player(GameEntity):
     @property
     def kick(self):
         return self.kickFlag
+
+    @property
+    def punch(self):
+        return self.punchFlag
 
     @property
     def block(self):
@@ -91,6 +97,21 @@ class Player(GameEntity):
     def block(self, value):
         self.blockFlag = value
 
+    @punch.setter
+    def punch(self, value):
+         #check values here for being correct
+        if self.punchFlag == 0:
+            self.punchFlag = value
+            if self.punchFlag == 0:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.moveLeftImage)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.moveRightImage)
+            elif self.punchFlag == 5:
+                if self.lookFlag == 1:
+                    self.changeSpriteImage(self.punchLeft)
+                if self.lookFlag == 2:
+                    self.changeSpriteImage(self.punchRight)
 
     @kick.setter
     def kick(self, value):
@@ -132,8 +153,6 @@ class Player(GameEntity):
             elif self.moveFlag == 2:
                 self.moveX(2)
                 print "move right"
-            else:
-                print "don't move"
 
         if self.jumpFlag > 0:
             if self.jumpFlag < 6:
@@ -152,6 +171,8 @@ class Player(GameEntity):
             self.hitFlag -= 1
         elif self.kickFlag > 0:
             self.kickFlag -= 1
+        elif self.punchFlag > 0:
+            self.punchFlag -= 1
         elif self.jumpFlag == 0:
             if self.blockFlag == 0:
                 if self.lookFlag == 1:

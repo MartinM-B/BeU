@@ -98,6 +98,11 @@ def on_key_press(symbol, modifiers):
         if(player.kick == 0):
             player.kick = 5
 
+    if symbol == key.C:
+        print "C was pressed"
+        if(player.punch == 0):
+            player.punch = 5
+
     if symbol == key.B:
         print "B was pressed"
         if(player.block == 0):
@@ -180,6 +185,9 @@ def update(dt):
     #done in player update
     player.update()
     player2.update()
+
+    if (player.checkCollision(player2)):
+        print "Player Kollission"
 
     for b in blocks:
             # don't let block fall out of the window bounds

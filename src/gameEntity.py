@@ -10,10 +10,10 @@ class GameEntity(object):
 
     def changeSpriteImage(self, image):
         self.display_sprite.image = image
+        self.collider = EntityCollider(self.display_sprite)
 
     def setPosition(self, x, y):
         self.display_sprite.set_position(x, y)
-
 
     def moveX(self, x):
         self.display_sprite.x += x

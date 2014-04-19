@@ -162,7 +162,7 @@ def update(dt):
         starSprite.x += 2
         print "move right"
     else:
-        print "don't move"
+        """ "print "don't move" """
 
     global jumpFlag
     if jumpFlag > 0:

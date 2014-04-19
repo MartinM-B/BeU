@@ -57,6 +57,9 @@ def on_key_press(symbol, modifiers):
     if symbol == key.B:
         player.startBlocking()
 
+    if symbol == key.DOWN:
+        player.duck()
+
     #key H used to test damage and hitAnimation
     if symbol == key.H:
         print "H was pressed"
@@ -76,6 +79,10 @@ def on_key_release(symbol, modifiers):
 
     if symbol == key.B:
         player.stopBlocking()
+
+    if symbol == key.DOWN:
+        print "stop ducking"
+        player.stopDucking()
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):

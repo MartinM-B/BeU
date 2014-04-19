@@ -10,6 +10,7 @@ ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4, 
 MovementState = Enum('MovementState', Standing=0, Dancing=1, Moving=2)
 JumpState = Enum('MovementState', NotJumping=0, Jumping=1)
 Direction = Enum('Direction', Left=0, Right=1)
+DuckState = Enum('DuckState', NotDucking=0, Ducking=1)
 
 class Player(GameEntity):
     #initial health and damage
@@ -19,10 +20,12 @@ class Player(GameEntity):
     actionState = ActionState.Idle
     movementState = MovementState.Standing
     jumpState = JumpState.NotJumping
+    duckState = DuckState.NotDucking
     lookDirection = Direction.Left
     actionType = ActionType.Idle
     actionTimer = 0
     jumpTimer = 0
+    duckTimer = 0
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.starLeft, x=0, y=0, batch=batch, group=group)
@@ -38,6 +41,17 @@ class Player(GameEntity):
             self.jumpTimer = 1
             self.changeToJumpAnimation()
 
+    def duck(self):
+        if self.duckState == DuckState.NotDucking:
+            self.duckState = DuckState.Ducking
+            self.duckTimer = 1
+            self.changeToDuckAnimation()
+
+    def stopDucking(self):
+        if self.duckState == DuckState.Ducking:
+            self.duckState = DuckState.NotDucking
+            self.changeToStandingAnimation()
+
     def stopMoving(self):
         self.movementState = MovementState.Standing
 
@@ -52,21 +66,30 @@ class Player(GameEntity):
         if self.actionState == ActionState.Idle:
             self.actionState = ActionState.Attacking
             self.actionType = ActionType.Kick
-            self.changeToKickAnimation()
+            if self.duckState == DuckState.Ducking:
+                self.changeToLowKickAnimation()
+            elif self.duckState == DuckState.NotDucking:
+                self.changeToKickAnimation()
             self.actionTimer = 5
 
     def punch(self):
         if self.actionState == ActionState.Idle:
             self.actionState = ActionState.Attacking
             self.actionType = ActionType.Punch
-            self.changeToPunchAnimation()
+            if self.duckState == DuckState.Ducking:
+                self.changeToLowPunchAnimation()
+            elif self.duckState == DuckState.NotDucking:
+                self.changeToPunchAnimation()
             self.actionTimer = 5
 
     def startBlocking(self):
         if self.actionState == ActionState.Idle:
             self.actionState = ActionState.Blocking
             self.actionType = ActionType.Block
-            self.changeToBlockAnimation()
+            if self.duckState == DuckState.Ducking:
+                self.changeToLowBlockAnimation()
+            elif self.duckState == DuckState.NotDucking:
+                self.changeToBlockAnimation()
             self.stopMoving()
 
     def stopBlocking(self):
@@ -90,11 +113,21 @@ class Player(GameEntity):
             #TODO do sth. when losing??
 
     def changeToMoveAnimation(self):
-        if self.jumpState == JumpState.NotJumping:
+        print "change to move"
+        if self.jumpState == JumpState.NotJumping and self.duckState == DuckState.NotDucking:
             self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+        elif self.duckState == DuckState.Ducking:
+            print "ducking"
+            self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
 
     def changeToJumpAnimation(self):
         self.changeSpriteBasedOnDirection(self.jumpLeft, self.jumpRight)
+
+    def changeToDuckAnimation(self):
+        self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
+
+    def changeToStandingAnimation(self):
+        self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
 
     def changeToHitAnimation(self, direction):
         if direction == Direction.Left:
@@ -105,11 +138,20 @@ class Player(GameEntity):
     def changeToPunchAnimation(self):
         self.changeSpriteBasedOnDirection(self.punchLeft, self.punchRight)
 
+    def changeToLowPunchAnimation(self):
+        self.changeSpriteBasedOnDirection(self.lowPunchLeft, self.lowPunchRight)
+
     def changeToKickAnimation(self):
         self.changeSpriteBasedOnDirection(self.kickLeft, self.kickRight)
 
+    def changeToLowKickAnimation(self):
+        self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
+
     def changeToBlockAnimation(self):
         self.changeSpriteBasedOnDirection(self.blockLeft, self.blockRight)
+
+    def changeToLowBlockAnimation(self):
+        self.changeSpriteBasedOnDirection(self.lowBlockLeft, self.lowBlockRight)
 
     def changeToDanceAnimation(self):
         self.changeSpriteImage(self.danceAnimation)
@@ -140,10 +182,14 @@ class Player(GameEntity):
                 self.jumpState = JumpState.NotJumping
                 self.changeToMoveAnimation()
 
+
         if self.actionTimer > 0:
             self.actionTimer -= 1
         elif self.actionTimer == 0:
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
-            self.changeToMoveAnimation()
+            if self.duckState == DuckState.Ducking:
+                self.changeToDuckAnimation()
+            elif self.duckState == DuckState.NotDucking:
+                self.changeToMoveAnimation()
             self.actionTimer = -1

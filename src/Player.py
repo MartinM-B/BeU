@@ -99,11 +99,19 @@ class Player(GameEntity):
             self.changeToMoveAnimation()
 
     def playerHit(self, direction):
-        self.actionState = ActionState.Hit
-        self.actionType = ActionType.Hit
-        self.actionTimer = 5
-        self.lookDirection = direction
-        self.changeToHitAnimation(direction)
+        if self.actionState == ActionState.Blocking:
+            if self.lookDirection != direction: #blocking in wrong direction
+                self.actionState = ActionState.Hit
+                self.actionType = ActionType.Hit
+                self.actionTimer = 5
+                self.lookDirection = direction
+                self.changeToHitAnimation(direction)
+        else: #not blocking
+            self.actionState = ActionState.Hit
+            self.actionType = ActionType.Hit
+            self.actionTimer = 5
+            self.lookDirection = direction
+            self.changeToHitAnimation(direction)
 
     def handleHitDamage(self):
         if self.health > 0:

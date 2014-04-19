@@ -63,7 +63,8 @@ def on_key_press(symbol, modifiers):
     #key H used to test damage and hitAnimation
     if symbol == key.H:
         print "H was pressed"
-        player.onHit()
+        #simulates kick from direction player2 is looking to
+        player.playerHit(player2.lookDirection == Direction.Right and Direction.Left or Direction.Right)
 
 
 @window.event()

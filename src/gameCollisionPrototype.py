@@ -94,13 +94,16 @@ def on_mouse_press(x, y, button, modifiers):
         # add it to the set
         blocks.add(b)
 
+
+fps_display = pyglet.clock.ClockDisplay()
+
 @window.event
 def on_draw():
         # clear the window
         window.clear()
 
         label.draw()
-
+        fps_display.draw()
         # draw our background and blocks
         batch.draw()
 

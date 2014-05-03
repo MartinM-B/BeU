@@ -54,9 +54,12 @@ class Player(GameEntity):
 
     def stopMoving(self):
         self.movementState = MovementState.Standing
+        if self.actionState == ActionState.Idle:
+            self.changeToIdleAnimation()
 
     def startMoving(self):
         self.movementState = MovementState.Moving
+        self.changeToMoveAnimation()
 
     def look(self, direction):
         self.lookDirection = direction
@@ -96,7 +99,10 @@ class Player(GameEntity):
         if self.actionState == ActionState.Blocking:
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
-            self.changeToMoveAnimation()
+            if(self.movementState) == MovementState.Moving:
+                self.changeToMoveAnimation()
+            else:
+                self.changeToIdleAnimation()
 
     def playerHit(self, direction):
         if self.actionState == ActionState.Blocking:
@@ -123,7 +129,15 @@ class Player(GameEntity):
     def changeToMoveAnimation(self):
         print "change to move"
         if self.jumpState == JumpState.NotJumping and self.duckState == DuckState.NotDucking:
-            self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+            self.changeSpriteBasedOnDirection(self.walkAnimationLeft, self.walkAnimationRight)
+        elif self.duckState == DuckState.Ducking:
+            print "ducking"
+            self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
+
+    def changeToIdleAnimation(self):
+        print "change to move"
+        if self.jumpState == JumpState.NotJumping and self.duckState == DuckState.NotDucking:
+            self.changeSpriteBasedOnDirection(self.idleAnimationLeft, self.idleAnimationRight)
         elif self.duckState == DuckState.Ducking:
             print "ducking"
             self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
@@ -135,7 +149,10 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
 
     def changeToStandingAnimation(self):
-        self.changeSpriteBasedOnDirection(self.moveLeftImage, self.moveRightImage)
+        if(self.movementState) == MovementState.Moving:
+            self.changeToMoveAnimation()
+        else:
+            self.changeToIdleAnimation()
 
     def changeToHitAnimation(self, direction):
         if direction == Direction.Left:
@@ -172,10 +189,11 @@ class Player(GameEntity):
 
     def update(self):
         if self.movementState == MovementState.Moving:
-            if self.lookDirection == Direction.Left:
-                self.moveX(-2)
-            elif self.lookDirection == Direction.Right:
-                self.moveX(2)
+            if self.duckState != DuckState.Ducking:
+                if self.lookDirection == Direction.Left:
+                    self.moveX(-2)
+                elif self.lookDirection == Direction.Right:
+                    self.moveX(2)
         if self.jumpState == JumpState.Jumping:
             if self.jumpTimer < 6:
                 self.moveY(5)
@@ -188,8 +206,11 @@ class Player(GameEntity):
             if self.jumpTimer > 16:
                 self.jumpTimer = 0
                 self.jumpState = JumpState.NotJumping
-                self.changeToMoveAnimation()
 
+                if(self.movementState) == MovementState.Moving:
+                    self.changeToMoveAnimation()
+                else:
+                    self.changeToIdleAnimation()
 
         if self.actionTimer > 0:
             self.actionTimer -= 1
@@ -199,5 +220,8 @@ class Player(GameEntity):
             if self.duckState == DuckState.Ducking:
                 self.changeToDuckAnimation()
             elif self.duckState == DuckState.NotDucking:
-                self.changeToMoveAnimation()
+                if(self.movementState) == MovementState.Moving:
+                    self.changeToMoveAnimation()
+                else:
+                    self.changeToIdleAnimation()
             self.actionTimer = -1

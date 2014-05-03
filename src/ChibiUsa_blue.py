@@ -6,8 +6,20 @@ from src import ChibiUsa_blue_resources
 
 class ChibiUsa_blue(Player):
 
-    moveLeftImage = ChibiUsa_blue_resources.Left
-    moveRightImage = ChibiUsa_blue_resources.Right
+    #moveLeftImage = ChibiUsa_blue_resources.Left
+    #moveRightImage = ChibiUsa_blue_resources.Right
+
+    idleAnimationLeft = pyglet.image.Animation.from_image_sequence\
+    ([ChibiUsa_blue_resources.Left, ChibiUsa_blue_resources.Left2], 0.5, True)
+
+    idleAnimationRight = pyglet.image.Animation.from_image_sequence\
+    ([ChibiUsa_blue_resources.Right, ChibiUsa_blue_resources.Right2], 0.5, True)
+
+    walkAnimationLeft = pyglet.image.Animation.from_image_sequence\
+    ([ChibiUsa_blue_resources.Left, ChibiUsa_blue_resources.WalkLeft], 0.1, True)
+
+    walkAnimationRight = pyglet.image.Animation.from_image_sequence\
+    ([ChibiUsa_blue_resources.Right, ChibiUsa_blue_resources.WalkRight], 0.1, True)
 
     punchLeft = ChibiUsa_blue_resources.PunchLeft
     punchRight = ChibiUsa_blue_resources.PunchRight

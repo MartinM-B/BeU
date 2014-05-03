@@ -3,10 +3,14 @@ import pyglet
 pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue']
 pyglet.resource.reindex()
 
-# Chibi Usa Images
+# Chibi Usa Blue Images
 
 Left = pyglet.resource.image("ChibiUsa_blue_left.png")
 Right = pyglet.resource.image("ChibiUsa_blue_right.png")
+Left2 = pyglet.resource.image("ChibiUsa_blue_left2.png")
+Right2 = pyglet.resource.image("ChibiUsa_blue_right2.png")
+WalkLeft = pyglet.resource.image("ChibiUsa_blue_walk_left.png")
+WalkRight = pyglet.resource.image("ChibiUsa_blue_walk_right.png")
 PunchLeft = pyglet.resource.image("ChibiUsa_blue_punch_left.png")
 PunchRight = pyglet.resource.image("ChibiUsa_blue_punch_right.png")
 KickLeft = pyglet.resource.image("ChibiUsa_blue_kick_left.png")

@@ -17,15 +17,15 @@ class ChibiUsa(Player):
     idleAnimationRight = pyglet.image.Animation.from_image_sequence\
     ([ChibiUsa_resources.Right, ChibiUsa_resources.Right2], 0.5, True)
 
-    """walkAnimationLeft = pyglet.image.Animation.from_image_sequence\
-    ([ChibiUsa_resources.Left, ChibiUsa_resources.WalkLeft], 0.1, True)
+    walkAnimationLeft = pyglet.image.Animation.from_image_sequence\
+    ([ChibiUsa_resources.WalkLeft, ChibiUsa_resources.Left], 0.3, True)
 
     walkAnimationRight = pyglet.image.Animation.from_image_sequence\
-    ([ChibiUsa_resources.Right, ChibiUsa_resources.WalkRight], 0.1, True)"""
+    ([ChibiUsa_resources.WalkRight, ChibiUsa_resources.Right], 0.3, True)
 
-    walkAnimationLeft = ChibiUsa_resources.Left
+    #walkAnimationLeft = ChibiUsa_resources.Left
 
-    walkAnimationRight = ChibiUsa_resources.Right
+    #walkAnimationRight = ChibiUsa_resources.Right
 
 
 

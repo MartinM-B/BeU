@@ -1,8 +1,8 @@
 __author__ = 'florian'
 
-from pyglet import clock
 from Queue import *
 from PyMessage import *
+from src.timer.PyTimer import *
 
 
 class PyMessenger(object):
@@ -11,7 +11,6 @@ class PyMessenger(object):
     receivers = {}
 
     def __init__(self):
-        self.myclock.set_fps_limit(60)
         self.receivers = {}
 
     def send(self, amsg, atimestamp):
@@ -31,11 +30,16 @@ class PyMessenger(object):
     def execute(self):
         #acces all the receivers inside the queue with a certain key
         #timestamp needs to take action here
+
+        timer = PyTimer()
+        deltatime = timer.getDeltaTime()
+
         for msg in self.myqueue.queue:
-            if msg.type in self.receivers:
+            if msg.timestamp < deltatime:
                 length = len(self.receivers.get(msg.type))
                 temp = 0
                 while temp < length:
+                    #call the receiver
                     print self.receivers[msg.type][temp]
                     temp += 1
 

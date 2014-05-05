@@ -2,6 +2,7 @@ __author__ = 'florian'
 
 import time
 
+
 class PyTimer(object):
 
     """ A python singleton """

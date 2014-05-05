@@ -7,16 +7,12 @@ from PyMessage import *
 
 class PyMessenger(object):
 
-    myclock = clock.get_default()
     myqueue = Queue()
     receivers = {}
 
     def __init__(self):
         self.myclock.set_fps_limit(60)
         self.receivers = {}
-
-    def printfpslimit(self):
-        print self.myclock.get_fps_limit()
 
     def send(self, amsg, atimestamp):
         pymsg = PyMessage(amsg, atimestamp)

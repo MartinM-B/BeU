@@ -3,14 +3,6 @@ import pyglet
 pyglet.resource.path = ['../resources']
 pyglet.resource.reindex()
 
-""" use any picture """
-image = pyglet.resource.image("small_cat.jpg")
-
-starLeft = pyglet.resource.image("walk_left.png")
-starRight = pyglet.resource.image("walk_right.png")
-starLeftEvent = pyglet.resource.image("catch_left.png")
-starRightEvent = pyglet.resource.image("catch_right.png")
-
 block = pyglet.resource.image('block.png')
 
 def center_image(image):

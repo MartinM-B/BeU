@@ -1,5 +1,3 @@
-from src.HelloWorld import danceAnimation
-
 __author__ = 'david_000'
 from gameEntity import *
 import resources

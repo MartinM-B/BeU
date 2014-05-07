@@ -1,7 +1,7 @@
 __author__ = 'david_000'
 from gameEntity import *
 import resources
-from Enum import Enum
+from Enum import *
 
 ActionState = Enum('ActionState', Idle=0, Attacking=1, Blocking=2, Hit=3)
 ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4, Block=5, LowBlock=6, Hit=7)
@@ -26,7 +26,7 @@ class Player(GameEntity):
     duckTimer = 0
 
     def __init__(self, batch, group):
-        super(Player, self).__init__(image=resources.starLeft, x=0, y=0, batch=batch, group=group)
+        super(Player, self).__init__(image=resources.block, x=0, y=0, batch=batch, group=group)
 
     def dance(self):
         self.stopMoving()
@@ -34,25 +34,25 @@ class Player(GameEntity):
         self.changeToDanceAnimation()
 
     def jump(self):
-        if self.jumpState == JumpState.NotJumping:
+        if checkEnumValueEquals(self.jumpState, JumpState.NotJumping):
             self.jumpState = JumpState.Jumping
             self.jumpTimer = 1
             self.changeToJumpAnimation()
 
     def duck(self):
-        if self.duckState == DuckState.NotDucking:
+        if checkEnumValueEquals(self.duckState, DuckState.NotDucking):
             self.duckState = DuckState.Ducking
             self.duckTimer = 1
             self.changeToDuckAnimation()
 
     def stopDucking(self):
-        if self.duckState == DuckState.Ducking:
+        if checkEnumValueEquals(self.duckState, DuckState.Ducking):
             self.duckState = DuckState.NotDucking
             self.changeToStandingAnimation()
 
     def stopMoving(self):
         self.movementState = MovementState.Standing
-        if self.actionState == ActionState.Idle:
+        if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.changeToIdleAnimation()
 
     def startMoving(self):
@@ -60,51 +60,55 @@ class Player(GameEntity):
         self.changeToMoveAnimation()
 
     def look(self, direction):
-        self.lookDirection = direction
+        #careful here direction is passed by reference
+        if checkEnumValueEquals(direction, Direction.Left):
+            self.lookDirection = Direction.Left
+        else:
+            self.lookDirection = Direction.Right
         self.changeToMoveAnimation()
 
     def kick(self):
-        if self.actionState == ActionState.Idle:
+        if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.actionState = ActionState.Attacking
             self.actionType = ActionType.Kick
-            if self.duckState == DuckState.Ducking:
+            if checkEnumValueEquals(self.duckState, DuckState.Ducking):
                 self.changeToLowKickAnimation()
-            elif self.duckState == DuckState.NotDucking:
+            elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
                 self.changeToKickAnimation()
             self.actionTimer = 5
 
     def punch(self):
-        if self.actionState == ActionState.Idle:
+        if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.actionState = ActionState.Attacking
             self.actionType = ActionType.Punch
-            if self.duckState == DuckState.Ducking:
+            if checkEnumValueEquals(self.duckState, DuckState.Ducking):
                 self.changeToLowPunchAnimation()
-            elif self.duckState == DuckState.NotDucking:
+            elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
                 self.changeToPunchAnimation()
             self.actionTimer = 5
 
     def startBlocking(self):
-        if self.actionState == ActionState.Idle:
+        if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.actionState = ActionState.Blocking
             self.actionType = ActionType.Block
-            if self.duckState == DuckState.Ducking:
+            if checkEnumValueEquals(self.duckState, DuckState.Ducking):
                 self.changeToLowBlockAnimation()
-            elif self.duckState == DuckState.NotDucking:
+            elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
                 self.changeToBlockAnimation()
             self.stopMoving()
 
     def stopBlocking(self):
-        if self.actionState == ActionState.Blocking:
+        if checkEnumValueEquals(self.actionState, ActionState.Blocking):
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
-            if(self.movementState) == MovementState.Moving:
+            if checkEnumValueEquals(self.movementState, MovementState.Moving):
                 self.changeToMoveAnimation()
             else:
                 self.changeToIdleAnimation()
 
     def playerHit(self, direction):
-        if self.actionState == ActionState.Blocking:
-            if self.lookDirection != direction: #blocking in wrong direction
+        if checkEnumValueEquals(self.actionState, ActionState.Blocking):
+            if checkEnumValueNotEquals(self.lookDirection, direction): #blocking in wrong direction
                 self.actionState = ActionState.Hit
                 self.actionType = ActionType.Hit
                 self.actionTimer = 5
@@ -126,17 +130,17 @@ class Player(GameEntity):
 
     def changeToMoveAnimation(self):
         print "change to move"
-        if self.jumpState == JumpState.NotJumping and self.duckState == DuckState.NotDucking:
+        if checkEnumValueEquals(self.jumpState, JumpState.NotJumping) and checkEnumValueEquals(self.duckState, DuckState.NotDucking):
             self.changeSpriteBasedOnDirection(self.walkAnimationLeft, self.walkAnimationRight)
-        elif self.duckState == DuckState.Ducking:
+        elif checkEnumValueEquals(self.duckState, DuckState.Ducking):
             print "ducking"
             self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
 
     def changeToIdleAnimation(self):
         print "change to move"
-        if self.jumpState == JumpState.NotJumping and self.duckState == DuckState.NotDucking:
+        if checkEnumValueEquals(self.jumpState, JumpState.NotJumping) and checkEnumValueEquals(self.duckState, DuckState.NotDucking):
             self.changeSpriteBasedOnDirection(self.idleAnimationLeft, self.idleAnimationRight)
-        elif self.duckState == DuckState.Ducking:
+        elif checkEnumValueEquals(self.duckState, DuckState.Ducking):
             print "ducking"
             self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
 
@@ -147,15 +151,15 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.duckLeft, self.duckRight)
 
     def changeToStandingAnimation(self):
-        if(self.movementState) == MovementState.Moving:
+        if checkEnumValueEquals(self.movementState, MovementState.Moving):
             self.changeToMoveAnimation()
         else:
             self.changeToIdleAnimation()
 
     def changeToHitAnimation(self, direction):
-        if direction == Direction.Left:
+        if checkEnumValueEquals(direction, Direction.Left):
             self.changeSpriteImage(self.hitLeft)
-        elif direction == Direction.Right:
+        elif checkEnumValueEquals(direction, Direction.Right):
             self.changeSpriteImage(self.hitRight)
 
     def changeToPunchAnimation(self):
@@ -180,19 +184,24 @@ class Player(GameEntity):
         self.changeSpriteImage(self.danceAnimation)
 
     def changeSpriteBasedOnDirection(self, leftRes, rightRes):
-        if self.lookDirection == Direction.Left:
+        if checkEnumValueEquals(self.lookDirection, Direction.Left):
             self.changeSpriteImage(leftRes)
-        elif self.lookDirection == Direction.Right:
+        elif checkEnumValueEquals(self.lookDirection, Direction.Right):
             self.changeSpriteImage(rightRes)
 
     def update(self):
-        if self.movementState == MovementState.Moving:
-            if self.duckState != DuckState.Ducking:
-                if self.lookDirection == Direction.Left:
+        if checkEnumValueEquals(self.movementState, MovementState.Moving):
+            print "movingPlayer"
+            print self.duckState
+            if checkEnumValueNotEquals(self.duckState, DuckState.Ducking):
+                print self.lookDirection
+                if checkEnumValueEquals(self.lookDirection, Direction.Left):
+                    print "movingPlayerX"
                     self.moveX(-2)
-                elif self.lookDirection == Direction.Right:
+                elif checkEnumValueEquals(self.lookDirection, Direction.Right):
+                    print "movingPlayerX"
                     self.moveX(2)
-        if self.jumpState == JumpState.Jumping:
+        if checkEnumValueEquals(self.jumpState, JumpState.Jumping):
             if self.jumpTimer < 6:
                 self.moveY(5)
             elif self.jumpTimer < 11:
@@ -205,7 +214,7 @@ class Player(GameEntity):
                 self.jumpTimer = 0
                 self.jumpState = JumpState.NotJumping
 
-                if(self.movementState) == MovementState.Moving:
+                if checkEnumValueEquals(self.movementState, MovementState.Moving):
                     self.changeToMoveAnimation()
                 else:
                     self.changeToIdleAnimation()
@@ -215,10 +224,10 @@ class Player(GameEntity):
         elif self.actionTimer == 0:
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
-            if self.duckState == DuckState.Ducking:
+            if checkEnumValueEquals(self.duckState, DuckState.Ducking):
                 self.changeToDuckAnimation()
-            elif self.duckState == DuckState.NotDucking:
-                if(self.movementState) == MovementState.Moving:
+            elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
+                if checkEnumValueEquals(self.movementState, MovementState.Moving):
                     self.changeToMoveAnimation()
                 else:
                     self.changeToIdleAnimation()

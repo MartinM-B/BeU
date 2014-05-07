@@ -8,4 +8,4 @@ class EntityCollider:
         self.collision = SpriteCollision(sprite)
 
     def collides_with(self, other_object):
-         return collide(self.collision, other_object.collision)
+        return collide(self.collision, other_object.collision)

@@ -169,6 +169,12 @@ class EnumClass(object):
         return nameList
 # -----------------------------------------------------------------------------
 
+def checkEnumValueEquals(enumValOne, enumValTwo):
+    return enumValOne.value == enumValTwo.value
+
+def checkEnumValueNotEquals(enumValOne, enumValTwo):
+    return enumValOne.value != enumValTwo.value
+
 def Enum(classname, **kargs):
     """
     Create a new class named as specifed in the first argument,

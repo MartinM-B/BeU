@@ -3,7 +3,6 @@ __author__ = 'win8'
 from InputHandler import InputHandler
 from src.Player import *
 from abc import ABCMeta, abstractmethod
-from pyglet.window import key
 
 class PlayerInputHandler(InputHandler):
     def __init__(self, player):
@@ -35,6 +34,8 @@ class PlayerInputHandler(InputHandler):
         pass
 
     def handleKeyPress(self, symbol, modifiers):
+        print symbol
+
         if self.checkWalkLeft(symbol):
             self.player.look(Direction.Left)
             self.player.startMoving()

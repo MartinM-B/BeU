@@ -4,6 +4,9 @@ from ChibiUsa import *
 from ChibiUsa_blue import *
 from InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
 from InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInputHandler
+from InputHandling.PlayerOneArcadeControllerInputHandler import PlayerOneArcadeControllerInputHandler
+from InputHandling.PlayerTwoArcadeControllerInputHandler import PlayerTwoArcadeControllerInputHandler
+
 from Enum import *
 
 # create a simple window
@@ -26,8 +29,8 @@ player = ChibiUsa(batch, foreground)
 player2 = ChibiUsa_blue(batch, foreground)
 player2.moveX(40)
 
-playerOneInputController = PlayerOneKeyboardInputHandler(player)
-playerTwoInputController = PlayerTwoKeyboardInputHandler(player2)
+playerOneInputController = PlayerOneArcadeControllerInputHandler(player)
+playerTwoInputController = PlayerTwoArcadeControllerInputHandler(player2)
 
 # create a set to contain the blocks
 # a set has a very fast difference operation,

@@ -6,6 +6,7 @@ from Enum import *
 ActionState = Enum('ActionState', Idle=0, Attacking=1, Blocking=2, Hit=3)
 ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4, Block=5, LowBlock=6, Hit=7)
 MovementState = Enum('MovementState', Standing=0, Dancing=1, Moving=2)
+MovementSpeed = Enum('MovementSpeed', Slow=0, Fast=1)
 JumpState = Enum('MovementState', NotJumping=0, Jumping=1)
 Direction = Enum('Direction', Left=0, Right=1)
 DuckState = Enum('DuckState', NotDucking=0, Ducking=1)
@@ -17,6 +18,7 @@ class Player(GameEntity):
 
     actionState = ActionState.Idle
     movementState = MovementState.Standing
+    movementSpeed = MovementSpeed.Slow
     jumpState = JumpState.NotJumping
     duckState = DuckState.NotDucking
     lookDirection = Direction.Left
@@ -24,6 +26,7 @@ class Player(GameEntity):
     actionTimer = 0
     jumpTimer = 0
     duckTimer = 0
+    fastMoveTimer = 0
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.block, x=0, y=0, batch=batch, group=group)
@@ -56,10 +59,19 @@ class Player(GameEntity):
             self.changeToIdleAnimation()
 
     def startMoving(self):
+        if self.fastMoveTimer > 0:
+            self.movementSpeed = MovementSpeed.Fast
+        else:
+            self.movementSpeed = MovementSpeed.Slow
+
+        self.fastMoveTimer = 20
         self.movementState = MovementState.Moving
         self.changeToMoveAnimation()
 
     def look(self, direction):
+        if checkEnumValueNotEquals(direction, self.lookDirection):
+            self.fastMoveTimer = 0
+
         #careful here direction is passed by reference
         if checkEnumValueEquals(direction, Direction.Left):
             self.lookDirection = Direction.Left
@@ -195,12 +207,18 @@ class Player(GameEntity):
             print self.duckState
             if checkEnumValueNotEquals(self.duckState, DuckState.Ducking):
                 print self.lookDirection
+                moveSpeed = 0
+                if checkEnumValueEquals(self.movementSpeed, MovementSpeed.Slow):
+                    moveSpeed = 2
+                else:
+                    moveSpeed = 4
+
                 if checkEnumValueEquals(self.lookDirection, Direction.Left):
                     print "movingPlayerX"
-                    self.moveX(-2)
+                    self.moveX(-moveSpeed)
                 elif checkEnumValueEquals(self.lookDirection, Direction.Right):
                     print "movingPlayerX"
-                    self.moveX(2)
+                    self.moveX(moveSpeed)
         if checkEnumValueEquals(self.jumpState, JumpState.Jumping):
             if self.jumpTimer < 6:
                 self.moveY(5)
@@ -218,6 +236,9 @@ class Player(GameEntity):
                     self.changeToMoveAnimation()
                 else:
                     self.changeToIdleAnimation()
+
+        if self.fastMoveTimer > 0:
+            self.fastMoveTimer -= 1
 
         if self.actionTimer > 0:
             self.actionTimer -= 1

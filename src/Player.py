@@ -118,7 +118,7 @@ class Player(GameEntity):
             else:
                 self.changeToIdleAnimation()
 
-    def playerHit(self, direction):
+    def playerHit(self, direction, other):
         if checkEnumValueEquals(self.actionState, ActionState.Blocking):
             if checkEnumValueNotEquals(self.lookDirection, direction): #blocking in wrong direction
                 self.actionState = ActionState.Hit
@@ -126,6 +126,15 @@ class Player(GameEntity):
                 self.actionTimer = 5
                 self.lookDirection = direction
                 self.changeToHitAnimation(direction)
+
+            #check blocking mask
+            if self.checkHitmask(other): #hit where block isn't effective
+                self.actionState = ActionState.Hit
+                self.actionType = ActionType.Hit
+                self.actionTimer = 5
+                self.lookDirection = direction
+                self.changeToHitAnimation(direction)
+
         else: #not blocking
             self.actionState = ActionState.Hit
             self.actionType = ActionType.Hit
@@ -187,10 +196,10 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
 
     def changeToBlockAnimation(self):
-        self.changeSpriteBasedOnDirection(self.blockLeft, self.blockRight)
+        self.changeSpriteBasedOnDirectionWithMask(self.blockLeft, self.blockLeftMask, self.blockRight, self.blockRightMask)
 
     def changeToLowBlockAnimation(self):
-        self.changeSpriteBasedOnDirection(self.lowBlockLeft, self.lowBlockRight)
+        self.changeSpriteBasedOnDirectionWithMask(self.lowBlockLeft, self.lowBlockLeftMask, self.lowBlockRight, self.lowBlockRightMask)
 
     def changeToDanceAnimation(self):
         self.changeSpriteImage(self.danceAnimation)
@@ -200,6 +209,12 @@ class Player(GameEntity):
             self.changeSpriteImage(leftRes)
         elif checkEnumValueEquals(self.lookDirection, Direction.Right):
             self.changeSpriteImage(rightRes)
+
+    def changeSpriteBasedOnDirectionWithMask(self, leftRes, leftMask, rightRes, rightMask):
+        if checkEnumValueEquals(self.lookDirection, Direction.Left):
+            self.changeSpriteImageWithMask(leftRes, leftMask)
+        elif checkEnumValueEquals(self.lookDirection, Direction.Right):
+            self.changeSpriteImageWithMask(rightRes, rightMask)
 
     def update(self):
         if checkEnumValueEquals(self.movementState, MovementState.Moving):

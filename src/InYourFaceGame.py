@@ -80,11 +80,11 @@ def update(dt):
 
     if checkEnumValueEquals(player.actionState, ActionState.Attacking) and player.checkCollision(player2):
         print "Player Kollission"
-        player2.playerHit(checkEnumValueEquals(player.lookDirection, Direction.Right) and Direction.Left or Direction.Right)
+        player2.playerHit(checkEnumValueEquals(player.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player)
         player2.handleHitDamage()
     if checkEnumValueEquals(player2.actionState, ActionState.Attacking) and player2.checkCollision(player):
         print "Player2 Kollission"
-        player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right)
+        player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player2)
         player.handleHitDamage()
 
     for b in blocks:

@@ -48,6 +48,12 @@ class ChibiUsa(Player):
     jumpLeft = ChibiUsa_resources.JumpLeft
     jumpRight = ChibiUsa_resources.JumpRight
 
+    blockLeftMask = ChibiUsa_resources.BlockLeftMask
+    blockRightMask = ChibiUsa_resources.BlockRightMask
+
+    lowBlockLeftMask = ChibiUsa_resources.LowBlockLeftMask
+    lowBlockRightMask = ChibiUsa_resources.LowBlockRightMask
+
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([ChibiUsa_resources.Left, ChibiUsa_resources.Right], 0.5, True)
 

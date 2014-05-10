@@ -9,7 +9,7 @@ class HealthBar(object):
     ''' Sprite subclass providing advanced
             playback controls for animated sprites '''
 
-    def __init__(self, x=0, y=0, w=100, h=50):
+    def __init__(self, batch, x=0, y=0, w=100, h=50):
         self._blend_src = pyglet.gl.GL_SRC_ALPHA
         self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
 

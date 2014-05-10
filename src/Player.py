@@ -11,6 +11,7 @@ JumpState = Enum('MovementState', NotJumping=0, Jumping=1)
 Direction = Enum('Direction', Left=0, Right=1)
 DuckState = Enum('DuckState', NotDucking=0, Ducking=1)
 
+
 class Player(GameEntity):
     #initial health and damage
     health = 100

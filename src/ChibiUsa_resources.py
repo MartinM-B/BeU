@@ -1,7 +1,9 @@
 __author__ = 'SARAH'
 import pyglet
-pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue']
+pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue', '../resources/sounds']
 pyglet.resource.reindex()
+
+from pyglet.media.riff import *
 
 # Chibi Usa Images
 
@@ -30,11 +32,19 @@ LowBlockRight = pyglet.resource.image("ChibiUsa_lowblock_right.png")
 JumpLeft = pyglet.resource.image("ChibiUsa_jump_left.png")
 JumpRight = pyglet.resource.image("ChibiUsa_jump_right.png")
 
+JumpSound = pyglet.resource.media('jumping_teon.mp3', streaming=False)
+PunchSound = pyglet.resource.media('punch.mp3', streaming=False)
+StepSound = pyglet.resource.media('step.mp3', streaming=False)
+KickSound = pyglet.resource.media('kick.mp3', streaming=False)
+BlockSound = pyglet.resource.media('block.mp3', streaming=False)
+DuckSound = pyglet.resource.media('duck.mp3', streaming=False)
+
 BlockLeftMask = pyglet.resource.image("ChibiUsa_block_left_mask.png")
 BlockRightMask = pyglet.resource.image("ChibiUsa_block_right_mask.png")
 
 LowBlockLeftMask = pyglet.resource.image("ChibiUsa_lowblock_left_mask.png")
 LowBlockRightMask = pyglet.resource.image("ChibiUsa_lowblock_right_mask.png")
+
 
 def center_image(image):
     """Sets an image's anchor point to its center"""

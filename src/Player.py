@@ -42,11 +42,13 @@ class Player(GameEntity):
             self.jumpState = JumpState.Jumping
             self.jumpTimer = 1
             self.changeToJumpAnimation()
+            self.jumpSound.play()
 
     def duck(self):
         if checkEnumValueEquals(self.duckState, DuckState.NotDucking):
             self.duckState = DuckState.Ducking
             self.duckTimer = 1
+            self.duckSound.play()
             self.changeToDuckAnimation()
 
     def stopDucking(self):
@@ -67,6 +69,7 @@ class Player(GameEntity):
 
         self.fastMoveTimer = 20
         self.movementState = MovementState.Moving
+        self.stepSound.play()
         self.changeToMoveAnimation()
 
     def look(self, direction):
@@ -89,6 +92,7 @@ class Player(GameEntity):
             elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
                 self.changeToKickAnimation()
             self.actionTimer = 5
+            self.kickSound.play()
 
     def punch(self):
         if checkEnumValueEquals(self.actionState, ActionState.Idle):
@@ -99,6 +103,7 @@ class Player(GameEntity):
             elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
                 self.changeToPunchAnimation()
             self.actionTimer = 5
+            self.punchSound.play()
 
     def startBlocking(self):
         if checkEnumValueEquals(self.actionState, ActionState.Idle):

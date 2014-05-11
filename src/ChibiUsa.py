@@ -57,7 +57,12 @@ class ChibiUsa(Player):
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([ChibiUsa_resources.Left, ChibiUsa_resources.Right], 0.5, True)
 
-
+    jumpSound = ChibiUsa_resources.JumpSound
+    punchSound = ChibiUsa_resources.PunchSound
+    stepSound = ChibiUsa_resources.StepSound
+    kickSound = ChibiUsa_resources.KickSound
+    blockSound = ChibiUsa_resources.BlockSound
+    duckSound = ChibiUsa_resources.DuckSound
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=ChibiUsa_resources.Left, x=0, y=0, batch=batch, group=group)

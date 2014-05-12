@@ -131,37 +131,30 @@ class Player(GameEntity):
     def playerHit(self, direction, other):
         if checkEnumValueEquals(self.actionState, ActionState.Blocking):
             if checkEnumValueNotEquals(self.lookDirection, direction): #blocking in wrong direction
-                self.actionState = ActionState.Hit
-                self.actionType = ActionType.Hit
-                self.actionTimer = 5
-                self.lookDirection = direction
                 self.handlePlayerHit(direction)
                 print "block in wrong direction"
 
             #check blocking mask
             if self.checkHitmask(other): #hit where block isn't effective
-                self.actionState = ActionState.Hit
-                self.actionType = ActionType.Hit
-                self.actionTimer = 5
-                self.lookDirection = direction
                 self.handlePlayerHit(direction)
                 print "hit where block isn't effective"
 
         else: #not blocking
-            self.actionState = ActionState.Hit
-            self.actionType = ActionType.Hit
-            self.actionTimer = 5
-            self.lookDirection = direction
             self.handlePlayerHit(direction)
             print "not blocking"
 
     def handlePlayerHit(self, direction):
-        self.handleHitDamage()
-        self.changeToHitAnimation(direction)
+        if checkEnumValueNotEquals(self.actionState, ActionState.Hit):
+            self.actionState = ActionState.Hit
+            self.actionType = ActionType.Hit
+            self.actionTimer = 5
+            self.lookDirection = direction
+            self.handleHitDamage()
+            self.changeToHitAnimation(direction)
 
     def handleHitDamage(self):
         if self.health > 0:
-            self.health -= 1
+            self.health -= 5
         if self.health <= 0:
             print "ChibiUsa loses"
             #TODO do sth. when losing??

@@ -6,6 +6,12 @@ from Player import *
 
 from ChibiUsa import *
 from ChibiUsa_blue import *
+from InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
+from InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInputHandler
+from InputHandling.PlayerOneArcadeControllerInputHandler import PlayerOneArcadeControllerInputHandler
+from InputHandling.PlayerTwoArcadeControllerInputHandler import PlayerTwoArcadeControllerInputHandler
+
+from Enum import *
 
 from src.Healthbar.healthbar import *
 
@@ -27,8 +33,14 @@ block = resources.block
 #player = Player(batch, foreground)
 player = ChibiUsa(batch, foreground)
 player2 = ChibiUsa_blue(batch, foreground)
+player2.moveX(40)
+
 healthbar = HealthBar(batch, 80, 400, 200, 50)
 healthbar2 = HealthBar(batch, 320, 400, 200, 50)
+
+playerOneInputController = PlayerOneArcadeControllerInputHandler(player)
+playerTwoInputController = PlayerTwoArcadeControllerInputHandler(player2)
+
 # create a set to contain the blocks
 # a set has a very fast difference operation,
 # which we will use in the update function
@@ -37,56 +49,14 @@ blocks = set()
 @window.event()
 def on_key_press(symbol, modifiers):
     print "a key was pressed"
-    if symbol == key.LEFT:
-        player.look(Direction.Left)
-        player.startMoving()
-
-    if symbol == key.RIGHT:
-        player.look(Direction.Right)
-        player.startMoving()
-
-    if symbol == key.UP:
-        player.jump()
-
-    if symbol == key.SPACE:
-        player.dance()
-
-    if symbol == key.X:
-        player.kick()
-
-    if symbol == key.C:
-        player.punch()
-
-    if symbol == key.B:
-        player.startBlocking()
-
-    if symbol == key.DOWN:
-        player.duck()
-
-    #key H used to test damage and hitAnimation
-    if symbol == key.H:
-        print "H was pressed"
-        #simulates kick from direction player2 is looking to
-        player.playerHit(player2.lookDirection == Direction.Right and Direction.Left or Direction.Right)
-
+    playerOneInputController.handleKeyPress(symbol, modifiers)
+    playerTwoInputController.handleKeyPress(symbol, modifiers)
 
 @window.event()
 def on_key_release(symbol, modifiers):
     print "a key was released"
-
-    #global moveFlag
-    if symbol == key.LEFT:
-        player.stopMoving()
-
-    if symbol == key.RIGHT:
-        player.stopMoving()
-
-    if symbol == key.B:
-        player.stopBlocking()
-
-    if symbol == key.DOWN:
-        print "stop ducking"
-        player.stopDucking()
+    playerOneInputController.handleKeyRelease(symbol, modifiers)
+    playerTwoInputController.handleKeyRelease(symbol, modifiers)
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
@@ -120,10 +90,14 @@ def update(dt):
     player2.update()
 
 
-    if (player.actionState == ActionState.Attacking and player.checkCollision(player2)):
+    if checkEnumValueEquals(player.actionState, ActionState.Attacking) and player.checkCollision(player2):
         print "Player Kollission"
-        player2.playerHit(player.lookDirection == Direction.Right and Direction.Left or Direction.Right)
+        player2.playerHit(checkEnumValueEquals(player.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player)
         player2.handleHitDamage()
+    if checkEnumValueEquals(player2.actionState, ActionState.Attacking) and player2.checkCollision(player):
+        print "Player2 Kollission"
+        player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player2)
+        player.handleHitDamage()
 
 
     for b in blocks:

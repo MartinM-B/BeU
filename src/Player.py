@@ -108,15 +108,19 @@ class Player(GameEntity):
     def startBlocking(self):
         if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.actionState = ActionState.Blocking
+            print"start blocking"
             self.actionType = ActionType.Block
             if checkEnumValueEquals(self.duckState, DuckState.Ducking):
+                print"change to block low animation"
                 self.changeToLowBlockAnimation()
             elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
+                print"change to block high animation"
                 self.changeToBlockAnimation()
             self.stopMoving()
 
     def stopBlocking(self):
         if checkEnumValueEquals(self.actionState, ActionState.Blocking):
+            print"stop blocking"
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
             if checkEnumValueEquals(self.movementState, MovementState.Moving):
@@ -132,6 +136,7 @@ class Player(GameEntity):
                 self.actionTimer = 5
                 self.lookDirection = direction
                 self.handlePlayerHit(direction)
+                print "block in wrong direction"
 
             #check blocking mask
             if self.checkHitmask(other): #hit where block isn't effective
@@ -140,6 +145,7 @@ class Player(GameEntity):
                 self.actionTimer = 5
                 self.lookDirection = direction
                 self.handlePlayerHit(direction)
+                print "hit where block isn't effective"
 
         else: #not blocking
             self.actionState = ActionState.Hit
@@ -147,6 +153,7 @@ class Player(GameEntity):
             self.actionTimer = 5
             self.lookDirection = direction
             self.handlePlayerHit(direction)
+            print "not blocking"
 
     def handlePlayerHit(self, direction):
         self.handleHitDamage()
@@ -206,9 +213,11 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
 
     def changeToBlockAnimation(self):
+        print "change to block with mask"
         self.changeSpriteBasedOnDirectionWithMask(self.blockLeft, self.blockLeftMask, self.blockRight, self.blockRightMask)
 
     def changeToLowBlockAnimation(self):
+        print "change to low block with mask"
         self.changeSpriteBasedOnDirectionWithMask(self.lowBlockLeft, self.lowBlockLeftMask, self.lowBlockRight, self.lowBlockRightMask)
 
     def changeToDanceAnimation(self):

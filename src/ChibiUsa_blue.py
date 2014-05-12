@@ -1,8 +1,8 @@
 __author__ = 'SARAH'
 
-from Player import *
 from src import ChibiUsa_blue_resources
 
+from Player import *
 
 class ChibiUsa_blue(Player):
 

@@ -31,7 +31,7 @@ JumpLeft = pyglet.resource.image("ChibiUsa_blue_jump_left.png")
 JumpRight = pyglet.resource.image("ChibiUsa_blue_jump_right.png")
 
 BlockLeftMask = pyglet.resource.image("ChibiUsa_blue_block_left_mask.png")
-BlockRightMask = pyglet.resource.image("ChibiUsa_blue_block_right.png")
+BlockRightMask = pyglet.resource.image("ChibiUsa_blue_block_right_mask.png")
 
 LowBlockLeftMask = pyglet.resource.image("ChibiUsa_blue_lowblock_left_mask.png")
 LowBlockRightMask = pyglet.resource.image("ChibiUsa_blue_lowblock_right_mask.png")

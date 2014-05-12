@@ -11,18 +11,21 @@ class GameEntity(object):
         self.hitmask = EntityCollider(self.hitmask_sprite)
 
     def changeSpriteImage(self, image):
+        print "change sprite only"
         self.display_sprite.image = image
         self.hitmask_sprite.image = image
         self.collider = EntityCollider(self.display_sprite)
         self.hitmask = EntityCollider(self.hitmask_sprite)
 
     def changeSpriteImageWithMask(self, image, hitmask):
+        print "change sprite and hitmask"
         self.display_sprite.image = image
         self.hitmask_sprite.image = hitmask
         self.collider = EntityCollider(self.display_sprite)
         self.hitmask = EntityCollider(self.hitmask_sprite)
 
     def changeHitmaskImage(self, image):
+        print "change hitmask only"
         self.hitmask_sprite.image = image
         self.hitmask = EntityCollider(self.hitmask_sprite)
 
@@ -45,7 +48,7 @@ class GameEntity(object):
     @x.setter
     def x(self, value):
         self.display_sprite.x = value
-        self.hitmask_sprite,x = value
+        self.hitmask_sprite.x = value
         """ not working yet don't use """
 
     @property

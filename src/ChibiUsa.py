@@ -1,7 +1,6 @@
-from src import ChibiUsa_resources
-
-
 __author__ = 'SARAH'
+
+from src import ChibiUsa_resources
 
 from Player import *
 

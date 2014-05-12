@@ -131,7 +131,7 @@ class Player(GameEntity):
                 self.actionType = ActionType.Hit
                 self.actionTimer = 5
                 self.lookDirection = direction
-                self.changeToHitAnimation(direction)
+                self.handlePlayerHit(direction)
 
             #check blocking mask
             if self.checkHitmask(other): #hit where block isn't effective
@@ -139,18 +139,22 @@ class Player(GameEntity):
                 self.actionType = ActionType.Hit
                 self.actionTimer = 5
                 self.lookDirection = direction
-                self.changeToHitAnimation(direction)
+                self.handlePlayerHit(direction)
 
         else: #not blocking
             self.actionState = ActionState.Hit
             self.actionType = ActionType.Hit
             self.actionTimer = 5
             self.lookDirection = direction
-            self.changeToHitAnimation(direction)
+            self.handlePlayerHit(direction)
+
+    def handlePlayerHit(self, direction):
+        self.handleHitDamage()
+        self.changeToHitAnimation(direction)
 
     def handleHitDamage(self):
         if self.health > 0:
-            self.health -= 5
+            self.health -= 1
         if self.health <= 0:
             print "ChibiUsa loses"
             #TODO do sth. when losing??

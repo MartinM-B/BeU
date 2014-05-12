@@ -38,8 +38,8 @@ player2.moveX(40)
 healthbar = HealthBar(batch, 80, 400, 200, 50)
 healthbar2 = HealthBar(batch, 320, 400, 200, 50)
 
-playerOneInputController = PlayerOneArcadeControllerInputHandler(player)
-playerTwoInputController = PlayerTwoArcadeControllerInputHandler(player2)
+playerOneInputController = PlayerOneKeyboardInputHandler(player)
+playerTwoInputController = PlayerTwoKeyboardInputHandler(player2)
 
 # create a set to contain the blocks
 # a set has a very fast difference operation,
@@ -93,12 +93,9 @@ def update(dt):
     if checkEnumValueEquals(player.actionState, ActionState.Attacking) and player.checkCollision(player2):
         print "Player Kollission"
         player2.playerHit(checkEnumValueEquals(player.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player)
-        player2.handleHitDamage()
     if checkEnumValueEquals(player2.actionState, ActionState.Attacking) and player2.checkCollision(player):
         print "Player2 Kollission"
         player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player2)
-        player.handleHitDamage()
-
 
     for b in blocks:
             # don't let block fall out of the window bounds

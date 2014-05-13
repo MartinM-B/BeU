@@ -8,5 +8,5 @@ class PyMessage(object):
         self.type = atype
         self.timestamp = atime
 
-    def gettype(self):
+    def getType(self):
         return self.type

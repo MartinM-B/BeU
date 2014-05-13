@@ -7,44 +7,44 @@ from src.timer.PyTimer import *
 
 class PyMessenger(object):
 
-    myqueue = Queue()
-    receivers = {}
+    __myqueue = Queue()
+    __receivers = {}
 
     def __init__(self):
-        self.receivers = {}
+        self.__receivers = {}
 
     def send(self, amsg, atimestamp):
         pymsg = PyMessage(amsg, atimestamp)
-        self.myqueue.put(pymsg)
+        self.__myqueue.put(pymsg)
 
     def subscribe(self, atype, receiver):
-        self.receivers.setdefault(atype, []).append(receiver)
+        self.__receivers.setdefault(atype, []).append(receiver)
 
     def unsubscribe(self, atype, receiver):
-        self.receivers[atype].remove(receiver)
+        self.__receivers[atype].remove(receiver)
 
-    def cleanup(self):
-        self.myqueue.empty()
-        self.receivers.clear()
+    def cleanUp(self):
+        self.__myqueue.empty()
+        self.__receivers.clear()
 
     def execute(self):
         #acces all the receivers inside the queue with a certain key
         #timestamp needs to take action here
 
-        timer = PyTimer()
-        deltatime = timer.getDeltaTime()
+        __timer = PyTimer()
+        __deltatime = __timer.getDeltaTime()
 
-        for msg in self.myqueue.queue:
-            if msg.timestamp < deltatime:
-                length = len(self.receivers.get(msg.type))
+        for msg in self.__myqueue.queue:
+            if msg.timestamp < __deltatime:
+                length = len(self.__receivers.get(msg.type))
                 temp = 0
                 while temp < length:
                     #call the receiver
-                    print self.receivers[msg.type][temp]
+                    print self.__receivers[msg.type][temp]
                     temp += 1
 
-    def printreceivers(self):
-        print self.receivers
+    def printReceivers(self):
+        print self.__receivers
 
-    def printqueue(self):
-        print self.myqueue
+    def printQueue(self):
+        print self.__myqueue

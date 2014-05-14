@@ -45,6 +45,16 @@ BlockRightMask = pyglet.resource.image("ChibiUsa_block_right_mask.png")
 LowBlockLeftMask = pyglet.resource.image("ChibiUsa_lowblock_left_mask.png")
 LowBlockRightMask = pyglet.resource.image("ChibiUsa_lowblock_right_mask.png")
 
+PunchLeftMask = pyglet.resource.image("ChibiUsa_punch_left_mask.png")
+PunchRightMask = pyglet.resource.image("ChibiUsa_punch_right_mask.png")
+KickLeftMask = pyglet.resource.image("ChibiUsa_kick_left_mask.png")
+KickRightMask = pyglet.resource.image("ChibiUsa_kick_right_mask.png")
+
+LowPunchLeftMask = pyglet.resource.image("ChibiUsa_lowpunch_left_mask.png")
+LowPunchRightMask = pyglet.resource.image("ChibiUsa_lowpunch_right_mask.png")
+LowKickLeftMask = pyglet.resource.image("ChibiUsa_lowkick_left_mask.png")
+LowKickRightMask = pyglet.resource.image("ChibiUsa_lowkick_right_mask.png")
+
 
 def center_image(image):
     """Sets an image's anchor point to its center"""

@@ -9,6 +9,10 @@ class GameEntity(object):
         self.hitmask_sprite = pyglet.sprite.Sprite(image, x, y, batch=batch, group=group)
         self.collider = EntityCollider(self.display_sprite)
         self.hitmask = EntityCollider(self.hitmask_sprite)
+        self.hitmask_sprite._set_opacity(0)
+        self.attackmask_sprite = pyglet.sprite.Sprite(image, x, y, batch=batch, group=group)
+        self.attackmask_sprite._set_opacity(0)
+        self.attackmask = EntityCollider(self.attackmask_sprite)
 
     def changeSpriteImage(self, image):
         print "change sprite only"
@@ -29,17 +33,26 @@ class GameEntity(object):
         self.hitmask_sprite.image = image
         self.hitmask = EntityCollider(self.hitmask_sprite)
 
+    def changeAttackmaskImage(self, image):
+        print "change attackmask only"
+        #self.display_sprite.image = image #testing (show attackmask)
+        self.attackmask_sprite.image = image
+        self.attackmask = EntityCollider(self.attackmask_sprite)
+
     def setPosition(self, x, y):
         self.display_sprite.set_position(x, y)
         self.hitmask_sprite.set_position(x, y)
+        self.attackmask_sprite.set_position(x, y)
 
     def moveX(self, x):
         self.display_sprite.x += x
         self.hitmask_sprite.x += x
+        self.attackmask_sprite.x += x
 
     def moveY(self, y):
         self.display_sprite.y += y
         self.hitmask_sprite.y += y
+        self.attackmask_sprite.y += y
 
     @property
     def x(self):
@@ -49,6 +62,7 @@ class GameEntity(object):
     def x(self, value):
         self.display_sprite.x = value
         self.hitmask_sprite.x = value
+        self.attackmask_sprite.x = value
         """ not working yet don't use """
 
     @property
@@ -59,10 +73,11 @@ class GameEntity(object):
     def y(self, value):
         self.display_sprite.y = value
         self.hitmask_sprite.y = value
+        self.attackmask_sprite.y = value
         """ not working yet don't use """
 
     def checkCollision(self, other):
-        return self.collider.collides_with(other.collider)
+        return self.attackmask.collides_with(other.collider)
 
     def checkHitmask(self, other):
-        return self.hitmask.collides_with(other.collider)
+        return self.hitmask.collides_with(other.attackmask)

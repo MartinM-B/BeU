@@ -36,6 +36,16 @@ BlockRightMask = pyglet.resource.image("ChibiUsa_blue_block_right_mask.png")
 LowBlockLeftMask = pyglet.resource.image("ChibiUsa_blue_lowblock_left_mask.png")
 LowBlockRightMask = pyglet.resource.image("ChibiUsa_blue_lowblock_right_mask.png")
 
+PunchLeftMask = pyglet.resource.image("ChibiUsa_blue_punch_left_mask.png")
+PunchRightMask = pyglet.resource.image("ChibiUsa_blue_punch_right_mask.png")
+KickLeftMask = pyglet.resource.image("ChibiUsa_blue_kick_left_mask.png")
+KickRightMask = pyglet.resource.image("ChibiUsa_blue_kick_right_mask.png")
+
+LowPunchLeftMask = pyglet.resource.image("ChibiUsa_blue_lowpunch_left_mask.png")
+LowPunchRightMask = pyglet.resource.image("ChibiUsa_blue_lowpunch_right_mask.png")
+LowKickLeftMask = pyglet.resource.image("ChibiUsa_blue_lowkick_left_mask.png")
+LowKickRightMask = pyglet.resource.image("ChibiUsa_blue_lowkick_right_mask.png")
+
 JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
 PunchSound = pyglet.resource.media('punch.wav', streaming=False)
 StepSound = pyglet.resource.media('step.wav', streaming=False)

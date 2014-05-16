@@ -195,15 +195,19 @@ class Player(GameEntity):
 
     def changeToPunchAnimation(self):
         self.changeSpriteBasedOnDirection(self.punchLeft, self.punchRight)
+        self.changeAttackMaskBasedOnDirection(self.punchLeftMask, self.punchRightMask)
 
     def changeToLowPunchAnimation(self):
         self.changeSpriteBasedOnDirection(self.lowPunchLeft, self.lowPunchRight)
+        self.changeAttackMaskBasedOnDirection(self.lowPunchLeftMask, self.lowPunchRightMask)
 
     def changeToKickAnimation(self):
         self.changeSpriteBasedOnDirection(self.kickLeft, self.kickRight)
+        self.changeAttackMaskBasedOnDirection(self.kickLeftMask, self.kickRightMask)
 
     def changeToLowKickAnimation(self):
         self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
+        self.changeAttackMaskBasedOnDirection(self.lowKickLeftMask, self.lowKickRightMask)
 
     def changeToBlockAnimation(self):
         print "change to block with mask"
@@ -227,6 +231,12 @@ class Player(GameEntity):
             self.changeSpriteImageWithMask(leftRes, leftMask)
         elif checkEnumValueEquals(self.lookDirection, Direction.Right):
             self.changeSpriteImageWithMask(rightRes, rightMask)
+
+    def changeAttackMaskBasedOnDirection(self, leftRes, rightRes):
+        if checkEnumValueEquals(self.lookDirection, Direction.Left):
+            self.changeAttackmaskImage(leftRes)
+        elif checkEnumValueEquals(self.lookDirection, Direction.Right):
+            self.changeAttackmaskImage(rightRes)
 
     def update(self):
         if checkEnumValueEquals(self.movementState, MovementState.Moving):

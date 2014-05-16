@@ -46,6 +46,17 @@ class ChibiUsa_blue(Player):
     lowBlockLeftMask = ChibiUsa_blue_resources.LowBlockLeftMask
     lowBlockRightMask = ChibiUsa_blue_resources.LowBlockRightMask
 
+    punchLeftMask = ChibiUsa_blue_resources.PunchLeftMask
+    punchRightMask = ChibiUsa_blue_resources.PunchRightMask
+    kickLeftMask = ChibiUsa_blue_resources.KickLeftMask
+    kickRightMask = ChibiUsa_blue_resources.KickRightMask
+
+    lowPunchLeftMask = ChibiUsa_blue_resources.LowPunchLeftMask
+    lowPunchRightMask = ChibiUsa_blue_resources.LowPunchRightMask
+    lowKickLeftMask = ChibiUsa_blue_resources.LowKickLeftMask
+    lowKickRightMask = ChibiUsa_blue_resources.LowKickRightMask
+
+
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([ChibiUsa_blue_resources.Left, ChibiUsa_blue_resources.Right], 0.5, True)
 

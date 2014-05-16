@@ -1,9 +1,10 @@
 __author__ = 'florian'
 
 from State import *
+from src.Messenger.Receiver import *
 
 
-class StateMachine(State):
+class StateMachine(State, Receiver):
 
     __states = {}
 
@@ -11,4 +12,7 @@ class StateMachine(State):
         pass
 
     def onExit(self):
+        pass
+
+    def onReceive(self):
         pass

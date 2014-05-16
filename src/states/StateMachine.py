@@ -1,7 +1,7 @@
 __author__ = 'florian'
 
 from State import *
-from src.Messenger.Receiver import *
+from src.Messenger.receiver import *
 
 
 class StateMachine(State, Receiver):

@@ -15,6 +15,9 @@ from Enum import *
 
 from src.Healthbar.healthbar import *
 
+
+pyglet.options['audio'] = ('openal')
+
 # create a simple window
 window = pyglet.window.Window(640, 480, caption="collision", visible=False)
 

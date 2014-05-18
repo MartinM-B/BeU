@@ -17,7 +17,7 @@ class HealthBar(object):
 
         self._height = h
         self._width = w
-        self._health = 50
+        self._health = 100
 
         self._x = x
         self._y = y

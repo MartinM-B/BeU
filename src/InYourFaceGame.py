@@ -14,6 +14,7 @@ from InputHandling.PlayerTwoArcadeControllerInputHandler import PlayerTwoArcadeC
 from Enum import *
 
 from src.Healthbar.healthbar import *
+from src.RoundCounter.roundcounter import *
 
 
 pyglet.options['audio'] = ('openal')
@@ -36,10 +37,11 @@ block = resources.block
 #player = Player(batch, foreground)
 player = ChibiUsa(batch, foreground)
 player2 = ChibiUsa_blue(batch, foreground)
-player2.moveX(40)
+player2.moveX(200)
 
-healthbar = HealthBar(batch, 80, 400, 200, 50)
-healthbar2 = HealthBar(batch, 320, 400, 200, 50)
+healthbar = HealthBar(batch, 50, 400, 200, 50)
+healthbar2 = HealthBar(batch, 380, 400, 200, 50)
+roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
 playerOneInputController = PlayerOneKeyboardInputHandler(player)
 playerTwoInputController = PlayerTwoKeyboardInputHandler(player2)
@@ -85,6 +87,7 @@ def on_draw():
 
         healthbar.draw()
         healthbar2.draw()
+        roundcounter.draw()
 
 def update(dt):
     #change sprite according to lookFlag
@@ -92,10 +95,10 @@ def update(dt):
     player.update()
     player2.update()
 
-
     if checkEnumValueEquals(player.actionState, ActionState.Attacking) and player.checkCollision(player2):
         print "Player Kollission"
         player2.playerHit(checkEnumValueEquals(player.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player)
+
     if checkEnumValueEquals(player2.actionState, ActionState.Attacking) and player2.checkCollision(player):
         print "Player2 Kollission"
         player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player2)
@@ -112,8 +115,13 @@ def update(dt):
             while b.checkCollision(player):
                     b.moveY(+1)
 
+    update_rounds()
+
+
+def update_rounds():
     healthbar.set_health(player.health)
     healthbar2.set_health(player2.health)
+    roundcounter.update()
 
 glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()

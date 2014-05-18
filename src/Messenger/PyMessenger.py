@@ -13,9 +13,16 @@ class PyMessenger(object):
     def __init__(self):
         self.__receivers = {}
 
-    def send(self, amsg, atimestamp):
-        pymsg = PyMessage(amsg, atimestamp)
+    def send(self, type, time, msg):
+        pymsg = PyMessage(type, time, msg)
         self.__myqueue.put(pymsg)
+
+    def send(self, type, msg):
+        pymsg = PyMessage(type, msg)
+        self.__myqueue.put(pymsg)
+
+    def send(self, message):
+        self.__myqueue.put(message)
 
     def subscribe(self, atype, receiver):
         self.__receivers.setdefault(atype, []).append(receiver)
@@ -40,7 +47,7 @@ class PyMessenger(object):
                 temp = 0
                 while temp < length:
                     #call the receiver
-                    print self.__receivers[msg.type][temp]
+                    self.__receivers[msg.type][temp].onReceive(msg)
                     temp += 1
 
     def printReceivers(self):

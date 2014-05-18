@@ -36,10 +36,8 @@ class PyTimer(object):
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
 
-
     def startTimer(self):
         self._time = time.time()
-
 
     def getDeltaTime(self):
         self._deltaTime = time.time() - self._time

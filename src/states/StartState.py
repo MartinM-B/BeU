@@ -8,8 +8,9 @@ class StartState(State):
 
     def onExit(self):
         if self.isActive:
-            self.setActive(False)
+            self._active = False
 
     def onEnter(self):
         if not self.isActive:
-            self.setActive(True)
+            self._active = True
+        print "onEnter Start"

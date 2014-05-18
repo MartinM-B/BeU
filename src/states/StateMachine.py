@@ -27,20 +27,20 @@ class StateMachine(State, Receiver):
     def onExit(self):
         pass
 
-    def onReceive(self, msg):
-        if msg.type == States.Start:
+    def onReceive(self, message):
+        if message.msg == States.Start:
             self.setNotActive()
             self._startState.onEnter()
-        elif msg.type == States.Credits:
+        elif message.msg == States.Credits:
             self.setNotActive()
             self._creditState.onEnter()
-        elif msg.type == States.Game:
+        elif message.msg == States.Game:
             self.setNotActive()
             self._gameState.onEnter()
-        elif msg.type == States.CharSelect:
+        elif message.msg == States.CharSelect:
             self.setNotActive()
             self._charSelectState.onEnter()
 
     def setNotActive(self):
         for states in self.__states:
-            states.setActive(False)
+            states._active = False

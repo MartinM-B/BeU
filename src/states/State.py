@@ -8,7 +8,8 @@ class State(object):
 
     __metaclass__ = ABCMeta
 
-    _active = False
+    def __init__(self):
+        self._active = False
 
     @abstractmethod
     def onEnter(self):
@@ -21,7 +22,3 @@ class State(object):
     @property
     def isActive(self):
         return self._active
-
-    @_active.setter
-    def setActive(self, active):
-        self._active = active

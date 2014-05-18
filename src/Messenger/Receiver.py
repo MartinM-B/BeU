@@ -7,6 +7,6 @@ class Receiver(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def onReceive(self, msg):
+    def onReceive(self, message):
         pass
 

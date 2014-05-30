@@ -6,6 +6,7 @@ from Player import *
 
 from ChibiUsa import *
 from ChibiUsa_blue import *
+from Viking import *
 from InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
 from InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInputHandler
 from InputHandling.PlayerOneArcadeControllerInputHandler import PlayerOneArcadeControllerInputHandler
@@ -20,7 +21,7 @@ from src.RoundCounter.roundcounter import *
 pyglet.options['audio'] = ('openal')
 
 # create a simple window
-window = pyglet.window.Window(640, 480, caption="collision", visible=False)
+window = pyglet.window.Window(1024, 600, caption="collision", visible=False) #60x480
 
 label = pyglet.text.Label('Click to create falling objects (collision is pixel perfect but used image not)!', font_name='Times New Roman', font_size=10, x=window.width // 2,
                           y=4 * window.height // 5, anchor_x='center', anchor_y='center', color=(0, 0, 0, 255))
@@ -35,7 +36,10 @@ block = resources.block
 
 # create the level as an entity
 #player = Player(batch, foreground)
+
 player = ChibiUsa(batch, foreground)
+#TODO resize Viking (downscale)
+#player = Viking(batch, foreground)
 player2 = ChibiUsa_blue(batch, foreground)
 player2.moveX(200)
 

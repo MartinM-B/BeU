@@ -5,6 +5,7 @@ import pyglet
 from pyglet.gl import *
 from pyglet.text import *
 
+
 class RoundCounter(object):
     ''' Sprite subclass providing advanced
             playback controls for animated sprites '''

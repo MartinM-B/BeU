@@ -3,6 +3,9 @@ from pyglet.window import Window
 from src.InputHandling.InputHandler import *
 
 
+# class to handle the inputs to select the buttons and to switch between them
+
+
 class PyLayouter(InputHandler):
 
     def __init__(self, window):

@@ -32,7 +32,7 @@ LowBlockRight = pyglet.resource.image("ChibiUsa_lowblock_right.png")
 JumpLeft = pyglet.resource.image("ChibiUsa_jump_left.png")
 JumpRight = pyglet.resource.image("ChibiUsa_jump_right.png")
 
-JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
+JumpSound = pyglet.resource.media('jumping.wav', streaming=False)
 PunchSound = pyglet.resource.media('punch.wav', streaming=False)
 StepSound = pyglet.resource.media('step.wav', streaming=False)
 KickSound = pyglet.resource.media('kick.wav', streaming=False)

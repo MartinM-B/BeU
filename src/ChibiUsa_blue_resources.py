@@ -46,7 +46,7 @@ LowPunchRightMask = pyglet.resource.image("ChibiUsa_blue_lowpunch_right_mask.png
 LowKickLeftMask = pyglet.resource.image("ChibiUsa_blue_lowkick_left_mask.png")
 LowKickRightMask = pyglet.resource.image("ChibiUsa_blue_lowkick_right_mask.png")
 
-JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
+JumpSound = pyglet.resource.media('jumping.wav', streaming=False)
 PunchSound = pyglet.resource.media('punch.wav', streaming=False)
 StepSound = pyglet.resource.media('step.wav', streaming=False)
 KickSound = pyglet.resource.media('kick.wav', streaming=False)

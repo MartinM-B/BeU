@@ -16,6 +16,9 @@ from Enum import *
 
 from src.Healthbar.healthbar import *
 from src.RoundCounter.roundcounter import *
+from pyglet.gl import *
+
+import threading
 
 
 pyglet.options['audio'] = ('openal')
@@ -23,6 +26,7 @@ pyglet.options['debug_gl'] = False
 
 # create a simple window
 window = pyglet.window.Window(caption="collision", visible=False, fullscreen=True) #60x480
+glScalef(1.5, 1.5, 1.5)
 
 label = pyglet.text.Label('Click to create falling objects (collision is pixel perfect but used image not)!', font_name='Times New Roman', font_size=10, x=window.width // 2,
                           y=4 * window.height // 5, anchor_x='center', anchor_y='center', color=(0, 0, 0, 255))
@@ -38,8 +42,14 @@ foreground = pyglet.graphics.OrderedGroup(1)
 #player = ChibiUsa(batch, foreground)
 #TODO resize Viking (downscale)
 player = Viking(batch, foreground)
-player2 = ChibiUsa_blue(batch, foreground)
-player2.moveX(200)
+player.preloadImages()
+player2 = Viking(batch, foreground)
+player.preloadImages()
+
+imagesLoaded = False
+
+#player2 = ChibiUsa_blue(batch, foreground)
+player2.moveX(window.width / 2)
 
 healthbar = HealthBar(batch, 50, 400, 200, 50)
 healthbar2 = HealthBar(batch, 380, 400, 200, 50)
@@ -70,11 +80,14 @@ fps_display = pyglet.clock.ClockDisplay()
 def on_draw():
         # clear the window
         window.clear()
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+
         # draw our background and blocks
         batch.draw()
         label.draw()
         fps_display.draw()
-
 
         healthbar.draw()
         healthbar2.draw()
@@ -83,6 +96,13 @@ def on_draw():
 def update(dt):
     #change sprite according to lookFlag
     #done in player update
+
+    if player.getImagesPreloaded() == False:
+        player.preloadImages()
+
+    if player2.getImagesPreloaded() == False:
+        player2.preloadImages()
+
     player.update()
     player2.update()
 

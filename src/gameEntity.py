@@ -81,3 +81,8 @@ class GameEntity(object):
 
     def checkHitmask(self, other):
         return self.hitmask.collides_with(other.attackmask)
+
+    def cacheCurrentMasks(self):
+        self.collider.cache_collission_image()
+        self.hitmask.cache_collission_image()
+        self.attackmask.cache_collission_image()

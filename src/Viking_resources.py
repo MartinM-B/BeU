@@ -1,6 +1,6 @@
 __author__ = 'SARAH'
 import pyglet
-pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue', '../resources/sounds','../resources/Viking']
+pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue', '../resources/sounds','../resources/Viking/halfsize']
 pyglet.resource.reindex()
 
 from pyglet.media.riff import *
@@ -44,9 +44,6 @@ LowBlockRight = pyglet.resource.image("Viking_lowblock_right.png")
 JumpLeft = pyglet.resource.image("Viking_jump_left.png")
 JumpRight = pyglet.resource.image("Viking_jump_right.png")
 
-
-#TODO add masks
-"""
 BlockLeftMask = pyglet.resource.image("Viking_block_left_mask.png")
 BlockRightMask = pyglet.resource.image("Viking_block_right_mask.png")
 
@@ -63,7 +60,29 @@ LowPunchRightMask = pyglet.resource.image("Viking_lowpunch_right_mask.png")
 LowKickLeftMask = pyglet.resource.image("Viking_lowkick_left_mask.png")
 LowKickRightMask = pyglet.resource.image("Viking_lowkick_right_mask.png")
 
-"""
+SpezialLeft1 = pyglet.resource.image("Viking_special_left_1.png")
+SpezialLeft2 = pyglet.resource.image("Viking_special_left_2.png")
+SpezialLeft3 = pyglet.resource.image("Viking_special_left_3.png")
+SpezialLeft4 = pyglet.resource.image("Viking_special_left_4.png")
+SpezialLeft5 = pyglet.resource.image("Viking_special_left_5.png")
+SpezialLeft6 = pyglet.resource.image("Viking_special_left_6.png")
+
+SpezialRight1 = pyglet.resource.image("Viking_special_right_1.png")
+SpezialRight2 = pyglet.resource.image("Viking_special_right_2.png")
+SpezialRight3 = pyglet.resource.image("Viking_special_right_3.png")
+SpezialRight4 = pyglet.resource.image("Viking_special_right_4.png")
+SpezialRight5 = pyglet.resource.image("Viking_special_right_5.png")
+SpezialRight6 = pyglet.resource.image("Viking_special_right_6.png")
+
+SpezialLeftMask1 = pyglet.resource.image("Viking_special_left_2_mask.png")
+SpezialLeftMask2 = pyglet.resource.image("Viking_special_left_3_mask.png")
+SpezialLeftMask3 = pyglet.resource.image("Viking_special_left_4_mask.png")
+SpezialLeftMask4 = pyglet.resource.image("Viking_special_left_5_mask.png")
+
+SpezialRightMask1 = pyglet.resource.image("Viking_special_right_2_mask.png")
+SpezialRightMask2 = pyglet.resource.image("Viking_special_right_3_mask.png")
+SpezialRightMask3 = pyglet.resource.image("Viking_special_right_4_mask.png")
+SpezialRightMask4 = pyglet.resource.image("Viking_special_right_5_mask.png")
 
 JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
 PunchSound = pyglet.resource.media('punch.wav', streaming=False)
@@ -71,7 +90,6 @@ StepSound = pyglet.resource.media('step.wav', streaming=False)
 KickSound = pyglet.resource.media('kick.wav', streaming=False)
 BlockSound = pyglet.resource.media('block.wav', streaming=False)
 DuckSound = pyglet.resource.media('duck.wav', streaming=False)
-
 
 def center_image(image):
     """Sets an image's anchor point to its center"""

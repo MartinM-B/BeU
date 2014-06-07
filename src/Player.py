@@ -4,7 +4,8 @@ import resources
 from Enum import *
 
 ActionState = Enum('ActionState', Idle=0, Attacking=1, Blocking=2, Hit=3)
-ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4, Block=5, LowBlock=6, Hit=7)
+ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4,
+                  Block=5, LowBlock=6, Hit=7, SpecialAttack=8)
 MovementState = Enum('MovementState', Standing=0, Dancing=1, Moving=2)
 MovementSpeed = Enum('MovementSpeed', Slow=0, Fast=1)
 JumpState = Enum('MovementState', NotJumping=0, Jumping=1)
@@ -28,6 +29,7 @@ class Player(GameEntity):
     jumpTimer = 0
     duckTimer = 0
     fastMoveTimer = 0
+    imagesPreloaded = False
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=resources.block, x=0, y=0, batch=batch, group=group)
@@ -105,6 +107,18 @@ class Player(GameEntity):
             self.actionTimer = 5
             self.punchSound.play()
 
+    def useSpecialAttack(self):
+        if checkEnumValueEquals(self.actionState, ActionState.Idle):
+            self.actionState = ActionState.Attacking
+            self.actionType = ActionType.SpecialAttack
+            #if checkEnumValueEquals(self.duckState, DuckState.Ducking):
+            #    self.changeToSpecialAttackAnimation()
+            #elif checkEnumValueEquals(self.duckState, DuckState.NotDucking):
+            #   self.changeToPunchAnimation()
+            self.changeToSpecialAttackAnimation()
+            self.actionTimer = 10
+            self.punchSound.play()
+
     def startBlocking(self):
         if checkEnumValueEquals(self.actionState, ActionState.Idle):
             self.actionState = ActionState.Blocking
@@ -145,16 +159,19 @@ class Player(GameEntity):
 
     def handlePlayerHit(self, direction):
         if checkEnumValueNotEquals(self.actionState, ActionState.Hit):
+            self.handleHitDamage()
             self.actionState = ActionState.Hit
             self.actionType = ActionType.Hit
             self.actionTimer = 5
             self.lookDirection = direction
-            self.handleHitDamage()
             self.changeToHitAnimation(direction)
 
     def handleHitDamage(self):
         if self.health > 0:
-            self.health -= 5
+            if checkEnumValueEquals(self.actionState, ActionType.SpecialAttack):
+                self.health -= 15
+            else:
+                self.health -= 5
         if self.health <= 0:
             print "ChibiUsa loses"
             #TODO do sth. when losing??
@@ -209,6 +226,10 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
         self.changeAttackMaskBasedOnDirection(self.lowKickLeftMask, self.lowKickRightMask)
 
+    def changeToSpecialAttackAnimation(self):
+        self.changeSpriteBasedOnDirection(self.specialAnimationRight, self.specialAnimationLeft)
+        self.changeAttackMaskBasedOnDirection(self.specialAnimationLeftMask, self.specialAnimationRightMask)
+
     def changeToBlockAnimation(self):
         print "change to block with mask"
         self.changeSpriteBasedOnDirectionWithMask(self.blockLeft, self.blockLeftMask, self.blockRight, self.blockRightMask)
@@ -237,6 +258,45 @@ class Player(GameEntity):
             self.changeAttackmaskImage(leftRes)
         elif checkEnumValueEquals(self.lookDirection, Direction.Right):
             self.changeAttackmaskImage(rightRes)
+
+    def getImagesPreloaded(self):
+        return self.imagesPreloaded
+
+    def preloadImages(self):
+        self.changeToSpecialAttackAnimation()
+        self.cacheCurrentMasks()
+        self.changeToHitAnimation(self.lookDirection)
+        self.cacheCurrentMasks()
+        self.changeToBlockAnimation()
+        self.cacheCurrentMasks()
+        self.changeToDuckAnimation()
+        self.cacheCurrentMasks()
+        self.changeToLowBlockAnimation()
+        self.cacheCurrentMasks()
+        self.changeToLowKickAnimation()
+        self.cacheCurrentMasks()
+        self.changeToJumpAnimation()
+        self.cacheCurrentMasks()
+        self.changeToIdleAnimation()
+        self.cacheCurrentMasks()
+        self.lookDirection = Direction.Right
+        self.changeToSpecialAttackAnimation()
+        self.cacheCurrentMasks()
+        self.changeToHitAnimation(self.lookDirection)
+        self.cacheCurrentMasks()
+        self.changeToBlockAnimation()
+        self.cacheCurrentMasks()
+        self.changeToDuckAnimation()
+        self.cacheCurrentMasks()
+        self.changeToLowBlockAnimation()
+        self.cacheCurrentMasks()
+        self.changeToLowKickAnimation()
+        self.cacheCurrentMasks()
+        self.changeToJumpAnimation()
+        self.cacheCurrentMasks()
+        self.changeToIdleAnimation()
+        self.cacheCurrentMasks()
+        self.imagesPreloaded = True
 
     def update(self):
         if checkEnumValueEquals(self.movementState, MovementState.Moving):

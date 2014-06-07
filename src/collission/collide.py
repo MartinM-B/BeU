@@ -50,6 +50,21 @@ class SpriteCollision:
         def __init__(self, sprite):
                 self.s = sprite
 
+        def cache_images(self):
+                # if this is an animated sprite, grab the current frame
+                if self.s._animation:
+                        for frame in self.s._animation.frames:
+                                i = frame.image
+                                if i not in image_data_cache:
+                                        d = i.get_image_data().get_data('A', i.width)
+                                        image_data_cache[i] = d
+                # otherwise just grab the image
+                else:
+                        i = self.s._texture
+                        if i not in image_data_cache:
+                                d = i.get_image_data().get_data('A', i.width)
+                                image_data_cache[i] = d
+
         def get_image(self):
                 '''Returns the (potentially cached) image data for the sprite'''
 

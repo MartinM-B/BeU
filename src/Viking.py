@@ -42,8 +42,6 @@ class Viking(Player):
     jumpLeft = Viking_resources.JumpLeft
     jumpRight = Viking_resources.JumpRight
 
-    #TODO add masks
-    """
     blockLeftMask = Viking_resources.BlockLeftMask
     blockRightMask = Viking_resources.BlockRightMask
 
@@ -59,10 +57,25 @@ class Viking(Player):
     lowPunchRightMask = Viking_resources.LowPunchRightMask
     lowKickLeftMask = Viking_resources.LowKickLeftMask
     lowKickRightMask = Viking_resources.LowKickRightMask
-    """
 
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([Viking_resources.Left1, Viking_resources.Right1], 0.5, True)
+
+    specialAnimationLeft = pyglet.image.Animation.from_image_sequence\
+    ([Viking_resources.SpezialLeft1, Viking_resources.SpezialLeft2, Viking_resources.SpezialLeft3,
+      Viking_resources.SpezialLeft4, Viking_resources.SpezialLeft5, Viking_resources.SpezialLeft6], 0.1, True)
+
+    specialAnimationRight = pyglet.image.Animation.from_image_sequence\
+    ([Viking_resources.SpezialRight1, Viking_resources.SpezialRight2, Viking_resources.SpezialRight3,
+      Viking_resources.SpezialRight4, Viking_resources.SpezialRight5, Viking_resources.SpezialRight6], 0.1, True)
+
+    specialAnimationLeftMask = pyglet.image.Animation.from_image_sequence\
+    ([Viking_resources.SpezialLeft1, Viking_resources.SpezialLeftMask1, Viking_resources.SpezialLeftMask2,
+      Viking_resources.SpezialLeftMask3, Viking_resources.SpezialLeftMask4, Viking_resources.SpezialLeftMask4], 0.1, True)
+
+    specialAnimationRightMask = pyglet.image.Animation.from_image_sequence\
+    ([Viking_resources.SpezialRight1, Viking_resources.SpezialRightMask1, Viking_resources.SpezialRightMask2,
+      Viking_resources.SpezialRightMask3, Viking_resources.SpezialRightMask4, Viking_resources.SpezialRightMask4], 0.1, True)
 
     jumpSound = Viking_resources.JumpSound
     punchSound = Viking_resources.PunchSound

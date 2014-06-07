@@ -27,3 +27,11 @@ class PlayerOneKeyboardInputHandler(PlayerInputHandler):
 
     def checkDance(self, symbol):
         return key.I == symbol
+
+    def checkSpecialAttack(self, symbols):
+        length = len(symbols)
+        if(length < 3):
+            return False
+        if(symbols[length - 1] == key.K and symbols[length - 2] == key.J and symbols[length - 3] == key.K):
+            return True
+        return False

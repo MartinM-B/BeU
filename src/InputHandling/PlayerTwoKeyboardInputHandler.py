@@ -30,8 +30,8 @@ class PlayerTwoKeyboardInputHandler(PlayerInputHandler):
 
     def checkSpecialAttack(self, symbols):
         length = len(symbols)
-        if(length < 3):
+        if(length < 4):
             return False
-        if(symbols[length - 1] == key.F and symbols[length - 2] == key.G and symbols[length - 3] == key.F):
+        if(self.checkJump(symbols[length - 1]) and self.checkKick(symbols[length - 2]) and self.checkPunch(symbols[length - 3]) and self.checkKick(symbols[length - 4])):
             return True
         return False

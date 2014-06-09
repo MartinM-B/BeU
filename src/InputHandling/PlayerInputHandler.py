@@ -3,11 +3,13 @@ __author__ = 'win8'
 from InputHandler import InputHandler
 from src.Player import *
 from abc import ABCMeta, abstractmethod
+import datetime
 
 class PlayerInputHandler(InputHandler):
     def __init__(self, player):
         self.player = player
         self.symbollist = []
+        self.lastTime = datetime.datetime.now()
 
     @abstractmethod
     def checkWalkLeft(self, symbol):
@@ -40,10 +42,17 @@ class PlayerInputHandler(InputHandler):
 
     def handleKeyPress(self, symbol, modifiers):
         print symbol
+
+        if (datetime.datetime.now() - self.lastTime).seconds > 2:
+            self.symbollist = []
+
+        self.lastTime = datetime.datetime.now()
+
         self.symbollist.append(symbol)
 
         if self.checkSpecialAttack(self.symbollist):
             self.player.useSpecialAttack()
+            self.symbollist = []
             return
 
         if self.checkWalkLeft(symbol):

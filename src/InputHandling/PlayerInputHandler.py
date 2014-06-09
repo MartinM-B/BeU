@@ -43,7 +43,7 @@ class PlayerInputHandler(InputHandler):
     def handleKeyPress(self, symbol, modifiers):
         print symbol
 
-        if (datetime.datetime.now() - self.lastTime).seconds > 2:
+        if (datetime.datetime.now() - self.lastTime).microseconds / 1000 > 750:
             self.symbollist = []
 
         self.lastTime = datetime.datetime.now()

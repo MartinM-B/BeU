@@ -230,6 +230,9 @@ class Player(GameEntity):
         self.changeAttackMaskBasedOnDirection(self.lowKickLeftMask, self.lowKickRightMask)
 
     def changeToSpecialAttackAnimation(self):
+        # needed because special attacks are bigger than normal one and would be async otherwise
+        if checkEnumValueEquals(self.lookDirection, Direction.Left) and self.imagesPreloaded:
+            self.moveX(-self.specialAnimationLeft.frames[0].image.width/2)
         self.changeSpriteBasedOnDirection(self.specialAnimationRight, self.specialAnimationLeft)
         self.changeAttackMaskBasedOnDirection(self.specialAnimationLeftMask, self.specialAnimationRightMask)
 
@@ -343,6 +346,9 @@ class Player(GameEntity):
         if self.actionTimer > 0:
             self.actionTimer -= 1
         elif self.actionTimer == 0:
+            # temporary fix for issue with special attack on the left side
+            if checkEnumValueEquals(self.lookDirection, Direction.Left) and checkEnumValueEquals(self.actionType, ActionType.SpecialAttack) and self.imagesPreloaded:
+                self.moveX(self.specialAnimationLeft.frames[0].image.width/2)
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
             if checkEnumValueEquals(self.duckState, DuckState.Ducking):

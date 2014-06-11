@@ -7,6 +7,7 @@ from Player import *
 from ChibiUsa import *
 from ChibiUsa_blue import *
 from Viking import *
+from Symbiont import *
 from InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
 from InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInputHandler
 from InputHandling.PlayerOneArcadeControllerInputHandler import PlayerOneArcadeControllerInputHandler
@@ -43,13 +44,14 @@ foreground = pyglet.graphics.OrderedGroup(1)
 #TODO resize Viking (downscale)
 player = Viking(batch, foreground)
 player.preloadImages()
-player2 = Viking(batch, foreground)
+player2 = Symbiont(batch, foreground)
+#player2 = Viking(batch, foreground)
 player.preloadImages()
 
 imagesLoaded = False
 
 #player2 = ChibiUsa_blue(batch, foreground)
-player2.moveX(window.width / 2)
+#player2.moveX(window.width / 2)
 
 healthbar = HealthBar(batch, 50, 400, 200, 50)
 healthbar2 = HealthBar(batch, 380, 400, 200, 50)

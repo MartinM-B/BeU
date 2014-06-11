@@ -86,3 +86,9 @@ class Viking(Player):
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=Viking_resources.Left1, x=0, y=0, batch=batch, group=group)
+
+    def adaptSpecialAttackPosition(self):
+        self.moveX(-self.specialAnimationLeft.frames[0].image.width/2)
+
+    def adaptSpecialAttackPositionBack(self):
+        self.moveX(self.specialAnimationLeft.frames[0].image.width/2)

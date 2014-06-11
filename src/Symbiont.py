@@ -61,19 +61,17 @@ class Symbiont(Player):
     danceAnimation = pyglet.image.Animation.from_image_sequence\
     ([Symbiont_resources.Left1, Symbiont_resources.Right1], 0.5, True)
 
-    #TODO David fix special
+    specialAnimationRight = pyglet.image.Animation.from_image_sequence\
+    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeft2], 0.2, True)
 
     specialAnimationLeft = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeft2], 0.1, True)
-
-    specialAnimationRight = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRight2], 0.1, True)
-
-    specialAnimationLeftMask = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeftMask2], 0.1, True)
+    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRight2], 0.2, True)
 
     specialAnimationRightMask = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRightMask2], 0.1, True)
+    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeftMask2], 0.2, True)
+
+    specialAnimationLeftMask = pyglet.image.Animation.from_image_sequence\
+    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRightMask2], 0.2, True)
 
     jumpSound = Symbiont_resources.JumpSound
     punchSound = Symbiont_resources.PunchSound
@@ -84,3 +82,9 @@ class Symbiont(Player):
 
     def __init__(self, batch, group):
         super(Player, self).__init__(image=Symbiont_resources.Left1, x=0, y=0, batch=batch, group=group)
+
+    def adaptSpecialAttackPosition(self):
+        return;
+
+    def adaptSpecialAttackPositionBack(self):
+        return;

@@ -2,6 +2,7 @@ __author__ = 'david_000'
 from gameEntity import *
 import resources
 from Enum import *
+from abc import ABCMeta, abstractmethod
 
 ActionState = Enum('ActionState', Idle=0, Attacking=1, Blocking=2, Hit=3)
 ActionType = Enum('ActionType', Idle=0, Punch=1, Kick=2, LowPunch=3, LowKick=4,
@@ -229,10 +230,18 @@ class Player(GameEntity):
         self.changeSpriteBasedOnDirection(self.lowKickLeft, self.lowKickRight)
         self.changeAttackMaskBasedOnDirection(self.lowKickLeftMask, self.lowKickRightMask)
 
+    @abstractmethod
+    def adaptSpecialAttackPosition(self):
+        pass
+
+    @abstractmethod
+    def adaptSpecialAttackPositionBack(self):
+        pass
+
     def changeToSpecialAttackAnimation(self):
         # needed because special attacks are bigger than normal one and would be async otherwise
         if checkEnumValueEquals(self.lookDirection, Direction.Left) and self.imagesPreloaded:
-            self.moveX(-self.specialAnimationLeft.frames[0].image.width/2)
+            self.adaptSpecialAttackPosition()
         self.changeSpriteBasedOnDirection(self.specialAnimationRight, self.specialAnimationLeft)
         self.changeAttackMaskBasedOnDirection(self.specialAnimationLeftMask, self.specialAnimationRightMask)
 
@@ -348,7 +357,7 @@ class Player(GameEntity):
         elif self.actionTimer == 0:
             # temporary fix for issue with special attack on the left side
             if checkEnumValueEquals(self.lookDirection, Direction.Left) and checkEnumValueEquals(self.actionType, ActionType.SpecialAttack) and self.imagesPreloaded:
-                self.moveX(self.specialAnimationLeft.frames[0].image.width/2)
+                self.adaptSpecialAttackPositionBack()
             self.actionState = ActionState.Idle
             self.actionType = ActionType.Idle
             if checkEnumValueEquals(self.duckState, DuckState.Ducking):

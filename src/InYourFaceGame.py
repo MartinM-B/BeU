@@ -46,7 +46,7 @@ player = Viking(batch, foreground)
 player.preloadImages()
 player2 = Symbiont(batch, foreground)
 #player2 = Viking(batch, foreground)
-player.preloadImages()
+player2.preloadImages()
 
 imagesLoaded = False
 

@@ -43,11 +43,11 @@ class RoundCounter(object):
         self._label_player_win = pyglet.text.Label("1:1", font_name='Times New Roman', font_size=45, x=60, y=60, anchor_x='center', anchor_y='center')
 
     def update(self):
-        if self._player1.health == 0:
+        if self._player1.health <= 0:
             self._rounds2 += 1
             self.reset_players()
 
-        if self._player2.health == 0:
+        if self._player2.health <= 0:
             self._rounds1 += 1
             self.reset_players()
 

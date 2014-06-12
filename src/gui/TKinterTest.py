@@ -40,13 +40,13 @@ class App:
             )
         self.button.pack(side=LEFT)
 
-        self.hi_there = Button(frame, text="Hello", command=self.say_hi)
+        self.hi_there = Button(frame, text="Hello", command=self.sayHi)
         self.hi_there.pack(side=LEFT)
 
         self.execute_button = Button(frame, text="Execute", command=self.execute)
         self.execute_button.pack(side=LEFT)
 
-    def say_hi(self):
+    def sayHi(self):
         print "hi there, everyone!"
 
     def execute(self):

@@ -8,7 +8,7 @@ class State(object):
 
     __metaclass__ = ABCMeta
 
-    def __init__(self):
+    def __init__(self, aBatch, aGroup):
         self._active = False
 
     @abstractmethod

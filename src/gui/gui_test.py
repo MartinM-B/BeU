@@ -19,6 +19,7 @@ window = pyglet.window.Window(caption="collision", visible=False, fullscreen=Fal
 # create the render structures
 batch = pyglet.graphics.Batch()
 background = pyglet.graphics.OrderedGroup(0)
+foreground = pyglet.graphics.OrderedGroup(1)
 layout = PyLayouter(window)
 
 button1_res = gui_resources.box
@@ -27,8 +28,8 @@ point1 = PyPoint(100, 100)
 point2 = PyPoint(350, 350)
 listener = PyListener()
 
-button1 = PyButton("button1", listener, point1, batch, button1_res, background)
-button2 = PyButton("button1", listener, point2, batch, button2_res, background)
+button1 = PyButton("button1", listener, point1, batch, button1_res, foreground)
+button2 = PyButton("button1", listener, point2, batch, button2_res, foreground)
 
 layout.addButton(button1)
 layout.addButton(button2)
@@ -44,6 +45,7 @@ def on_draw():
         # draw our background and blocks
         batch.draw()
 
+glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()
 window.flip()
 

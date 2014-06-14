@@ -30,8 +30,8 @@ class PyRectangle(object):
         else:
             gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_LINE)
 
-        # graphics.draw(4, graphics.GL_QUADS,
-        #               ('v2i', (self.p1.x, self.p1.y,
+        # self.batch.add(4, graphics.GL_QUADS,
+        # ('v2i', (self.p1.x, self.p1.y,
         #                        self.p1.x + self.w, self.p1.y,
         #                        self.p1.x + self.w, self.p1.y + self.h,
         #                        self.p1.x, self.p1.y + self.h)),
@@ -40,16 +40,13 @@ class PyRectangle(object):
         #                        color3.r, color3.g, color3.b,
         #                        color4.r, color4.g, color4.b)))
 
-        self.batch.add(4, graphics.GL_QUADS,
-                      ('v2i', (self.p1.x, self.p1.y,
-                               self.p1.x + self.w, self.p1.y,
-                               self.p1.x + self.w, self.p1.y + self.h,
-                               self.p1.x, self.p1.y + self.h)),
-                      ('c3B', (color1.r, color1.g, color1.b,
-                               color2.r, color2.g, color2.b,
-                               color3.r, color3.g, color3.b,
-                               color4.r, color4.g, color4.b)))
+        self.batch.add(4, gl.GL_QUADS, None,
+                       ('v2i', [self.p1.x, self.p1.y,
+                                self.p1.x + self.w, self.p1.y,
+                                self.p1.x + self.w, self.p1.y + self.h,
+                                self.p1.x, self.p1.y + self.h]),
+                       ('c4B', [color1.r, color1.g, color1.b, 255] * 4))
 
     def changeColor(self, c1):
         print 'change color'
-        self.drawRect(0, c1), c1, c1, c1;
+        self.drawRect(0, c1, c1, c1, c1);

@@ -84,7 +84,7 @@ class Symbiont(Player):
         super(Player, self).__init__(image=Symbiont_resources.Left1, x=0, y=0, batch=batch, group=group)
 
     def adaptSpecialAttackPosition(self):
-        return;
+        return
 
     def adaptSpecialAttackPositionBack(self):
-        return;
+        return

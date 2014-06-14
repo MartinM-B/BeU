@@ -1,12 +1,11 @@
-from src import gui_resources
+from src.gui import gui_resources
 
 __author__ = 'florian'
-import pyglet
 from src.gui.PyLayouter import *
-from src.gui_resources import *
+from src.gui.gui_resources import *
 from src.gui.PyPoint import *
 from src.gui.PyClickListener import *
-from src import gui_resources
+from gui_resources import *
 from pyglet.gl import *
 
 
@@ -15,7 +14,7 @@ class PyListener(PyClickListener):
     def onClick(self, anID):
         print "" + anID + "was clicked"
 
-window = pyglet.window.Window(caption="collision", visible=False, fullscreen=True) #60x480
+window = pyglet.window.Window(caption="collision", visible=False, fullscreen=False) #60x480
 
 # create the render structures
 batch = pyglet.graphics.Batch()

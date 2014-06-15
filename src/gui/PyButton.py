@@ -19,7 +19,11 @@ class PyButton(object):
     def onClick(self):
         self.listener.onClick(self.id)
 
-    def setActive(self):
-        self.active = True
-        red = PyColor(255, 0, 0)
-        self.rectangle.changeColor()
+    def setActive(self, active):
+        self.active = active
+        if active:
+            red = PyColor(255, 0, 0)
+            self.rectangle.changeColor(red)
+        elif not active:
+            black = PyColor(0, 0, 0)
+            self.rectangle.changeColor(black)

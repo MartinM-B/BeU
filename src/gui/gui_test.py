@@ -12,9 +12,9 @@ from pyglet.gl import *
 class PyListener(PyClickListener):
 
     def onClick(self, anID):
-        print "" + anID + "was clicked"
+        print "" + anID + " was clicked"
 
-window = pyglet.window.Window(caption="collision", visible=False, fullscreen=False) #60x480
+window = pyglet.window.Window(caption="gui_test", visible=False, fullscreen=False) #60x480
 
 # create the render structures
 batch = pyglet.graphics.Batch()
@@ -24,15 +24,23 @@ layout = PyLayouter(window)
 
 button1_res = gui_resources.box
 button2_res = gui_resources.box
-point1 = PyPoint(100, 100)
-point2 = PyPoint(350, 350)
+point1 = PyPoint(50, 50)
+point2 = PyPoint(50, 180)
+point3 = PyPoint(50, 310)
+
 listener = PyListener()
 
 button1 = PyButton("button1", listener, point1, batch, button1_res, foreground)
-button2 = PyButton("button1", listener, point2, batch, button2_res, foreground)
+button2 = PyButton("button2", listener, point2, batch, button2_res, foreground)
+button3 = PyButton("button3", listener, point3, batch, button2_res, foreground)
+# sprite.Sprite(button1_res, point1.x, point1.y, batch=batch, group=foreground)
+# pyglet.sprite.Sprite(button1_res, batch=batch)
+
+button1.setActive(True)
 
 layout.addButton(button1)
 layout.addButton(button2)
+layout.addButton(button3)
 
 @window.event
 def on_draw():
@@ -45,6 +53,14 @@ def on_draw():
         # draw our background and blocks
         batch.draw()
 
+@window.event()
+def on_key_press(symbol, modifiers):
+    layout.handleKeyPress(symbol, modifiers)
+
+@window.event()
+def on_key_release(symbol, modifiers):
+    layout.handleKeyRelease(symbol, modifiers)
+
 glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()
 window.flip()
@@ -56,15 +72,7 @@ window.set_visible(True)
 pyglet.app.run()
 
 
-@window.event()
-def on_key_press(symbol, modifiers):
-    print "a key was pressed"
-    layout.handleKeyPress(symbol, modifiers)
 
-@window.event()
-def on_key_release(symbol, modifiers):
-    print "a key was released"
-    layout.handleKeyRelease(symbol, modifiers)
 
 
 

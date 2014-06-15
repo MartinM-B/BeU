@@ -18,26 +18,23 @@ class PyLayouter(InputHandler):
         self.buttons.append(button)
 
     def handleKeyPress(self, symbol, modifiers):
-        print 'key pressed'
         if symbol == key.DOWN:
-            temp = 0
             for b in self.buttons:
                 if b.active:
-                    if temp + 1 < len(self.buttons):
-                        b.active = False
-                        self.buttons[temp + 1].active = True
-                elif not b.active:
-                    temp += 1
+                    temp = self.buttons.index(b)
+                    if temp - 1 >= 0:
+                        b.setActive(False)
+                        self.buttons[temp - 1].setActive(True)
+                        break
 
         if symbol == key.UP:
-            temp = 0
             for b in self.buttons:
                 if b.active:
-                    if temp - 1 >= 0:
-                        b.active = False
-                        self.buttons[temp - 1].active = True
-                elif not b.active:
-                    temp -= 1
+                    temp = self.buttons.index(b)
+                    if temp + 1 < len(self.buttons):
+                        b.setActive(False)
+                        self.buttons[temp + 1].setActive(True)
+                        break
 
         #TODO: find the right key
         if symbol == key.ENTER:
@@ -46,4 +43,4 @@ class PyLayouter(InputHandler):
                     b.onClick()
 
     def handleKeyRelease(self, symbol, modifiers):
-        print 'key released'
+        print ''

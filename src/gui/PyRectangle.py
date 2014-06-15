@@ -26,7 +26,7 @@ class PyRectangle(object):
             color4 = PyColor(0, 0, 0)
 
         if mode != 0:
-            gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_Fill)
+            gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL)
         else:
             gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_LINE)
 
@@ -48,5 +48,4 @@ class PyRectangle(object):
                        ('c4B', [color1.r, color1.g, color1.b, 255] * 4))
 
     def changeColor(self, c1):
-        print 'change color'
         self.drawRect(0, c1, c1, c1, c1);

@@ -24,17 +24,23 @@ layout = PyLayouter(window)
 
 button1_res = gui_resources.box
 button2_res = gui_resources.box
+button1_resActive = gui_resources.box_selected
+button2_resActive = gui_resources.box_selected
+test_res = gui_resources.win
 point1 = PyPoint(50, 50)
 point2 = PyPoint(50, 180)
 point3 = PyPoint(50, 310)
 
+
 listener = PyListener()
 
-button1 = PyButton("button1", listener, point1, batch, button1_res, foreground)
-button2 = PyButton("button2", listener, point2, batch, button2_res, foreground)
-button3 = PyButton("button3", listener, point3, batch, button2_res, foreground)
+button1 = PyButton("button1", listener, point1, batch, button1_res, button1_resActive, foreground)
+button2 = PyButton("button2", listener, point2, batch, button2_res, button1_resActive, foreground)
+button3 = PyButton("button3", listener, point3, batch, button2_res, button1_resActive, foreground)
 # sprite.Sprite(button1_res, point1.x, point1.y, batch=batch, group=foreground)
 # pyglet.sprite.Sprite(button1_res, batch=batch)
+
+buttonTest = pyglet.sprite.Sprite(test_res, x=400, y=100, batch=batch)
 
 button1.setActive(True)
 
@@ -52,6 +58,9 @@ def on_draw():
 
         # draw our background and blocks
         batch.draw()
+        buttonTest.draw()
+
+
 
 @window.event()
 def on_key_press(symbol, modifiers):

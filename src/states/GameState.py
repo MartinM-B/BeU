@@ -39,8 +39,8 @@ class GameState(State):
 
         #roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
-        playerOneInputController = PlayerOneKeyboardInputHandler(player)
-        playerTwoInputController = PlayerTwoKeyboardInputHandler(player2)
+        playerOneInputController = PlayerOneKeyboardInputHandler(self.player)
+        playerTwoInputController = PlayerTwoKeyboardInputHandler(self.player2)
 
         pyglet.clock.schedule_interval(self.update, 1/30.0)
 

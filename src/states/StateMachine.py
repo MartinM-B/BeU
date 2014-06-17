@@ -55,11 +55,11 @@ class StateMachine(State, Receiver, InputHandler):
     def handleKeyPress(self, symbol, modifiers):
         for state in self.__states:
             if state.isActive:
-                state._layouter.handleKeyPress(symbol, modifiers)
+                state.handleKeyPress(symbol, modifiers)
 
     def handleKeyRelease(self, symbol, modifiers):
         for state in self.__states:
             if state.isActive:
-                state._layouter.handleKeyRelease(symbol, modifiers)
+                state.handleKeyRelease(symbol, modifiers)
 
 

@@ -14,3 +14,9 @@ class CharSelectState(State):
         if not self.isActive:
             self._active = True
         print "onEnter Charselect"
+
+    def handleKeyPress(self, symbol, modifiers):
+        pass
+
+    def handleKeyRelease(self, symbol, modifiers):
+        pass

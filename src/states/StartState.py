@@ -33,3 +33,11 @@ class StartState(State, PyClickListener):
         # this state is the listener for all the created buttons in this state
         # react to all the buttons in the onClick
         #self._layouter = PYLAYOUTER()
+
+    def handleKeyPress(self, symbol, modifiers):
+        print 'bla'
+        #self._layouter.handldeKeyPressed(symbol, modifiers)
+
+    def handleKeyRelease(self, symbol, modifiers):
+        print 'bla'
+        #self._layouter.handldeKeyReleased(symbol, modifiers)

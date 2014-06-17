@@ -1,3 +1,4 @@
+from src.InputHandling import InputHandler
 from src.gui.PyLayouter import PyLayouter
 
 __author__ = 'florian'
@@ -6,13 +7,17 @@ from abc import ABCMeta, abstractmethod
 """abstract state class """
 
 
-class State(object):
+class State(InputHandler):
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, aBatch, aGroup):
+    def __init__(self, aBatch, aBackground, aForeground, aWindow):
         self._active = False
         self._layouter = PyLayouter()
+        self._window = aWindow
+        self._batch = aBatch
+        self._background = aBackground
+        self._foreground = aForeground
 
     @abstractmethod
     def onEnter(self):
@@ -25,3 +30,9 @@ class State(object):
     @property
     def isActive(self):
         return self._active
+
+    def handleKeyPress(self, symbol, modifiers):
+        pass
+
+    def handleKeyRelease(self, symbol, modifiers):
+        pass

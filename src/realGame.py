@@ -4,7 +4,6 @@ from pyglet.gl import *
 from src.states.StateMachine import *
 from src.Messenger.PyMessage import *
 from src.Messenger.PyMessenger import *
-from Tkinter import *
 from src.timer.PyTimer import *
 
 pyglet.options['audio'] = ('openal')
@@ -45,6 +44,14 @@ def on_draw():
 def on_update():
     messenger.execute()
 
+
+
+glClearColor(1.0, 1.0, 1.0, 1.0)
+window.clear()
+window.flip()
+
+# make the window visible
+window.set_visible(True)
 
 # and finally, run the app...
 pyglet.app.run()

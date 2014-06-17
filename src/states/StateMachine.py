@@ -49,9 +49,10 @@ class StateMachine(State, Receiver, InputHandler):
             self._charSelectState.onEnter()
 
     def setNotActive(self):
-        for states in self.__states:
-            states.onExit()
-            states._active = False
+        for state in self.__states:
+            if state.isActive:
+                state.onExit()
+                state._active = False
 
     def handleKeyPress(self, symbol, modifiers):
         for state in self.__states:

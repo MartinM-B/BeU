@@ -23,7 +23,7 @@ class PyButton(object):
                                        y=self.point.y + 18,
                                        width=self.display_sprite.width, height=self.display_sprite.height,
                                        anchor_x='left',
-                                       anchor_y='center', color=(0, 0, 0, 255), batch=self.batch, align='right')
+                                       anchor_y='center', color=(0, 0, 0, 255), batch=self.batch, halign='right')
 
     def onClick(self):
         self.listener.onClick(self.id)

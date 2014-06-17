@@ -1,6 +1,5 @@
 __author__ = 'david_000'
 from gameEntity import *
-import resources
 from Enum import *
 from abc import ABCMeta, abstractmethod
 
@@ -33,7 +32,7 @@ class Player(GameEntity):
     imagesPreloaded = False
 
     def __init__(self, batch, group):
-        super(Player, self).__init__(image=resources.block, x=0, y=0, batch=batch, group=group)
+        super(Player, self).__init__(x=0, y=0, batch=batch, group=group)
 
     def dance(self):
         self.stopMoving()

@@ -35,12 +35,12 @@ class GameState(State):
 
         #player2 = ChibiUsa_blue(batch, foreground)
         #player2.moveX(window.width / 2)
-        healthbarObject = healthbar.HealthBar(self._batch, self._window)
+        self.healthbarObject = healthbar.HealthBar(self._batch, self._window)
 
         #roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
-        playerOneInputController = PlayerOneKeyboardInputHandler(self.player)
-        playerTwoInputController = PlayerTwoKeyboardInputHandler(self.player2)
+        self.playerOneInputController = PlayerOneKeyboardInputHandler(self.player)
+        self.playerTwoInputController = PlayerTwoKeyboardInputHandler(self.player2)
 
         pyglet.clock.schedule_interval(self.update, 1/30.0)
 

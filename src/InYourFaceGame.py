@@ -1,25 +1,18 @@
 from pyglet.gl import *
-import resources
 
 from pyglet.window import key
 from Player import *
 
-from ChibiUsa import *
-from ChibiUsa_blue import *
 from Viking import *
 from Symbiont import *
 from InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
 from InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInputHandler
-from InputHandling.PlayerOneArcadeControllerInputHandler import PlayerOneArcadeControllerInputHandler
-from InputHandling.PlayerTwoArcadeControllerInputHandler import PlayerTwoArcadeControllerInputHandler
 
 from Enum import *
 
-from src.Healthbar import healthbar
-from src.RoundCounter.roundcounter import *
+from Healthbar import healthbar
+from RoundCounter.roundcounter import *
 from pyglet.gl import *
-
-import threading
 
 
 pyglet.options['audio'] = ('openal')
@@ -133,6 +126,7 @@ window.set_visible(True)
 
 # schedule our update function
 pyglet.clock.schedule_interval(update, 1/30.0)
+pyglet.clock.set_fps_limit(75)
 
 # and finally, run the app...
 pyglet.app.run()

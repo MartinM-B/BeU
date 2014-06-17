@@ -1,5 +1,5 @@
 __author__ = 'david_000'
-from src.collission.entityCollider import *
+from collission.entityCollider import *
 import pyglet
 
 

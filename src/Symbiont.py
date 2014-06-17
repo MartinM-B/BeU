@@ -1,6 +1,6 @@
 __author__ = 'SARAH'
 
-from src import Symbiont_resources
+import Symbiont_resources
 
 from Player import *
 

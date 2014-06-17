@@ -1,6 +1,6 @@
 __author__ = 'SARAH'
 
-from src import Viking_resources
+import Viking_resources
 
 from Player import *
 

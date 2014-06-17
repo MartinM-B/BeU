@@ -10,8 +10,8 @@ pyglet.options['audio'] = ('openal')
 pyglet.options['debug_gl'] = False
 
 # create a simple window
-window = pyglet.window.Window(caption="collision", visible=False)  # 60x480
-# glScalef(1.5, 1.5, 1.5)
+window = pyglet.window.Window(caption="collision", visible=False, fullscreen=True)  # 60x480
+glScalef(1.5, 1.5, 1.5)
 
 timer = PyTimer()
 timer.startTimer()

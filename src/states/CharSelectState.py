@@ -66,13 +66,13 @@ class CharSelectState(State, PyClickListener):
 
         #add background sprites
         backgroundImage = gui_resources.background
-        background1 = pyglet.sprite.Sprite(backgroundImage, x=0,  y=0, batch=self._batch, group=self._foreground)
+        background1 = pyglet.sprite.Sprite(backgroundImage, x=0,  y=0, batch=self._batch, group=self._background)
 
         chainImage = gui_resources.chain
-        chain1 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._foreground)
-        chain2 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._foreground)
-        chain3 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._foreground)
-        chain4 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._foreground)
+        chain1 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._background)
+        chain2 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._background)
+        chain3 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._background)
+        chain4 = pyglet.sprite.Sprite(chainImage, x=(self._window.width/1.5/2),  y=0, batch=self._batch, group=self._background)
 
         titleImage = gui_resources.title_big
         title = pyglet.sprite.Sprite(titleImage, x=(self._window.width/1.5/2),  y=(self._window.height/1.5/2), batch=self._batch, group=self._foreground)
@@ -80,22 +80,31 @@ class CharSelectState(State, PyClickListener):
 
         print 'init all the buttons'
         layouter = PyLayouter()
-        button_res = gui_resources.box
-        button_res_active = gui_resources.box_selected
-        point1 = PyPoint(50, 50)
-        point2 = PyPoint(50, 180)
-        point3 = PyPoint(50, 310)
-        self.Player1VikingButton = PyButton('player1Viking', self, point1, self._batch, button_res, button_res_active, self._foreground,
-                                'Credits')
-        self.Player1SymbiontButton = PyButton('player1Symbiont', self, point2, self._batch, button_res, button_res_active,
-                                  self._foreground, 'Settings')
+        layouter2 = PyLayouter()
+        button_res = gui_resources.character_small
+        button_res_active1 = gui_resources.character_small_selected1
+        button_res_active2 = gui_resources.character_small_selected2
+        point1 = PyPoint(0, 0)
+        point2 = PyPoint(100, 100)
+        point3 = PyPoint(200, 200)
+        point4 = PyPoint(300, 300)
+        self.Player1VikingButton = PyButton('player1Viking', self, point1, self._batch, button_res, button_res_active1, self._foreground,
+                                'Player1_Viking')
+        self.Player1SymbiontButton = PyButton('player1Symbiont', self, point2, self._batch, button_res, button_res_active1,
+                                  self._foreground, 'Player1_Symbiont')
 
-        self.Player2VikingButton = PyButton('player2Viking', self, point3, self._batch, button_res, button_res_active, self._foreground,
-                              'Fight')
+        self.Player2VikingButton = PyButton('player2Viking', self, point3, self._batch, button_res, button_res_active2, self._foreground,
+                              'Player2_Viking')
+        self.Player2SymbiontButton = PyButton('player2Symbiont', self, point4, self._batch, button_res, button_res_active2, self._foreground,
+                              'Player2_Symbiont')
+
         self.Player1VikingButton.setActive(True)
+
         layouter.addButton(self.Player1VikingButton)
         layouter.addButton(self.Player1SymbiontButton)
+
         layouter.addButton(self.Player2VikingButton)
+        layouter.addButton(self.Player2SymbiontButton)
 
         self._layouter = layouter
 
@@ -103,6 +112,7 @@ class CharSelectState(State, PyClickListener):
         self.Player1VikingButton.delete()
         self.Player1SymbiontButton.delete()
         self.Player2VikingButton.delete()
+        self.Player2SymbiontButton.delete()
 
     def handleKeyPress(self, symbol, modifiers):
         print 'startState press'

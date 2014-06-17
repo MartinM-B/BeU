@@ -8,7 +8,7 @@ from src.gui.PyPoint import PyPoint
 from src.states.StateEnum import States
 from State import *
 from src.gui.PyClickListener import *
-from src.Settings import *
+from src.settings import *
 from pyglet.gl import *
 
 class CharSelectState(State, PyClickListener):

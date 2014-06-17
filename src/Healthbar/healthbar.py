@@ -16,24 +16,20 @@ class HealthBar(object):
             playback controls for animated sprites '''
 
     def __init__(self, batch, window):
-        self._blend_src = pyglet.gl.GL_SRC_ALPHA
-        self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
-
+        #self._blend_src = pyglet.gl.GL_SRC_ALPHA
+        #self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
         self._color = (0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0, 255)
         self._batch = batch
-        self._health1 = 100
-        self._health2 = 100
+        self._health1 = 50
+        self._health2 = 50
 
-        self._winWidth = window.width
-        self._winHeight = window.height
+        self._winWidth = window.width/1.5
+        self._winHeight = window.height/1.5
 
         self.background(batch)
         self.timerPic(batch)
         self.set_bar1(batch)
         self.set_bar2(batch)
-
-        print "INIT"
-        print window.width
 
     def update(self):
         self.background(self._batch)
@@ -51,20 +47,13 @@ class HealthBar(object):
         self._background2 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.55, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
         self._background2.scale = scaling_factor
 
-        print "BACKGROUND"
-
-
     def timerPic(self, batch):
         img = gui_resources.timer
         scaling_factor = (self._winWidth*0.175)/img.width
         self._timer = pyglet.sprite.Sprite(img, self._winWidth*0.415, (self._winHeight*0.775), batch=batch, group=pyglet.graphics.OrderedGroup(1))
         self._timer.scale = scaling_factor
 
-        print "TIMERPIC"
-
-
     def set_bar1(self, batch):
-        print "SETBAR"
         bar_width = (self._background1.width*0.95) * (float(self._health1)/float(100))
         bar_height = self._background1.height*0.8
 
@@ -111,5 +100,6 @@ class HealthBar(object):
 
     def set_health2(self, health):
         self._health2 = health
-        self.set_bar1(self._batch)
+        print self._health2
+        self.set_bar2(self._batch)
 

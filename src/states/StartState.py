@@ -23,8 +23,8 @@ class StartState(State, PyClickListener):
             # self._messenger.send(settingsMessage)
         elif anID == 'fight':
             print 'do something'
-            gameMessage = PyMessage(self._type, States.Game)
-            self._messenger.send(gameMessage)
+            charMessage = PyMessage(self._type, States.CharSelect)
+            self._messenger.send(charMessage)
 
     def onExit(self):
         print 'onExit'

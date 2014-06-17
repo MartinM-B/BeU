@@ -1,3 +1,4 @@
+from src.gui.PyButton import PyButton
 from src.gui.PyLayouter import PyLayouter
 
 __author__ = 'florian'
@@ -27,6 +28,9 @@ class StartState(State, PyClickListener):
 
     def initalizeState(self):
         print 'init all the buttons'
+
+        layouter = PyLayouter()
+
         # make layouter
         # make all the buttons
         # add the buttons to the layouter

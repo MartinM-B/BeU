@@ -1,5 +1,7 @@
+from src.gui import gui_resources
 from src.gui.PyButton import PyButton
 from src.gui.PyLayouter import PyLayouter
+from src.gui.PyPoint import PyPoint
 
 __author__ = 'florian'
 
@@ -27,16 +29,20 @@ class StartState(State, PyClickListener):
         print "onEnter Start"
 
     def initalizeState(self):
-        print 'init all the buttons'
-
-        layouter = PyLayouter()
-
         # make layouter
         # make all the buttons
         # add the buttons to the layouter
         # this state is the listener for all the created buttons in this state
         # react to all the buttons in the onClick
         #self._layouter = PYLAYOUTER()
+        print 'init all the buttons'
+        layouter = PyLayouter()
+        creditButton_res = gui_resources.box
+        creditButton_res_active = gui_resources.box_selected
+        point1 = PyPoint(50, 50)
+        creditButton = PyButton('credits', self, point1, self._batch, creditButton_res, creditButton_res_active, self._foreground)
+
+
 
     def handleKeyPress(self, symbol, modifiers):
         print 'bla'

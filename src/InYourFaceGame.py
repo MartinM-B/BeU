@@ -45,7 +45,7 @@ imagesLoaded = False
 
 #player2 = ChibiUsa_blue(batch, foreground)
 #player2.moveX(window.width / 2)
-healthbarObject = healthbar.HealthBar(batch, window)
+healthbarObject = healthbar.HealthBar(batch, window, player, player2)
 
 #roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
@@ -108,14 +108,8 @@ def update(dt):
         print "Player2 Kollission"
         player.playerHit(checkEnumValueEquals(player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, player2)
 
-    update_rounds()
-
-
-def update_rounds():
-    healthbarObject.set_health1(player.health)
-    healthbarObject.set_health2(player2.health)
     healthbarObject.update()
-    #roundcounter.update()
+
 
 glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()

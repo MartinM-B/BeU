@@ -15,16 +15,27 @@ class HealthBar(object):
     ''' Sprite subclass providing advanced
             playback controls for animated sprites '''
 
-    def __init__(self, batch, window):
+    def __init__(self, batch, window, player1, player2):
         #self._blend_src = pyglet.gl.GL_SRC_ALPHA
         #self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
+
+        self._player1 = player1
+        self._player2 = player2
+
         self._color = (0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0, 255)
         self._batch = batch
-        self._health1 = 50
-        self._health2 = 50
 
         self._winWidth = window.width/1.5
         self._winHeight = window.height/1.5
+
+        self._vertex_list1 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1), ('v2f', (0, 0, 0, 0, 0, 0, 0, 0)),
+                      ('c3B', (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)))
+        self._vertex_list2 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1), ('v2f', (0, 0, 0, 0, 0, 0, 0, 0)),
+                      ('c3B', (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)))
+
+        self._rounds_to_win = 3
+        self._rounds1 = 0
+        self._rounds2 = 0
 
         self.background(batch)
         self.timerPic(batch)
@@ -33,10 +44,31 @@ class HealthBar(object):
 
 
     def update(self):
+        #self._vertex_list1.delete()
         self.background(self._batch)
         self.timerPic(self._batch)
         self.set_bar1()
         self.set_bar2()
+
+        if self._player1.health <= 0:
+            self._rounds2 += 1
+            self.reset_players()
+
+        if self._player2.health <= 0:
+            self._rounds1 += 1
+            self.reset_players()
+
+        if(self._rounds1 >= self._rounds_to_win):
+            self._game_over = 1
+        elif(self._rounds2 >= self._rounds_to_win):
+            self._game_over = 2
+
+
+    def reset_players(self):
+        self._player1.health = 100
+        self._player2.health = 100
+        self._player1.x = 30
+        self._player2.x = 300
 
 
     def background(self, batch):
@@ -47,6 +79,8 @@ class HealthBar(object):
         self._background2 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.55, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
         self._background2.scale = scaling_factor
 
+    def stars(self, batch):
+        star_img = gui_resources.win
 
     def timerPic(self, batch):
         img = gui_resources.timer
@@ -56,12 +90,12 @@ class HealthBar(object):
 
 
     def set_bar1(self):
-        bar_width = (self._background1.width*0.9) * (float(self._health1)/float(100))
+        bar_width = (self._background1.width*0.9) * (float(self._player1.health)/float(100))
         bar_height = self._background1.height*0.8
 
-        if self._health1 > 50:
+        if self._player1.health > 50:
             bar_color = (0, 205, 0, 0, 205, 0, 0, 205, 0, 0, 205, 0)
-        elif self._health1 > 25:
+        elif self._player1.health > 25:
             bar_color = (255, 185, 15, 255, 185, 15, 255, 185, 15, 255, 185, 15)
         else:
             bar_color = (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)
@@ -71,19 +105,25 @@ class HealthBar(object):
         x2 = self._background1.x + bar_width
         y2 = self._background1.y + bar_height
 
-        glPushMatrix()
-        pyglet.graphics.draw(4, gl.GL_QUADS, ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+        self._vertex_list1.delete()
+        self._vertex_list1 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
                       ('c3B', bar_color))
-        glPopMatrix()
+
+
+
+        #glPushMatrix()
+        #pyglet.graphics.draw(4, gl.GL_QUADS, ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+        #              ('c3B', bar_color))
+        #glPopMatrix()
 
 
     def set_bar2(self):
-        bar_width = (self._background1.width*0.85) * (float(self._health2)/float(100))
+        bar_width = (self._background1.width*0.85) * (float(self._player2.health)/float(100))
         bar_height = self._background1.height*0.8
 
-        if self._health2 > 50:
+        if self._player2.health > 50:
             bar_color = (0, 205, 0, 0, 205, 0, 0, 205, 0, 0, 205, 0)
-        elif self._health2 > 25:
+        elif self._player2.health > 25:
             bar_color = (255, 185, 15, 255, 185, 15, 255, 185, 15, 255, 185, 15)
         else:
             bar_color = (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)
@@ -93,20 +133,18 @@ class HealthBar(object):
         x1 = (self._winWidth*0.5)+ self._background1.x + self._background1.width*0.95 - bar_width
         y1 = self._background1.y + bar_height
 
-        glPushMatrix()
-        pyglet.graphics.draw(4, gl.GL_QUADS, ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
-                      ('c3B', bar_color))
-        glPopMatrix()
+        self._vertex_list2.delete()
+        self._vertex_list2 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+          ('c3B', bar_color))
+
 
     def draw(self):
         self.set_bar1()
         self.set_bar2()
 
-    def set_health1(self, health):
-        self._health1 = health
 
-    def set_health2(self, health):
-        self._health2 = health
+
+
 
 
 

@@ -35,7 +35,7 @@ class GameState(State):
 
         #player2 = ChibiUsa_blue(batch, foreground)
         #player2.moveX(window.width / 2)
-        self.healthbarObject = healthbar.HealthBar(self._batch, self._window)
+        self.healthbarObject = healthbar.HealthBar(self._batch, self._window, self.player, self.player2)
 
         #roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
@@ -66,7 +66,7 @@ class GameState(State):
 
         self.player.update()
         self.player2.update()
-        #healthbarObject.update()
+
 
         if checkEnumValueEquals(self.player.actionState, ActionState.Attacking) and self.player.checkCollision(self.player2):
             print "Player Kollission"
@@ -76,10 +76,4 @@ class GameState(State):
             print "Player2 Kollission"
             self.player.playerHit(checkEnumValueEquals(self.player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, self.player2)
 
-        self.update_rounds()
-
-    def update_rounds(self):
-        self.healthbarObject.set_health1(self.player.health)
-        self.healthbarObject.set_health2(self.player2.health)
         self.healthbarObject.update()
-        #roundcounter.update()

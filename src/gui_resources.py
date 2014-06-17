@@ -1,6 +1,6 @@
 __author__ = 'florian'
 import pyglet
-pyglet.resource.path = ['../resources/Background', '../resources/ScreenElements']
+pyglet.resource.path = ['../resources/Background', '../resources/ScreenElements', '../resources/Screens']
 pyglet.resource.reindex()
 
 background = pyglet.resource.image("background.png")
@@ -26,6 +26,9 @@ timer = pyglet.resource.image("timer.png")
 title_big = pyglet.resource.image("title_big.png")
 title_small = pyglet.resource.image("title_small.png")
 win = pyglet.resource.image("win.png")
+
+creditScreen = pyglet.resource.image("CreditScreen.png")
+creditBackground = pyglet.resource.image("CreditBack.png")
 
 #backgrounds
 bg_assembly = pyglet.resource.image("assembly.jpg")

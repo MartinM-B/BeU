@@ -30,10 +30,6 @@ messenger.subscribe(type, stateMachine)
 startMessage = PyMessage(type, States.Start)
 messenger.send(startMessage)
 
-test_res = gui_resources.win
-buttonTest = pyglet.sprite.Sprite(test_res, x=400, y=100, batch=batch)
-
-
 def update(dt):
     messenger.execute()
 

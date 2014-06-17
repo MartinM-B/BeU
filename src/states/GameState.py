@@ -25,11 +25,11 @@ class GameState(State):
         if not self.isActive:
             self._active = True
         print "onEnter Game"
-        player = Viking(self._batch, self._foreground)
-        player.preloadImages()
-        player2 = Symbiont(self._batch, self._foreground)
+        self.player = Viking(self._batch, self._foreground)
+        self.player.preloadImages()
+        self.player2 = Symbiont(self._batch, self._foreground)
         #player2 = Viking(batch, foreground)
-        player2.preloadImages()
+        self.player2.preloadImages()
 
         imagesLoaded = False
 

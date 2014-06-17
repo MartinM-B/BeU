@@ -11,13 +11,15 @@ class State(InputHandler):
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, aBatch, aBackground, aForeground, aWindow):
+    def __init__(self, aBatch, aBackground, aForeground, aWindow, aType, aMessenger):
         self._active = False
         self._layouter = PyLayouter()
         self._window = aWindow
         self._batch = aBatch
         self._background = aBackground
         self._foreground = aForeground
+        self._type = aType
+        self._messenger = aMessenger
 
     @abstractmethod
     def onEnter(self):

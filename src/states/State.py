@@ -1,4 +1,4 @@
-from src.InputHandling import InputHandler
+from src.InputHandling.InputHandler import InputHandler
 from src.gui.PyLayouter import PyLayouter
 
 __author__ = 'florian'

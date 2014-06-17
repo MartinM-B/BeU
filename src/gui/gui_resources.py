@@ -1,6 +1,6 @@
 __author__ = 'florian'
 import pyglet
-pyglet.resource.path = ['../../resources/Background', '../../resources/ScreenElements']
+pyglet.resource.path = ['../resources/Background', '../resources/ScreenElements']
 pyglet.resource.reindex()
 
 background = pyglet.resource.image("background.png")

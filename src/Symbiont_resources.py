@@ -1,6 +1,6 @@
 __author__ = 'SARAH'
 import pyglet
-pyglet.resource.path = ['../resources/ChibiUsa','../resources/ChibiUsaBlue', '../resources/sounds','../resources/Symbiont/halfsize','../resources/Symbiont/halfsize']
+pyglet.resource.path = ['../resources/sounds','../resources/Symbiont/halfsize','../resources/Symbiont/halfsize']
 pyglet.resource.reindex()
 
 from pyglet.media.riff import *

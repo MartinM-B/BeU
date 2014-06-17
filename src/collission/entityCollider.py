@@ -1,5 +1,5 @@
 __author__ = 'david_000'
-from src.collission.collide import *
+from collide import *
 
 
 class EntityCollider:

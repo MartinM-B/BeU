@@ -50,6 +50,7 @@ class StateMachine(State, Receiver, InputHandler):
 
     def setNotActive(self):
         for states in self.__states:
+            states.onExit()
             states._active = False
 
     def handleKeyPress(self, symbol, modifiers):

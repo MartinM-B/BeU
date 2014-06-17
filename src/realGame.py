@@ -10,7 +10,7 @@ pyglet.options['audio'] = ('openal')
 pyglet.options['debug_gl'] = False
 
 # create a simple window
-window = pyglet.window.Window(caption="collision", visible=False)  # 60x480
+window = pyglet.window.Window(caption="collision", visible=False, fullscreen=True)  # 60x480
 glScalef(1.5, 1.5, 1.5)
 
 timer = PyTimer()
@@ -30,25 +30,31 @@ messenger.subscribe(type, stateMachine)
 startMessage = PyMessage(type, States.Start)
 messenger.send(startMessage)
 
-
 def update(dt):
     messenger.execute()
-
 
 @window.event
 def on_draw():
     window.clear()
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-
     batch.draw()
-
 
 @window.event
 def on_update():
     print ''
     #update
+
+@window.event()
+def on_key_press(symbol, modifiers):
+    print "a key was pressed"
+    stateMachine.handleKeyPress(symbol, modifiers)
+
+@window.event()
+def on_key_release(symbol, modifiers):
+    print "a key was released"
+    stateMachine.handleKeyRelease(symbol, modifiers)
+
 
 glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()

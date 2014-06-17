@@ -14,13 +14,18 @@ from CharSelectState import *
 class StateMachine(State, Receiver, InputHandler):
 
     __states = {}
-    _startState = StartState()
-    _creditState = CreditsState()
-    _gameState = GameState()
-    _charSelectState = CharSelectState()
+    # _startState = StartState()
+    # _creditState = CreditsState()
+    # _gameState = GameState()
+    # _charSelectState = CharSelectState()
 
-    def __init__(self, type):
+    def __init__(self, type, aBatch, aGroup):
         self._type = type
+        self._startState = StartState(aBatch, aGroup)
+        self._creditState = StartState(aBatch, aGroup)
+        self._gameState = StartState(aBatch, aGroup)
+        self._charSelectState = StartState(aBatch, aGroup)
+
         self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState}
 
     def onEnter(self):

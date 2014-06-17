@@ -1,3 +1,5 @@
+from pyglet.window import key
+
 __author__ = 'florian'
 
 
@@ -16,7 +18,7 @@ class CreditsState(State):
         print "onEnter CreditState"
 
     def handleKeyPress(self, symbol, modifiers):
-        pass
+        print 'credit state pressed'
 
     def handleKeyRelease(self, symbol, modifiers):
         pass

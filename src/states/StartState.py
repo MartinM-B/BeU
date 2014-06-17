@@ -27,7 +27,9 @@ class StartState(State, PyClickListener):
             self._messenger.send(gameMessage)
 
     def onExit(self):
+        print 'onExit'
         if self.isActive:
+            self.deleteScreen()
             self._active = False
 
     def onEnter(self):
@@ -50,20 +52,27 @@ class StartState(State, PyClickListener):
         point1 = PyPoint(50, 50)
         point2 = PyPoint(50, 180)
         point3 = PyPoint(50, 310)
-        creditButton = PyButton('credits', self, point1, self._batch, button_res, button_res_active, self._foreground,
+        self.creditButton = PyButton('credits', self, point1, self._batch, button_res, button_res_active, self._foreground,
                                 'Credits')
-        settingsButton = PyButton('settings', self, point2, self._batch, button_res, button_res_active,
+        self.settingsButton = PyButton('settings', self, point2, self._batch, button_res, button_res_active,
                                   self._foreground, 'Settings')
-        gameButton = PyButton('fight', self, point3, self._batch, button_res, button_res_active, self._foreground,
+        self.gameButton = PyButton('fight', self, point3, self._batch, button_res, button_res_active, self._foreground,
                               'Fight')
-        gameButton.setActive(True)
-        layouter.addButton(creditButton)
-        layouter.addButton(settingsButton)
-        layouter.addButton(gameButton)
+        self.gameButton.setActive(True)
+        layouter.addButton(self.creditButton)
+        layouter.addButton(self.settingsButton)
+        layouter.addButton(self.gameButton)
+
+        self._layouter = layouter
+
+    def deleteScreen(self):
+        self.creditButton.delete()
+        self.settingsButton.delete()
+        self.gameButton.delete()
 
     def handleKeyPress(self, symbol, modifiers):
         print 'startState press'
-        self._layouter.handldeKeyPressed(symbol, modifiers)
+        self._layouter.handleKeyPress(symbol, modifiers)
 
     def handleKeyRelease(self, symbol, modifiers):
         print 'startState release'

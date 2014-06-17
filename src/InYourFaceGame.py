@@ -15,7 +15,7 @@ from InputHandling.PlayerTwoArcadeControllerInputHandler import PlayerTwoArcadeC
 
 from Enum import *
 
-from src.Healthbar.healthbar import *
+from src.Healthbar import healthbar
 from src.RoundCounter.roundcounter import *
 from pyglet.gl import *
 
@@ -52,10 +52,9 @@ imagesLoaded = False
 
 #player2 = ChibiUsa_blue(batch, foreground)
 #player2.moveX(window.width / 2)
+healthbarObject = healthbar.HealthBar(batch, window)
 
-healthbar = HealthBar(batch, 50, 400, 200, 50)
-healthbar2 = HealthBar(batch, 380, 400, 200, 50)
-roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
+#roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
 playerOneInputController = PlayerOneKeyboardInputHandler(player)
 playerTwoInputController = PlayerTwoKeyboardInputHandler(player2)
@@ -88,12 +87,9 @@ def on_draw():
 
         # draw our background and blocks
         batch.draw()
-        label.draw()
+        #label.draw()
         fps_display.draw()
-
-        healthbar.draw()
-        healthbar2.draw()
-        roundcounter.draw()
+        #roundcounter.draw()
 
 def update(dt):
     #change sprite according to lookFlag
@@ -107,6 +103,7 @@ def update(dt):
 
     player.update()
     player2.update()
+    #healthbarObject.update()
 
     if checkEnumValueEquals(player.actionState, ActionState.Attacking) and player.checkCollision(player2):
         print "Player Kollission"
@@ -120,9 +117,10 @@ def update(dt):
 
 
 def update_rounds():
-    healthbar.set_health(player.health)
-    healthbar2.set_health(player2.health)
-    roundcounter.update()
+    healthbarObject.set_health1(player.health)
+    healthbarObject.set_health2(player2.health)
+    healthbarObject.update()
+    #roundcounter.update()
 
 glClearColor(1.0, 1.0, 1.0, 1.0)
 window.clear()

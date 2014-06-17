@@ -1,3 +1,5 @@
+from src.InputHandling.InputHandler import InputHandler
+
 __author__ = 'florian'
 
 from State import *
@@ -9,7 +11,7 @@ from GameState import *
 from CharSelectState import *
 
 
-class StateMachine(State, Receiver):
+class StateMachine(State, Receiver, InputHandler):
 
     __states = {}
     _startState = StartState()
@@ -44,3 +46,15 @@ class StateMachine(State, Receiver):
     def setNotActive(self):
         for states in self.__states:
             states._active = False
+
+    def handleKeyPress(self, symbol, modifiers):
+        for state in self.__states:
+            if state.isActive:
+                state._layouter.handleKeyPress(symbol, modifiers)
+
+    def handleKeyRelease(self, symbol, modifiers):
+        for state in self.__states:
+            if state.isActive:
+                state._layouter.handleKeyRelease(symbol, modifiers)
+
+

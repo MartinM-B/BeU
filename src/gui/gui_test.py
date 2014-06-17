@@ -20,7 +20,7 @@ window = pyglet.window.Window(caption="gui_test", visible=False, fullscreen=Fals
 batch = pyglet.graphics.Batch()
 background = pyglet.graphics.OrderedGroup(0)
 foreground = pyglet.graphics.OrderedGroup(1)
-layout = PyLayouter(window)
+layout = PyLayouter()
 
 button1_res = gui_resources.box
 button2_res = gui_resources.box

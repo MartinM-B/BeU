@@ -19,12 +19,12 @@ class StateMachine(State, Receiver, InputHandler):
     # _gameState = GameState()
     # _charSelectState = CharSelectState()
 
-    def __init__(self, type, aBatch, aBackground, aForeGround, aWindow):
+    def __init__(self, type, aBatch, aBackground, aForeGround, aWindow, aMessenger):
         self._type = type
-        self._startState = StartState(aBatch, aBackground, aForeGround, aWindow)
-        self._creditState = CreditsState(aBatch, aBackground, aForeGround, aWindow)
-        self._gameState = GameState(aBatch, aBackground, aForeGround, aWindow)
-        self._charSelectState = CharSelectState(aBatch, aBackground, aForeGround, aWindow)
+        self._startState = StartState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._creditState = CreditsState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._gameState = GameState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._charSelectState = CharSelectState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
 
         self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState}
 

@@ -11,7 +11,7 @@ pyglet.options['audio'] = ('openal')
 pyglet.options['debug_gl'] = False
 
 # create a simple window
-window = pyglet.window.Window(caption="collision", visible=False, fullscreen=false) #60x480
+window = pyglet.window.Window(caption="collision", visible=False) #60x480
 glScalef(1.5, 1.5, 1.5)
 
 timer = PyTimer()
@@ -21,15 +21,16 @@ timer.startTimer()
 batch = pyglet.graphics.Batch()
 background = pyglet.graphics.OrderedGroup(0)
 foreground = pyglet.graphics.OrderedGroup(1)
+messenger = PyMessenger()
 
 type = 'receiver'
-stateMachine = StateMachine(type, batch, background, foreground, window)
+stateMachine = StateMachine(type, batch, background, foreground, window, messenger)
 
-messenger = PyMessenger()
+
 messenger.subscribe(type, stateMachine)
 
-gameMessage = PyMessage(type, States.start)
-messenger.send()
+startMessage = PyMessage(type, States.Start)
+messenger.send(startMessage)
 
 @window.event
 def on_draw():

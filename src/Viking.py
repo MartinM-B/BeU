@@ -81,6 +81,8 @@ class Viking(Player):
     punchSound = Viking_resources.PunchSound
     stepSound = Viking_resources.StepSound
     kickSound = Viking_resources.KickSound
+    specialSound = Viking_resources.SpecialSound
+    hitSound = Viking_resources.HitSound
     blockSound = Viking_resources.BlockSound
     duckSound = Viking_resources.DuckSound
 

@@ -1,11 +1,9 @@
 __author__ = 'SARAH'
 import pyglet
-pyglet.resource.path = ['../resources/sounds','../resources/Symbiont/halfsize','../resources/Symbiont/halfsize']
+pyglet.resource.path = ['../resources/sounds','../resources/sounds/new/16bit','../resources/Symbiont/halfsize','../resources/Symbiont/halfsize']
 pyglet.resource.reindex()
 
 from pyglet.media.riff import *
-
-# Chibi Usa Images
 
 Left1 = pyglet.resource.image("Symbiont_idle_left_1.png")
 Right1 = pyglet.resource.image("Symbiont_idle_right_1.png")
@@ -63,10 +61,12 @@ SpezialRight2 = pyglet.resource.image("Symbiont_special_right_2.png")
 SpezialLeftMask2 = pyglet.resource.image("Symbiont_special_left_3_mask.png")
 SpezialRightMask2 = pyglet.resource.image("Symbiont_special_right_3_mask.png")
 
-JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
-PunchSound = pyglet.resource.media('punch.wav', streaming=False)
-StepSound = pyglet.resource.media('step.wav', streaming=False)
-KickSound = pyglet.resource.media('kick.wav', streaming=False)
+JumpSound = pyglet.resource.media('jumping.wav', streaming=False)
+PunchSound = pyglet.resource.media('symbiont_punch.wav', streaming=False)
+StepSound = pyglet.resource.media('step2.wav', streaming=False)
+KickSound = pyglet.resource.media('symbiont_kick.wav', streaming=False)
+SpecialSound = pyglet.resource.media('symbiont_special.wav', streaming=False)
+HitSound = pyglet.resource.media('symbiont_hit.wav', streaming=False)
 BlockSound = pyglet.resource.media('block.wav', streaming=False)
 DuckSound = pyglet.resource.media('duck.wav', streaming=False)
 

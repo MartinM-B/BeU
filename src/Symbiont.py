@@ -77,6 +77,8 @@ class Symbiont(Player):
     punchSound = Symbiont_resources.PunchSound
     stepSound = Symbiont_resources.StepSound
     kickSound = Symbiont_resources.KickSound
+    specialSound = Symbiont_resources.SpecialSound
+    hitSound = Symbiont_resources.HitSound
     blockSound = Symbiont_resources.BlockSound
     duckSound = Symbiont_resources.DuckSound
 

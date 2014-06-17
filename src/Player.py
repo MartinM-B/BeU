@@ -117,7 +117,7 @@ class Player(GameEntity):
             #   self.changeToPunchAnimation()
             self.changeToSpecialAttackAnimation()
             self.actionTimer = 10
-            self.punchSound.play()
+            self.specialSound.play()
 
     def startBlocking(self):
         if checkEnumValueEquals(self.actionState, ActionState.Idle):
@@ -151,6 +151,7 @@ class Player(GameEntity):
             #check blocking mask
             if self.checkHitmask(other): #hit where block isn't effective
                 self.handlePlayerHit(direction, other)
+                self.hitSound.play()
                 print "hit where block isn't effective"
 
         else: #not blocking

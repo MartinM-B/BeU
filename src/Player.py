@@ -156,6 +156,7 @@ class Player(GameEntity):
 
         else: #not blocking
             self.handlePlayerHit(direction, other)
+            self.hitSound.play()
             print "not blocking"
 
     def handlePlayerHit(self, direction, other):

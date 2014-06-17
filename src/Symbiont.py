@@ -7,9 +7,6 @@ from Player import *
 
 class Symbiont(Player):
 
-    #moveLeftImage = ChibiUsa_resources.Left
-    #moveRightImage = ChibiUsa_resources.Right
-
     idleAnimationLeft = pyglet.image.Animation.from_image_sequence\
     ([Symbiont_resources.Left1, Symbiont_resources.Left2], 0.5, True)
 
@@ -17,10 +14,10 @@ class Symbiont(Player):
     ([Symbiont_resources.Right1, Symbiont_resources.Right2], 0.5, True)
 
     walkAnimationLeft = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.WalkLeft1, Symbiont_resources.WalkLeft2, Symbiont_resources.WalkLeft3], 0.3, True)
+    ([Symbiont_resources.WalkLeft1, Symbiont_resources.WalkLeft2, Symbiont_resources.WalkLeft3, Symbiont_resources.WalkLeft2], 0.3, True)
 
     walkAnimationRight = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.WalkRight1, Symbiont_resources.WalkRight2, Symbiont_resources.WalkRight3], 0.3, True)
+    ([Symbiont_resources.WalkRight1, Symbiont_resources.WalkRight2, Symbiont_resources.WalkRight3, Symbiont_resources.WalkRight2], 0.3, True)
 
 
     punchLeft = Symbiont_resources.PunchLeft
@@ -62,16 +59,24 @@ class Symbiont(Player):
     ([Symbiont_resources.Left1, Symbiont_resources.Right1], 0.5, True)
 
     specialAnimationRight = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeft2], 0.2, True)
+    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeft2, Symbiont_resources.SpezialLeft3,
+      Symbiont_resources.SpezialLeft4, Symbiont_resources.SpezialLeft5, Symbiont_resources.SpezialLeft6,
+      Symbiont_resources.SpezialLeft7], 0.1, False)
 
     specialAnimationLeft = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRight2], 0.2, True)
+    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRight2, Symbiont_resources.SpezialRight3,
+      Symbiont_resources.SpezialRight4, Symbiont_resources.SpezialRight5,Symbiont_resources.SpezialRight6,
+      Symbiont_resources.SpezialRight7], 0.1, False)
 
     specialAnimationRightMask = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeftMask2], 0.2, True)
+    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRight2, Symbiont_resources.SpezialRightMask3,
+      Symbiont_resources.SpezialRightMask4, Symbiont_resources.SpezialRightMask5,Symbiont_resources.SpezialRightMask6,
+      Symbiont_resources.SpezialRight7], 0.1, False)
 
     specialAnimationLeftMask = pyglet.image.Animation.from_image_sequence\
-    ([Symbiont_resources.SpezialRight1, Symbiont_resources.SpezialRightMask2], 0.2, True)
+    ([Symbiont_resources.SpezialLeft1, Symbiont_resources.SpezialLeft2, Symbiont_resources.SpezialLeftMask3,
+      Symbiont_resources.SpezialLeftMask4, Symbiont_resources.SpezialLeftMask5,Symbiont_resources.SpezialLeftMask6,
+      Symbiont_resources.SpezialLeft7], 0.1, False)
 
     jumpSound = Symbiont_resources.JumpSound
     punchSound = Symbiont_resources.PunchSound

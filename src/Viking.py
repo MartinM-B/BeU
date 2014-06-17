@@ -7,9 +7,6 @@ from Player import *
 
 class Viking(Player):
 
-    #moveLeftImage = ChibiUsa_resources.Left
-    #moveRightImage = ChibiUsa_resources.Right
-
     idleAnimationLeft = pyglet.image.Animation.from_image_sequence\
     ([Viking_resources.Left1, Viking_resources.Left2, Viking_resources.Left3, Viking_resources.Left4], 0.5, True)
 
@@ -63,19 +60,19 @@ class Viking(Player):
 
     specialAnimationLeft = pyglet.image.Animation.from_image_sequence\
     ([Viking_resources.SpezialLeft1, Viking_resources.SpezialLeft2, Viking_resources.SpezialLeft3,
-      Viking_resources.SpezialLeft4, Viking_resources.SpezialLeft5, Viking_resources.SpezialLeft6], 0.1, True)
+      Viking_resources.SpezialLeft4, Viking_resources.SpezialLeft5, Viking_resources.SpezialLeft6], 0.1, False)
 
     specialAnimationRight = pyglet.image.Animation.from_image_sequence\
     ([Viking_resources.SpezialRight1, Viking_resources.SpezialRight2, Viking_resources.SpezialRight3,
-      Viking_resources.SpezialRight4, Viking_resources.SpezialRight5, Viking_resources.SpezialRight6], 0.1, True)
+      Viking_resources.SpezialRight4, Viking_resources.SpezialRight5, Viking_resources.SpezialRight6], 0.1, False)
 
     specialAnimationLeftMask = pyglet.image.Animation.from_image_sequence\
-    ([Viking_resources.SpezialLeft1, Viking_resources.SpezialLeftMask1, Viking_resources.SpezialLeftMask2,
-      Viking_resources.SpezialLeftMask3, Viking_resources.SpezialLeftMask4, Viking_resources.SpezialLeftMask4], 0.1, True)
+    ([Viking_resources.SpezialLeft1, Viking_resources.SpezialLeftMask2, Viking_resources.SpezialLeftMask3,
+      Viking_resources.SpezialLeftMask4, Viking_resources.SpezialLeftMask5, Viking_resources.SpezialLeft6], 0.1, False)
 
     specialAnimationRightMask = pyglet.image.Animation.from_image_sequence\
-    ([Viking_resources.SpezialRight1, Viking_resources.SpezialRightMask1, Viking_resources.SpezialRightMask2,
-      Viking_resources.SpezialRightMask3, Viking_resources.SpezialRightMask4, Viking_resources.SpezialRightMask4], 0.1, True)
+    ([Viking_resources.SpezialRight1, Viking_resources.SpezialRightMask2, Viking_resources.SpezialRightMask3,
+      Viking_resources.SpezialRightMask4, Viking_resources.SpezialRightMask5, Viking_resources.SpezialRight6], 0.1, False)
 
     jumpSound = Viking_resources.JumpSound
     punchSound = Viking_resources.PunchSound

@@ -1,3 +1,5 @@
+from src.InputHandling.InputHandler import InputHandler
+
 __author__ = 'florian'
 
 from State import *
@@ -9,16 +11,21 @@ from GameState import *
 from CharSelectState import *
 
 
-class StateMachine(State, Receiver):
+class StateMachine(State, Receiver, InputHandler):
 
     __states = {}
-    _startState = StartState()
-    _creditState = CreditsState()
-    _gameState = GameState()
-    _charSelectState = CharSelectState()
+    # _startState = StartState()
+    # _creditState = CreditsState()
+    # _gameState = GameState()
+    # _charSelectState = CharSelectState()
 
-    def __init__(self, type):
+    def __init__(self, type, aBatch, aBackground, aForeGround, aWindow, aMessenger):
         self._type = type
+        self._startState = StartState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._creditState = CreditsState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._gameState = GameState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+        self._charSelectState = CharSelectState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
+
         self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState}
 
     def onEnter(self):
@@ -44,3 +51,15 @@ class StateMachine(State, Receiver):
     def setNotActive(self):
         for states in self.__states:
             states._active = False
+
+    def handleKeyPress(self, symbol, modifiers):
+        for state in self.__states:
+            if state.isActive:
+                state.handleKeyPress(symbol, modifiers)
+
+    def handleKeyRelease(self, symbol, modifiers):
+        for state in self.__states:
+            if state.isActive:
+                state.handleKeyRelease(symbol, modifiers)
+
+

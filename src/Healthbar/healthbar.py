@@ -5,94 +5,101 @@ import pyglet
 from pyglet.gl import *
 from pyglet.text import *
 
+from pyglet import gl
+from pyglet import graphics
+from src.gui.PyColor import *
+
+from src.gui import gui_resources
+
 class HealthBar(object):
     ''' Sprite subclass providing advanced
             playback controls for animated sprites '''
 
-    def __init__(self, batch, x=0, y=0, w=100, h=50):
-        self._blend_src = pyglet.gl.GL_SRC_ALPHA
-        self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
-
+    def __init__(self, batch, window):
+        #self._blend_src = pyglet.gl.GL_SRC_ALPHA
+        #self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
         self._color = (0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0, 255)
+        self._batch = batch
+        self._health1 = 50
+        self._health2 = 50
 
-        self._height = h
-        self._width = w
-        self._health = 100
+        self._winWidth = window.width/1.5
+        self._winHeight = window.height/1.5
 
-        self._x = x
-        self._y = y
+        self.background(batch)
+        self.timerPic(batch)
+        self.set_bar1(batch)
+        self.set_bar2(batch)
 
-        self._label = pyglet.text.Label(str(self._health), font_name='Times New Roman', font_size=36, x=60, y=60, anchor_x='center', anchor_y='center')
+    def update(self):
+        self.background(self._batch)
+        self.timerPic(self._batch)
+        self.set_bar1(self._batch)
+        self.set_bar2(self._batch)
 
-    def draw(self):
-        self.draw_background()
-        self.draw_bar_background()
-        self.draw_bar()
-        self.draw_label()
+    def background(self, batch):
+        orig_img = gui_resources.life_background
 
+        scaling_factor = (self._winWidth*0.4)/orig_img.width
 
-    def set_size(self, w, h):
-        self._height = h
-        self._width = w
+        self._background1 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.05, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
+        self._background1.scale = scaling_factor
+        self._background2 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.55, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
+        self._background2.scale = scaling_factor
 
-    def set_position(self, x, y):
-        self._x = x
-        self._y = y
+    def timerPic(self, batch):
+        img = gui_resources.timer
+        scaling_factor = (self._winWidth*0.175)/img.width
+        self._timer = pyglet.sprite.Sprite(img, self._winWidth*0.415, (self._winHeight*0.775), batch=batch, group=pyglet.graphics.OrderedGroup(1))
+        self._timer.scale = scaling_factor
 
-    def draw_background(self):
-        color = (200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200)
-        self.draw_rect(self._x, self._y, self._width, self._height, color)
+    def set_bar1(self, batch):
+        bar_width = (self._background1.width*0.95) * (float(self._health1)/float(100))
+        bar_height = self._background1.height*0.8
 
-    def draw_bar_background(self):
-        bar_width = self._width - 60
-        bar_height = self._height - 20
-
-        bar_color = (170, 170, 170, 170, 170, 170, 170, 170, 170, 170, 170, 170)
-        self.draw_rect(self._x+10, self._y+10, bar_width, bar_height, bar_color)
-
-    def draw_bar(self):
-        bar_width = (self._width - 60) * (float(self._health)/float(100))
-        bar_height = self._height - 20
-
-        if self._health > 50:
+        if self._health1 > 50:
             bar_color = (0, 205, 0, 0, 205, 0, 0, 205, 0, 0, 205, 0)
-        elif self._health > 25:
+        elif self._health1 > 25:
             bar_color = (255, 185, 15, 255, 185, 15, 255, 185, 15, 255, 185, 15)
         else:
             bar_color = (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)
 
-        self.draw_rect(self._x+10, self._y+10, bar_width, bar_height, bar_color)
+        x1 = self._background1.x + self._background1.width*0.05
+        y1 = self._background1.y + self._background1.height*0.2
+        x2 = self._background1.x + bar_width
+        y2 = self._background1.y + bar_height
 
-    def draw_label(self):
-        self._label.text = str(self._health)
-        self._label._x = self._x + self._width - 25
-        self._label._y = self._y + self._height - 22
-        self._label.font_size = (self._height-25)/1.33333
-        self._label.color = (41, 41, 41, 255)
-        self._label.draw()
+        batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1), ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)), ('c3B', bar_color))
 
-    def draw_rect(self, x, y, w, h, color=(0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255)):
-        glPushMatrix()
-        x1 = x
-        y1 = y
-        y2 = y1 + h
-        x2 = x1 + w
-        pyglet.graphics.draw(4, pyglet.graphics.GL_QUADS,
-                             ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
-                             ('c3B', color))
-        glPopMatrix()
 
-    def set_health(self, percent):
-        if percent > 100:
-            self._health = 100
-        elif percent < 0:
-            self._health = 0
+    def set_bar2(self, batch):
+        bar_width = (self._background1.width*0.95) * (float(self._health2)/float(100))
+        bar_height = self._background1.height*0.8
+
+        if self._health2 > 50:
+            bar_color = (0, 205, 0, 0, 205, 0, 0, 205, 0, 0, 205, 0)
+        elif self._health2 > 25:
+            bar_color = (255, 185, 15, 255, 185, 15, 255, 185, 15, 255, 185, 15)
         else:
-            self._health = percent
+            bar_color = (255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0)
+
+        x1 = (self._winWidth*0.5) + self._background1.x + self._background1.width*0.05
+        y1 = self._background1.y + self._background1.height*0.2
+        x2 = (self._winWidth*0.5) + self._background1.x + bar_width
+        y2 = self._background1.y + bar_height
+
+        batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1), ('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+                  ('c3B', bar_color))
 
 
 
+    def set_health1(self, health):
+        self._health1 = health
+        self.set_bar1(self._batch)
 
 
-
+    def set_health2(self, health):
+        self._health2 = health
+        print self._health2
+        self.set_bar2(self._batch)
 

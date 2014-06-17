@@ -1,3 +1,5 @@
+import pyglet
+
 __author__ = 'florian'
 
 from Tkinter import *
@@ -20,8 +22,11 @@ class App:
     #initialize messenger
     messenger = PyMessenger()
 
+    batch = pyglet.graphics.Batch()
+    background = pyglet.graphics.OrderedGroup(0)
+
     #initialize Statemachine with a certain type
-    stateMachine = StateMachine(type)
+    stateMachine = StateMachine(type, batch, background)
 
     #subscribe to the messenges of the type
     messenger.subscribe(type, stateMachine)

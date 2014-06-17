@@ -14,3 +14,9 @@ class CreditsState(State):
         if not self.isActive:
             self._active = True
         print "onEnter CreditState"
+
+    def handleKeyPress(self, symbol, modifiers):
+        pass
+
+    def handleKeyRelease(self, symbol, modifiers):
+        pass

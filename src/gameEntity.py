@@ -6,12 +6,10 @@ import pyglet
 class GameEntity(object):
     def __init__(self, image, x, y, batch, group):
         self.display_sprite = pyglet.sprite.Sprite(image, x, y, batch=batch, group=group)
-        self.hitmask_sprite = pyglet.sprite.Sprite(image, x, y, batch=batch, group=group)
+        self.hitmask_sprite = pyglet.sprite.Sprite(image, x, y)
         self.collider = EntityCollider(self.display_sprite)
         self.hitmask = EntityCollider(self.hitmask_sprite)
-        self.hitmask_sprite._set_opacity(0)
-        self.attackmask_sprite = pyglet.sprite.Sprite(image, x, y, batch=batch, group=group)
-        self.attackmask_sprite._set_opacity(0)
+        self.attackmask_sprite = pyglet.sprite.Sprite(image, x, y)
         self.attackmask = EntityCollider(self.attackmask_sprite)
 
     def changeSpriteImage(self, image):

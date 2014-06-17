@@ -10,8 +10,7 @@ from PyButton import *
 
 class PyLayouter(InputHandler):
 
-    def __init__(self, window):
-        self.window = window
+    def __init__(self):
         self.buttons = []
 
     def addButton(self, button):

@@ -1,3 +1,6 @@
+from src.gui.PyButton import PyButton
+from src.gui.PyLayouter import PyLayouter
+
 __author__ = 'florian'
 
 
@@ -25,8 +28,20 @@ class StartState(State, PyClickListener):
 
     def initalizeState(self):
         print 'init all the buttons'
+
+        layouter = PyLayouter()
+
         # make layouter
         # make all the buttons
         # add the buttons to the layouter
         # this state is the listener for all the created buttons in this state
         # react to all the buttons in the onClick
+        #self._layouter = PYLAYOUTER()
+
+    def handleKeyPress(self, symbol, modifiers):
+        print 'bla'
+        #self._layouter.handldeKeyPressed(symbol, modifiers)
+
+    def handleKeyRelease(self, symbol, modifiers):
+        print 'bla'
+        #self._layouter.handldeKeyReleased(symbol, modifiers)

@@ -49,6 +49,9 @@ class PyMessenger(object):
                     #call the receiver
                     self.__receivers[msg.type][temp].onReceive(msg)
                     temp += 1
+                self.__myqueue.queue.remove(msg)
+                break
+
 
     def printReceivers(self):
         print self.__receivers

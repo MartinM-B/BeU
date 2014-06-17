@@ -89,6 +89,7 @@ def on_draw():
         batch.draw()
         #label.draw()
         fps_display.draw()
+        healthbarObject.draw()
         #roundcounter.draw()
 
 

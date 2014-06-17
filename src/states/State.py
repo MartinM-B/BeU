@@ -1,3 +1,5 @@
+from src.gui.PyLayouter import PyLayouter
+
 __author__ = 'florian'
 from abc import ABCMeta, abstractmethod
 
@@ -10,6 +12,7 @@ class State(object):
 
     def __init__(self, aBatch, aGroup):
         self._active = False
+        self._layouter = PyLayouter()
 
     @abstractmethod
     def onEnter(self):

@@ -9,7 +9,7 @@ from pyglet import gl
 from pyglet import graphics
 from src.gui.PyColor import *
 
-from src import gui_resources
+from src.gui import gui_resources
 
 class HealthBar(object):
     ''' Sprite subclass providing advanced

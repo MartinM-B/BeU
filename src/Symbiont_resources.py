@@ -60,8 +60,8 @@ SpezialLeft2 = pyglet.resource.image("Symbiont_special_left_2.png")
 SpezialRight1 = pyglet.resource.image("Symbiont_special_right_1.png")
 SpezialRight2 = pyglet.resource.image("Symbiont_special_right_2.png")
 
-SpezialLeftMask2 = pyglet.resource.image("Symbiont_special_left_2_mask.png")
-SpezialRightMask2 = pyglet.resource.image("Symbiont_special_right_2_mask.png")
+SpezialLeftMask2 = pyglet.resource.image("Symbiont_special_left_3_mask.png")
+SpezialRightMask2 = pyglet.resource.image("Symbiont_special_right_3_mask.png")
 
 JumpSound = pyglet.resource.media('jumping_teon.wav', streaming=False)
 PunchSound = pyglet.resource.media('punch.wav', streaming=False)

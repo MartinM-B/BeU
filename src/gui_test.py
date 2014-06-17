@@ -34,8 +34,8 @@ point3 = PyPoint(50, 310)
 
 listener = PyListener()
 
-button1 = PyButton("button1", listener, point1, batch, button1_res, button1_resActive, foreground)
-button2 = PyButton("button2", listener, point2, batch, button2_res, button1_resActive, foreground)
+button1 = PyButton("button1", listener, point1, batch, button1_res, button1_resActive, foreground, "test")
+button2 = PyButton("button2", listener, point2, batch, button2_res, button1_resActive, foreground, "test2")
 button3 = PyButton("button3", listener, point3, batch, button2_res, button1_resActive, foreground)
 # sprite.Sprite(button1_res, point1.x, point1.y, batch=batch, group=foreground)
 # pyglet.sprite.Sprite(button1_res, batch=batch)

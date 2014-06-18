@@ -6,6 +6,7 @@ from src.InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInp
 from src.Player import ActionState, Direction
 from src.Symbiont import Symbiont
 from src.Viking import Viking
+from src.settings import Settings
 
 __author__ = 'florian'
 
@@ -26,9 +27,12 @@ class GameState(State):
         if not self.isActive:
             self._active = True
         print "onEnter Game"
-        self.player = Viking(self._batch, self._foreground)
+
+        settings = Settings()
+
+        self.player = Viking(self._batch, self._foreground) if settings._player1 == 0 else Symbiont(self._batch, self._foreground)
         self.player.preloadImages()
-        self.player2 = Symbiont(self._batch, self._foreground)
+        self.player2 = Viking(self._batch, self._foreground) if settings._player2 == 0 else Symbiont(self._batch, self._foreground)
         #player2 = Viking(batch, foreground)
         self.player2.preloadImages()
 

@@ -29,7 +29,7 @@ win = pyglet.resource.image("win.png")
 
 creditScreen = pyglet.resource.image("CreditScreen.png")
 creditBackground = pyglet.resource.image("CreditBack.png")
-startScreen = pyglet.resource.image("MainScreen")
+startScreen = pyglet.resource.image("MainScreen.png")
 
 vikingBig = pyglet.resource.image("Viking.png")
 vikingSmall = pyglet.resource.image("Viking_small.png")

@@ -39,6 +39,9 @@ class SettingsState(State, PyClickListener):
                 s1.setTime(time-1)
                 self.labelTime.text = str(time-1)
 
+        elif anID == 'back':
+            startMessage = PyMessage(self._type, States.Start)
+            self._messenger.send(startMessage)
 
     def onExit(self):
         print 'onExit'
@@ -54,12 +57,32 @@ class SettingsState(State, PyClickListener):
     def initalizeState(self):
         self.settings = Settings()
         #add background sprites
-        backgroundImage = gui_resources.background
-        background1 = pyglet.sprite.Sprite(backgroundImage, x=0,  y=0, batch=self._batch, group=self._background)
 
-        titleImage = gui_resources.title_big
-        title = pyglet.sprite.Sprite(titleImage, x=(self._window.width/1.5/2),  y=(self._window.height/1.5/2),
-                                     batch=self._batch, group=self._foreground)
+        self.background_sprite = pyglet.sprite.Sprite(gui_resources.background, 0, 0, batch=self._batch, group=self._background)
+        scaleY = (self._window.height / (self.background_sprite.height * 1.0))/1.5
+        #chains
+        self.chain_sprite1 =  pyglet.sprite.Sprite(gui_resources.chain, (self._window.width/1.5 * 2.0/10.0), 0, batch=self._batch, group=self._background)
+        self.chain_sprite2 =  pyglet.sprite.Sprite(gui_resources.chain, (self._window.width/1.5 * 4.0/10.0), 0, batch=self._batch, group=self._background)
+        self.chain_sprite3 =  pyglet.sprite.Sprite(gui_resources.chain, (self._window.width/1.5 * 6.0/10.0)-(gui_resources.chain.width/2.0), 0, batch=self._batch, group=self._background)
+        self.chain_sprite4 =  pyglet.sprite.Sprite(gui_resources.chain, (self._window.width/1.5 * 8.0/10.0)-(gui_resources.chain.width/2.0), 0, batch=self._batch, group=self._background)
+
+        self.chain_sprite1.scale = scaleY
+        self.chain_sprite2.scale = scaleY
+        self.chain_sprite3.scale = scaleY
+        self.chain_sprite4.scale = scaleY
+
+        spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.title_big.width) * scaleY / 2.0)
+        spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.title_big.height) / 2.0) * 2.1
+
+        self.title_sprite =  pyglet.sprite.Sprite(gui_resources.title_big, spritePosX, spritePosY, batch=self._batch, group=self._background)
+        self.title_sprite.scale = scaleY
+        self.title_label = pyglet.text.Label(text="Settings", font_name='Times New Roman', font_size=24,
+                                       x=spritePosX + self.title_sprite.width/2,y=spritePosY + 18,
+                                       width=self.title_sprite.width, height=self.title_sprite.height,
+                                       anchor_x='center', anchor_y='center', color=(0, 0, 0, 255), batch=self._batch, halign='right')
+
+        self.back_sprite = pyglet.sprite.Sprite(gui_resources.credits, self._window.width*0.125, self._window.height*0.07, group=self._background, batch=self._batch)
+        self.back_sprite.scale = scaleY
 
         button_res = gui_resources.setting_small
         button_res_active = gui_resources.setting_small_selected
@@ -75,6 +98,9 @@ class SettingsState(State, PyClickListener):
         x2 = 500
         y2 = 450
 
+        point_back = PyPoint(20, 50)
+
+
         self.labelTime = pyglet.text.Label(text=str(self.settings._time), font_name='Times New Roman', font_size=24, x=x2, y=y2,
                                        width=30, height=30, anchor_x='left',
                                        anchor_y='center', color=(0, 0, 0, 255), batch=self._batch, halign='right')
@@ -85,15 +111,19 @@ class SettingsState(State, PyClickListener):
 
 
         self.louderButton = PyButton('music_louder', self, point1, self._batch, button_res,
-                                     button_res_active, self._foreground,'louder', 0.75)
+                                     button_res_active, self._foreground,'louder', 0.8)
         self.quieterButton = PyButton('music_quieter', self, point2, self._batch, button_res,
-                                      button_res_active, self._foreground, 'quieter', 0.75)
+                                      button_res_active, self._foreground, 'quieter', 0.8)
         self.timeUpButton = PyButton('time_Up', self, point3, self._batch, button_res,
-                                     button_res_active, self._foreground, 'up', 0.75)
+                                     button_res_active, self._foreground, 'up', 0.8)
         self.timeDownButton = PyButton('time_Down', self, point4, self._batch, button_res,
-                                        button_res_active, self._foreground, 'down', 0.75)
+                                        button_res_active, self._foreground, 'down', 0.8)
+        self.backButton = PyButton('back', self, point_back, self._batch, button_res,
+                                button_res_active, self._foreground, 'Back', 1)
+
 
         self.timeUpButton.setActive(True)
+        layouter.addButton(self.backButton)
         layouter.addButton(self.quieterButton)
         layouter.addButton(self.louderButton)
         layouter.addButton(self.timeDownButton)
@@ -106,6 +136,18 @@ class SettingsState(State, PyClickListener):
         self.quieterButton.delete()
         self.timeUpButton.delete()
         self.timeDownButton.delete()
+        self.labelVolume.delete()
+        self.labelTime.delete()
+        self.title_sprite.delete()
+        self.title_label.delete()
+        self.chain_sprite4.delete()
+        self.chain_sprite3.delete()
+        self.chain_sprite2.delete()
+        self.chain_sprite1.delete()
+        self.background_sprite.delete()
+        self.backButton.delete()
+        self.back_sprite.delete()
+
 
     def handleKeyPress(self, symbol, modifiers):
         print 'startState press'

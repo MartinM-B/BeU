@@ -8,7 +8,7 @@ from PyRectangle import *
 class PyButton(object):
     _scale = 1
 
-    def __init__(self, id, aClickListener, aPyPoint, aBatch, aResource, aResourceActive, aGroup, aString=''):
+    def __init__(self, id, aClickListener, aPyPoint, aBatch, aResource, aResourceActive, aGroup, aString='', aSacle=1):
         self.id = id
         self.point = aPyPoint
         self.batch = aBatch
@@ -18,6 +18,7 @@ class PyButton(object):
         self.group = aGroup
         self.active = False
         self.string = aString
+        self.scale = aSacle
         # self.rectangle = PyRectangle(self.point, self.res.height, self.res.width, self.batch)
         self.display_sprite = pyglet.sprite.Sprite(self.res, self.point.x, self.point.y, batch=self.batch,
                                                    group=self.group)
@@ -26,7 +27,7 @@ class PyButton(object):
                                        width=self.display_sprite.width, height=self.display_sprite.height,
                                        anchor_x='left',
                                        anchor_y='center', color=(0, 0, 0, 255), batch=self.batch, halign='right')
-        self.display_sprite.scale = self._scale
+        self.display_sprite.scale = self.scale
 
     def onClick(self):
         self.listener.onClick(self.id)
@@ -36,13 +37,13 @@ class PyButton(object):
         if active:
             self.display_sprite = sprite.Sprite(self.resActive, self.point.x, self.point.y, batch=self.batch,
                                                 group=self.group)
-            self.display_sprite.scale = self._scale
+            self.display_sprite.scale = self.scale
             # red = PyColor(255, 0, 0)
             # self.rectangle.changeColor(red)
         elif not active:
             self.display_sprite = sprite.Sprite(self.res, self.point.x, self.point.y, batch=self.batch,
                                                 group=self.group)
-            self.display_sprite.scale = self._scale
+            self.display_sprite.scale = self.scale
             # black = PyColor(0, 0, 0)
             # self.rectangle.changeColor(black)
 

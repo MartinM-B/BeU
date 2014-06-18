@@ -29,6 +29,7 @@ win = pyglet.resource.image("win.png")
 
 creditScreen = pyglet.resource.image("CreditScreen.png")
 creditBackground = pyglet.resource.image("CreditBack.png")
+startScreen = pyglet.resource.image("MainScreen")
 
 #backgrounds
 bg_assembly = pyglet.resource.image("assembly.jpg")

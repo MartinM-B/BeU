@@ -56,7 +56,7 @@ class StartState(State, PyClickListener):
 
         scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 1.5
 
-        self.background_sprite = pyglet.sprite.Sprite(gui_resources.creditBackground, 0, 0, batch=self._batch,
+        self.background_sprite = pyglet.sprite.Sprite(gui_resources.startScreen, 0, 0, batch=self._batch,
                                                       group=self._background)
         self.background_sprite.scale = scaleY
 

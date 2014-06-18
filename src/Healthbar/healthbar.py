@@ -11,7 +11,7 @@ from src.gui.PyColor import *
 from src.states.StartState import *
 
 
-from src.gui import gui_resources
+from .. import gui_resources
 
 class HealthBar(object):
     ''' Sprite subclass providing advanced

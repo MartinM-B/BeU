@@ -1,7 +1,7 @@
 __author__ = 'florian'
 
 from src.Messenger.PyMessage import PyMessage
-from src.gui import gui_resources
+from .. import gui_resources
 from src.gui.PyButton import PyButton
 from src.gui.PyLayouter import PyLayouter
 from src.gui.PyPoint import PyPoint

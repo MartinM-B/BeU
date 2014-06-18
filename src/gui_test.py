@@ -1,11 +1,9 @@
-from src.gui import gui_resources
-
 __author__ = 'florian'
 from src.gui.PyLayouter import *
-from src.gui.gui_resources import *
+import gui_resources
 from src.gui.PyPoint import *
 from src.gui.PyClickListener import *
-from gui_resources import *
+import gui_resources
 from pyglet.gl import *
 
 

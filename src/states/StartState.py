@@ -1,5 +1,6 @@
+import pyglet
 from src.Messenger.PyMessage import PyMessage
-from src.gui import gui_resources
+from .. import gui_resources
 from src.gui.PyButton import PyButton
 from src.gui.PyLayouter import PyLayouter
 from src.gui.PyPoint import PyPoint
@@ -52,6 +53,9 @@ class StartState(State, PyClickListener):
         point1 = PyPoint(50, 50)
         point2 = PyPoint(50, 180)
         point3 = PyPoint(50, 310)
+
+        self.background_sprite = pyglet.sprite.Sprite(gui_resources.creditBackground, 0, 0, batch=self._batch, group=self._background)
+
         self.creditButton = PyButton('credits', self, point1, self._batch, button_res, button_res_active, self._foreground,
                                 'Credits')
         self.settingsButton = PyButton('settings', self, point2, self._batch, button_res, button_res_active,
@@ -69,6 +73,7 @@ class StartState(State, PyClickListener):
         self.creditButton.delete()
         self.settingsButton.delete()
         self.gameButton.delete()
+        self.background_sprite.delete()
 
     def handleKeyPress(self, symbol, modifiers):
         print 'startState press'

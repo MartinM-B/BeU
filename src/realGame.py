@@ -26,9 +26,9 @@ batchPreload = pyglet.graphics.Batch()
 foregroundPreload = pyglet.graphics.OrderedGroup(1)
 
 player = Viking(batchPreload, foregroundPreload)
-player.preloadImages()
+#player.preloadImages()
 player2 = Symbiont(batchPreload, foregroundPreload)
-player2.preloadImages()
+#player2.preloadImages()
 
 type = 'receiver'
 stateMachine = StateMachine(type, batch, background, foreground, window, messenger)

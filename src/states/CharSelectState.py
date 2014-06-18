@@ -123,11 +123,10 @@ class CharSelectState(State, PyClickListener):
 
         #leftimage
 
+        #Todo add left image
+
         self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
                                                        batch=self._batch, group=self.foregroundSecond)
-        self.character_image_big_left.scale = scaleY
-
-        #Todo add left image
 
         #leftlabel
 
@@ -154,7 +153,6 @@ class CharSelectState(State, PyClickListener):
 
         self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
                                                        batch=self._batch, group=self.foregroundSecond)
-        self.character_image_big_left.right = scaleY
 
         #rightlabel
 
@@ -253,6 +251,8 @@ class CharSelectState(State, PyClickListener):
         self.character_big_left_label.delete()
         self.character_big_right.delete()
         self.character_big_right_label.delete()
+        self.character_image_big_right.delete()
+        self.character_image_big_left.delete()
 
 
     def handleKeyPress(self, symbol, modifiers):
@@ -276,10 +276,11 @@ class CharSelectState(State, PyClickListener):
 
                 #change picture and label to viking
                 self.character_big_left_label.delete()
+                self.character_image_big_left.delete()
                 scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
                 spritePosX = ((self._window.width / 1.5 / 2.0) - (
                 gui_resources.character_big.width * scaleY)) * 7.0 / 8.0
-                spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.character_big.height) / 2.0) * 5.5
+                spritePosY = 400 * scaleY
                 self.character_big_left_label = pyglet.text.Label(text="Viking", font_name='Times New Roman',
                                                                   font_size=24,
                                                                   x=spritePosX + gui_resources.character_big.width * scaleY - 10,
@@ -289,6 +290,11 @@ class CharSelectState(State, PyClickListener):
                                                                   anchor_x='right', anchor_y='top',
                                                                   color=(0, 0, 0, 255), batch=self._batch)
 
+                #Todo add left image
+
+                self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
+
                 #self.finishedPlayer1 = True
             elif self.Player1SymbiontButton.active == True:
                 print 'change player1 to viking in singleton'
@@ -296,10 +302,11 @@ class CharSelectState(State, PyClickListener):
 
                 #change picture and label to symbiont
                 self.character_big_left_label.delete()
+                self.character_image_big_left.delete()
                 scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
                 spritePosX = ((self._window.width / 1.5 / 2.0) - (
                 gui_resources.character_big.width * scaleY)) * 7.0 / 8.0
-                spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.character_big.height) / 2.0) * 5.5
+                spritePosY = 400 * scaleY
                 self.character_big_left_label = pyglet.text.Label(text="Symbiont", font_name='Times New Roman',
                                                                   font_size=24,
                                                                   x=spritePosX + gui_resources.character_big.width * scaleY - 10,
@@ -308,6 +315,10 @@ class CharSelectState(State, PyClickListener):
                                                                   height=self.character_big_left.height,
                                                                   anchor_x='right', anchor_y='top',
                                                                   color=(0, 0, 0, 255), batch=self._batch)
+                #Todo add left image
+
+                self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.symbiontBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
 
                 #self.finishedPlayer1 = True
 
@@ -331,10 +342,11 @@ class CharSelectState(State, PyClickListener):
 
                 #change picture and label to viking
                 self.character_big_right_label.delete()
+                self.character_image_big_right.delete()
                 scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
                 spritePosX = (self._window.width / 1.5 / 2.0) + ((self._window.width / 1.5 / 2.0) - (
                 gui_resources.character_big.width * scaleY)) * 1.0 / 8.0
-                spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.character_big.height) / 2.0) * 5.5
+                spritePosY = 400 * scaleY
                 self.character_big_right_label = pyglet.text.Label(text="Viking", font_name='Times New Roman',
                                                                    font_size=24,
                                                                    x=spritePosX + 10, y=spritePosY + 45,
@@ -342,6 +354,10 @@ class CharSelectState(State, PyClickListener):
                                                                    height=self.character_big_right.height,
                                                                    anchor_x='left', anchor_y='top',
                                                                    color=(0, 0, 0, 255), batch=self._batch)
+                #Todo add right image
+
+                self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
 
 
                 #self.finishedPlayer2 = True
@@ -352,10 +368,11 @@ class CharSelectState(State, PyClickListener):
                 #change picture and label to symbiont
                 #change picture and label to viking
                 self.character_big_right_label.delete()
+                self.character_image_big_right.delete()
                 scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
                 spritePosX = (self._window.width / 1.5 / 2.0) + ((self._window.width / 1.5 / 2.0) - (
                 gui_resources.character_big.width * scaleY)) * 1.0 / 8.0
-                spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.character_big.height) / 2.0) * 5.5
+                spritePosY = 400 * scaleY
                 self.character_big_right_label = pyglet.text.Label(text="Symbiont", font_name='Times New Roman',
                                                                    font_size=24,
                                                                    x=spritePosX + 10, y=spritePosY + 45,
@@ -363,6 +380,10 @@ class CharSelectState(State, PyClickListener):
                                                                    height=self.character_big_right.height,
                                                                    anchor_x='left', anchor_y='top',
                                                                    color=(0, 0, 0, 255), batch=self._batch)
+                #Todo add right image
+
+                self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.symbiontBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
 
                 #self.finishedPlayer2 = True
 

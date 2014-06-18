@@ -1,5 +1,4 @@
 import pyglet
-from pyglet.gl import glScalef
 from src.Messenger.PyMessage import PyMessage
 from .. import gui_resources
 from src.gui.PyButton import PyButton
@@ -69,6 +68,12 @@ class StartState(State, PyClickListener):
                                        self._foreground, 'Settings')
         self.gameButton = PyButton('fight', self, point3, self._batch, button_res, button_res_active, self._foreground,
                                    'Fight')
+        self.creditButton.setScale(scaleY)
+        self.creditButton._scale = scaleY
+        self.settingsButton.setScale(scaleY)
+        self.settingsButton._scale = scaleY
+        self.gameButton.setScale(scaleY)
+        self.gameButton._scale = scaleY
         self.gameButton.setActive(True)
         layouter.addButton(self.creditButton)
         layouter.addButton(self.settingsButton)

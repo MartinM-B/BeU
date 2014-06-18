@@ -38,6 +38,7 @@ messenger.subscribe(type, stateMachine)
 startMessage = PyMessage(type, States.Start)
 messenger.send(startMessage)
 
+
 def update(dt):
     messenger.execute()
 

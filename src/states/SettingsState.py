@@ -1,3 +1,5 @@
+from pyglet.window import key
+
 __author__ = 'florian'
 
 from src.Messenger.PyMessage import PyMessage
@@ -149,3 +151,6 @@ class SettingsState(State, PyClickListener):
     def handleKeyRelease(self, symbol, modifiers):
         print 'startState release'
         self._layouter.handleKeyRelease(symbol, modifiers)
+        if key.BACKSPACE == symbol:
+            startScreen = PyMessage(self._type, States.Start)
+            self._messenger.send(startScreen)

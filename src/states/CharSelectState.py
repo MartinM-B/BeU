@@ -207,6 +207,22 @@ class CharSelectState(State, PyClickListener):
                                               self.button_res_active2, self.foregroundSecond,
                                               '')
 
+        self.smallImageViking1 = pyglet.sprite.Sprite(gui_resources.vikingBig, point1.x-20, point1.y,
+                                                         batch=self._batch, group=self.foregroundThird)
+        self.smallImageViking1.scale = 0.5
+
+        self.smallImageSymbiont1 = pyglet.sprite.Sprite(gui_resources.symbiontBig, point2.x-60, point1.y,
+                                                         batch=self._batch, group=self.foregroundThird)
+        self.smallImageSymbiont1.scale = 0.5
+
+        self.smallImageViking2 = pyglet.sprite.Sprite(gui_resources.vikingBig, point3.x-20, point1.y,
+                                                         batch=self._batch, group=self.foregroundThird)
+        self.smallImageViking2.scale = 0.5
+
+        self.smallImageSymbiont2 = pyglet.sprite.Sprite(gui_resources.symbiontBig, point4.x-60, point1.y,
+                                                         batch=self._batch, group=self.foregroundThird)
+        self.smallImageSymbiont2.scale = 0.5
+
         self.Player1VikingButton.setActive(True)
         self.Player2VikingButton.setActive(True)
 

@@ -77,6 +77,8 @@ class CharSelectState(State, PyClickListener):
                                                       group=self._background)
         #self.background_sprite.scale = scaleY
 
+
+
         #chains
         self.chain_sprite1 = pyglet.sprite.Sprite(gui_resources.chain, (self._window.width / 1.5 * 2.0 / 10.0), 0,
                                                   batch=self._batch, group=self._background)

@@ -35,6 +35,6 @@ class CreditsState(State):
 
     def handleKeyRelease(self, symbol, modifiers):
         pass
-        if self.inputHandler.checkKick(symbol):
+        if key.BACKSPACE == symbol:
             startScreen = PyMessage(self._type, States.Start)
             self._messenger.send(startScreen)

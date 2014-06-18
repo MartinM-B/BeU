@@ -8,6 +8,8 @@ from pyglet.text import *
 from pyglet import gl
 from pyglet import graphics
 from src.gui.PyColor import *
+from src.states.StartState import *
+
 
 from src.gui import gui_resources
 
@@ -15,12 +17,13 @@ class HealthBar(object):
     ''' Sprite subclass providing advanced
             playback controls for animated sprites '''
 
-    def __init__(self, batch, window, player1, player2):
+    def __init__(self, batch, window, player1, player2, messenger):
         #self._blend_src = pyglet.gl.GL_SRC_ALPHA
         #self._blend_dest=pyglet.gl.GL_ONE_MINUS_SRC_ALPHA
 
         self._player1 = player1
         self._player2 = player2
+        self._messenger = messenger
 
         self._color = (0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0, 255)
         self._batch = batch
@@ -77,6 +80,10 @@ class HealthBar(object):
             self._star2_2.opacity = 128
         elif(self._rounds2 == 3):
             self._star2_1.opacity = 128
+
+        if(self._rounds1 == 3 or self._rounds2 == 3):
+            gameMessage = PyMessage('receiver', States.Start)
+            self._messenger.send(gameMessage)
 
 
     def reset_players(self):
@@ -167,6 +174,18 @@ class HealthBar(object):
         self._star2_2 = pyglet.sprite.Sprite(star_img, self._winWidth*0.86, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
         self._star2_3 = pyglet.sprite.Sprite(star_img, self._winWidth*0.91, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
 
+    def delete(self):
+        self._star1_1.delete()
+        self._star1_2.delete()
+        self._star1_3.delete()
+        self._star2_1.delete()
+        self._star2_2.delete()
+        self._star2_3.delete()
+        self._background1.delete()
+        self._background2.delete()
+        self._vertex_list2.delete()
+        self._vertex_list1.delete()
+        self._timer.delete()
 
 
 

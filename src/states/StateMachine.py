@@ -9,6 +9,7 @@ from StartState import *
 from CreditsState import *
 from GameState import *
 from CharSelectState import *
+from SettingsState import *
 
 
 class StateMachine(State, Receiver, InputHandler):
@@ -25,7 +26,7 @@ class StateMachine(State, Receiver, InputHandler):
         self._creditState = CreditsState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
         self._gameState = GameState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
         self._charSelectState = CharSelectState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
-
+        self._charSettings = SettingsState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
         self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState}
 
     def onEnter(self):
@@ -47,6 +48,9 @@ class StateMachine(State, Receiver, InputHandler):
         elif message.msg == States.CharSelect:
             self.setNotActive()
             self._charSelectState.onEnter()
+        elif message.msg == States.Settings:
+            self.setNotActive()
+            self._charSettings.onEnter()
 
     def setNotActive(self):
         for state in self.__states:

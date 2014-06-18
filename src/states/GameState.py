@@ -18,6 +18,7 @@ class GameState(State):
     def onExit(self):
         if self.isActive:
             self._active = False
+            self.deleteScreen()
 
         pyglet.clock.unschedule(self.update)
 
@@ -35,7 +36,7 @@ class GameState(State):
 
         #player2 = ChibiUsa_blue(batch, foreground)
         #player2.moveX(window.width / 2)
-        self.healthbarObject = healthbar.HealthBar(self._batch, self._window, self.player, self.player2)
+        self.healthbarObject = healthbar.HealthBar(self._batch, self._window, self.player, self.player2, self._messenger)
 
         #roundcounter = RoundCounter(batch, player, player2, 285, 400, 3)
 
@@ -77,3 +78,6 @@ class GameState(State):
             self.player.playerHit(checkEnumValueEquals(self.player2.lookDirection, Direction.Right) and Direction.Left or Direction.Right, self.player2)
 
         self.healthbarObject.update()
+
+    def deleteScreen(self):
+        self.healthbarObject.delete()

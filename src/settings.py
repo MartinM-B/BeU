@@ -14,6 +14,8 @@ class Settings(object):
     __instance = None
     _player1 = 0
     _player2 = 0
+    _volume = 100
+    _time = 99
 
     def __init__(self):
         """ Create singleton instance """
@@ -44,6 +46,12 @@ class Settings(object):
 
     def setPlayer2Symbiont(self):
         Settings._player2 = 1
+
+    def setVolume(self, volume):
+        Settings._volume = volume
+
+    def setTime(self, time):
+        Settings._time = time
 
 # Test it
 s1 = Settings()

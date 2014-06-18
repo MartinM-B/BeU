@@ -19,8 +19,8 @@ class StartState(State, PyClickListener):
             self._messenger.send(creditsMessage)
         elif anID == 'settings':
             print 'do something else'
-            # settingsMessage = PyMessage(self._type, States.Settings)
-            # self._messenger.send(settingsMessage)
+            settingsMessage = PyMessage(self._type, States.Settings)
+            self._messenger.send(settingsMessage)
         elif anID == 'fight':
             print 'do something'
             charMessage = PyMessage(self._type, States.CharSelect)

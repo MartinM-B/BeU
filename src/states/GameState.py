@@ -7,6 +7,7 @@ from src.InputHandling.PlayerTwoKeyboardInputHandler import PlayerTwoKeyboardInp
 from src.Player import ActionState, Direction
 from src.Symbiont import Symbiont
 from src.Viking import Viking
+from src.gui import gui_resources
 from src.settings import Settings
 
 
@@ -37,6 +38,13 @@ class GameState(State):
         self.player2 = Viking(self._batch, self._foreground) if settings._player2 == 0 else Symbiont(self._batch, self._foreground)
         #player2 = Viking(batch, foreground)
         self.player2.preloadImages()
+        self.player2.moveX(700)
+        self.player2.look(Direction.Left)
+
+        # scaleY = (self._window.height / (gui_resources.bg_underground.height * 1.0)) / 1.5
+        # spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.bg_underground.width * scaleY) / 2.0)
+        # self.background_sprite = pyglet.sprite.Sprite(gui_resources.bg_underground, spritePosX, 0, batch=self._batch,
+        #                                               group=self._background)
 
         imagesLoaded = False
 

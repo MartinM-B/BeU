@@ -1,4 +1,5 @@
 import pyglet
+
 from src.Enum import checkEnumValueEquals
 from src.Healthbar import healthbar
 from src.InputHandling.PlayerOneKeyboardInputHandler import PlayerOneKeyboardInputHandler
@@ -7,6 +8,7 @@ from src.Player import ActionState, Direction
 from src.Symbiont import Symbiont
 from src.Viking import Viking
 from src.settings import Settings
+
 
 __author__ = 'florian'
 

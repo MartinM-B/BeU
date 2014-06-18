@@ -81,10 +81,23 @@ class HealthBar(object):
         elif(self._rounds2 == 3):
             self._star2_1.opacity = 128
 
-        if(self._rounds1 == 3 or self._rounds2 == 3):
-            gameMessage = PyMessage('receiver', States.Start)
-            self._messenger.send(gameMessage)
+        if(self._rounds1 == 3):
+            #orig_img = gui_resources.win1
+           # scaling_factor = (self._winWidth*0.4)/orig_img.width
+            #self._background1 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.45, self._winHeight*0.45, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
+            #self._background1.scale = scaling_factor
+            self.goBack()
+        elif (self._rounds2 == 3):
+            #orig_img = gui_resources.win2
+            #scaling_factor = (self._winWidth*0.4)/orig_img.width
+            #self._background1 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.45, self._winHeight*0.45, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
+           # self._background1.scale = scaling_factor
+            self.goBack()
 
+
+    def goBack(self):
+        gameMessage = PyMessage('receiver', States.Start)
+        self._messenger.send(gameMessage)
 
     def reset_players(self):
         self._player1.health = 100

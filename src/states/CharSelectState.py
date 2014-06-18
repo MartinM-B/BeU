@@ -167,6 +167,14 @@ class CharSelectState(State, PyClickListener):
         self.Player2SymbiontButton = PyButton('player2Symbiont', self, point4, self._batch, self.button_res, self.button_res_active2, self._foreground,
                               '')
 
+        self.Player1VikingButton.setActive(True)
+        self.Player2VikingButton.setActive(True)
+
+        self.Player1VikingButton.scale = scaleY
+        self.Player1SymbiontButton.scale = scaleY
+        self.Player2VikingButton.scale = scaleY
+        self.Player2SymbiontButton.scale = scaleY
+
         self.Player1VikingButton.setScale(scaleY)
         self.Player1SymbiontButton.setScale(scaleY)
         self.Player2VikingButton.setScale(scaleY)
@@ -175,8 +183,9 @@ class CharSelectState(State, PyClickListener):
 
 
 
-        self.Player1VikingButton.setActive(True)
-        self.Player2VikingButton.setActive(True)
+
+
+
 
         #layouter.addButton(self.Player1VikingButton)
         #layouter.addButton(self.Player1SymbiontButton)

@@ -236,13 +236,6 @@ class CharSelectState(State, PyClickListener):
         self.Player2VikingButton.setScale(scaleY)
         self.Player2SymbiontButton.setScale(scaleY)
 
-
-
-
-
-
-
-
         #layouter.addButton(self.Player1VikingButton)
         #layouter.addButton(self.Player1SymbiontButton)
 
@@ -270,6 +263,10 @@ class CharSelectState(State, PyClickListener):
         self.character_big_right_label.delete()
         self.character_image_big_right.delete()
         self.character_image_big_left.delete()
+        self.smallImageViking1.delete()
+        self.smallImageSymbiont1.delete()
+        self.smallImageSymbiont2.delete()
+        self.smallImageViking2.delete()
 
 
     def handleKeyPress(self, symbol, modifiers):

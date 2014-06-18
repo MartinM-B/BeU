@@ -81,3 +81,5 @@ class GameState(State):
 
     def deleteScreen(self):
         self.healthbarObject.delete()
+        self.player.delete()
+        self.player2.delete()

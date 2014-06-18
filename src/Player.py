@@ -314,6 +314,11 @@ class Player(GameEntity):
         self.cacheCurrentMasks()
         self.imagesPreloaded = True
 
+    def delete(self):
+        self.display_sprite.delete()
+        self.hitmask_sprite.delete()
+        self.attackmask_sprite.delete()
+
     def update(self):
         if checkEnumValueEquals(self.movementState, MovementState.Moving):
             print "movingPlayer"

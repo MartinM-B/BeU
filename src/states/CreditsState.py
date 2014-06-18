@@ -34,7 +34,6 @@ class CreditsState(State):
         print 'credit state pressed'
 
     def handleKeyRelease(self, symbol, modifiers):
-        pass
         if key.BACKSPACE == symbol:
             startScreen = PyMessage(self._type, States.Start)
             self._messenger.send(startScreen)

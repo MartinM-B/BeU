@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.window import key
 from src.Messenger.PyMessage import PyMessage
 from .. import gui_resources
 from src.gui.PyButton import PyButton
@@ -50,11 +51,13 @@ class StartState(State, PyClickListener):
         layouter = PyLayouter()
         button_res = gui_resources.box
         button_res_active = gui_resources.box_selected
-        point1 = PyPoint(170, 150)
-        point2 = PyPoint(170, 280)
-        point3 = PyPoint(170, 410)
 
         scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 3
+
+        point1 = PyPoint(170 + 20 * 1/scaleY, 150)
+        point2 = PyPoint(170 + 20 * 1/scaleY, 280)
+        point3 = PyPoint(170 + 20 * 1/scaleY, 410)
+
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.startScreen.width * scaleY) / 2.0)
 
         self.background_sprite = pyglet.sprite.Sprite(gui_resources.startScreen, spritePosX, 0, batch=self._batch,
@@ -68,6 +71,8 @@ class StartState(State, PyClickListener):
                                        self._foreground, 'Settings')
         self.gameButton = PyButton('fight', self, point3, self._batch, button_res, button_res_active, self._foreground,
                                    'Fight')
+        scaleY = 0.7
+
         self.creditButton.setScale(scaleY)
         self.creditButton._scale = scaleY
         self.settingsButton.setScale(scaleY)

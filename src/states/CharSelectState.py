@@ -123,6 +123,10 @@ class CharSelectState(State, PyClickListener):
 
         #leftimage
 
+        self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
+        self.character_image_big_left.scale = scaleY
+
         #Todo add left image
 
         #leftlabel
@@ -147,6 +151,10 @@ class CharSelectState(State, PyClickListener):
         #rightimage
 
         #Todo add right image
+
+        self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
+                                                       batch=self._batch, group=self.foregroundSecond)
+        self.character_image_big_left.right = scaleY
 
         #rightlabel
 

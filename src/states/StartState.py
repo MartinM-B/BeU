@@ -60,6 +60,11 @@ class StartState(State, PyClickListener):
 
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.startScreen.width * scaleY) / 2.0)
 
+        self.backgroundBack = pyglet.graphics.OrderedGroup(-1)
+
+        self.background_spriteBack = pyglet.sprite.Sprite(gui_resources.creditBackground, 0, 0, batch=self._batch, group=self.backgroundBack)
+        self.background_spriteBack.scale = 1.3
+
         self.background_sprite = pyglet.sprite.Sprite(gui_resources.startScreen, spritePosX, 0, batch=self._batch,
                                                       group=self._background)
         self.background_sprite.scale = scaleY

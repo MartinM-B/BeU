@@ -48,7 +48,9 @@ class PlayerInputHandler(InputHandler):
 
         self.lastTime = datetime.datetime.now()
 
-        self.symbollist.append(symbol)
+        if self.checkWalkLeft(symbol) or self.checkWalkRight(symbol) or self.checkJump(symbol) or self.checkDance(symbol) or self.checkKick(symbol) or self.checkPunch(symbol) \
+            or self.checkBlock(symbol) or self.checkDuck(symbol):
+            self.symbollist.append(symbol)
 
         if self.checkSpecialAttack(self.symbollist):
             self.player.useSpecialAttack()

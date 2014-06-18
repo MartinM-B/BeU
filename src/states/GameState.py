@@ -33,6 +33,10 @@ class GameState(State):
 
         settings = Settings()
 
+        self.backgroundBack =  pyglet.graphics.OrderedGroup(-1)
+
+        self.backgroundSprite = pyglet.sprite.Sprite(gui_resources.bg_assembly, 0, 0, batch=self._batch, group=self._background)
+
         self.player = Viking(self._batch, self._foreground) if settings._player1 == 0 else Symbiont(self._batch, self._foreground)
         self.player.preloadImages()
         self.player2 = Viking(self._batch, self._foreground) if settings._player2 == 0 else Symbiont(self._batch, self._foreground)
@@ -97,3 +101,4 @@ class GameState(State):
         self.healthbarObject.delete()
         self.player.delete()
         self.player2.delete()
+        self.backgroundSprite.delete()

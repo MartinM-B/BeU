@@ -55,7 +55,9 @@ class CharSelectState(State, PyClickListener):
     def onEnter(self):
         if not self.isActive:
             self._active = True
-
+        s1 = Settings()
+        s1.setPlayer1Viking()
+        s1.setPlayer2Viking()
         self.inputHandler1 = PlayerOneKeyboardInputHandler("")
         self.inputHandler2 = PlayerTwoKeyboardInputHandler("")
         self.initalizeState()

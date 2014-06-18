@@ -7,6 +7,7 @@ from pyglet.text import *
 
 from pyglet import gl
 from pyglet import graphics
+from src.Player import Direction
 from src.gui.PyColor import *
 from src.states.StartState import *
 
@@ -103,22 +104,23 @@ class HealthBar(object):
         self._player1.health = 100
         self._player2.health = 100
         self._player1.x = 30
-        self._player2.x = 300
+        self._player2.x = 700
+        self._player2.look(Direction.Left)
 
 
     def background(self, batch):
         orig_img = gui_resources.life_background
         scaling_factor = (self._winWidth*0.4)/orig_img.width
-        self._background1 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.05, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
+        self._background1 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.05, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(1))
         self._background1.scale = scaling_factor
-        self._background2 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.55, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(0))
+        self._background2 = pyglet.sprite.Sprite(orig_img, self._winWidth*0.55, self._winHeight*0.88, batch=batch, group=pyglet.graphics.OrderedGroup(1))
         self._background2.scale = scaling_factor
 
 
     def timerPic(self, batch):
         img = gui_resources.timer
         scaling_factor = (self._winWidth*0.175)/img.width
-        self._timer = pyglet.sprite.Sprite(img, self._winWidth*0.415, (self._winHeight*0.775), batch=batch, group=pyglet.graphics.OrderedGroup(1))
+        self._timer = pyglet.sprite.Sprite(img, self._winWidth*0.415, (self._winHeight*0.775), batch=batch, group=pyglet.graphics.OrderedGroup(3))
         self._timer.scale = scaling_factor
 
 
@@ -139,7 +141,7 @@ class HealthBar(object):
         y2 = self._background1.y + bar_height
 
         self._vertex_list1.delete()
-        self._vertex_list1 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+        self._vertex_list1 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(2),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
                       ('c3B', bar_color))
 
 
@@ -167,7 +169,7 @@ class HealthBar(object):
         y1 = self._background1.y + bar_height
 
         self._vertex_list2.delete()
-        self._vertex_list2 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(1),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
+        self._vertex_list2 = self._batch.add(4, gl.GL_QUADS, pyglet.graphics.OrderedGroup(2),('v2f', (x1, y1, x1, y2, x2, y2, x2, y1)),
           ('c3B', bar_color))
 
 
@@ -179,13 +181,13 @@ class HealthBar(object):
     def init_lifes(self):
         star_img = gui_resources.win
         scaling = (self._winWidth*0.15)/star_img.width
-        self._star1_1 = pyglet.sprite.Sprite(star_img, self._winWidth*0.05, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
-        self._star1_2 = pyglet.sprite.Sprite(star_img, self._winWidth*0.10, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
-        self._star1_3 = pyglet.sprite.Sprite(star_img, self._winWidth*0.15, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
+        self._star1_1 = pyglet.sprite.Sprite(star_img, self._winWidth*0.05, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
+        self._star1_2 = pyglet.sprite.Sprite(star_img, self._winWidth*0.10, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
+        self._star1_3 = pyglet.sprite.Sprite(star_img, self._winWidth*0.15, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
 
-        self._star2_1 = pyglet.sprite.Sprite(star_img, self._winWidth*0.81, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
-        self._star2_2 = pyglet.sprite.Sprite(star_img, self._winWidth*0.86, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
-        self._star2_3 = pyglet.sprite.Sprite(star_img, self._winWidth*0.91, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(1))
+        self._star2_1 = pyglet.sprite.Sprite(star_img, self._winWidth*0.81, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
+        self._star2_2 = pyglet.sprite.Sprite(star_img, self._winWidth*0.86, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
+        self._star2_3 = pyglet.sprite.Sprite(star_img, self._winWidth*0.91, self._winHeight*0.8, batch=self._batch, group=pyglet.graphics.OrderedGroup(2))
 
     def delete(self):
         self._star1_1.delete()

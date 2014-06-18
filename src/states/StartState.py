@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.gl import glScalef
 from src.Messenger.PyMessage import PyMessage
 from .. import gui_resources
 from src.gui.PyButton import PyButton
@@ -50,13 +51,14 @@ class StartState(State, PyClickListener):
         layouter = PyLayouter()
         button_res = gui_resources.box
         button_res_active = gui_resources.box_selected
-        point1 = PyPoint(50, 50)
-        point2 = PyPoint(50, 180)
-        point3 = PyPoint(50, 310)
+        point1 = PyPoint(170, 150)
+        point2 = PyPoint(170, 280)
+        point3 = PyPoint(170, 410)
 
-        scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 1.5
+        scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 3
+        spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.startScreen.width * scaleY) / 2.0)
 
-        self.background_sprite = pyglet.sprite.Sprite(gui_resources.startScreen, 0, 0, batch=self._batch,
+        self.background_sprite = pyglet.sprite.Sprite(gui_resources.startScreen, spritePosX, 0, batch=self._batch,
                                                       group=self._background)
         self.background_sprite.scale = scaleY
 

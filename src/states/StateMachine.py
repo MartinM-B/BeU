@@ -27,7 +27,7 @@ class StateMachine(State, Receiver, InputHandler):
         self._gameState = GameState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
         self._charSelectState = CharSelectState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
         self._charSettings = SettingsState(aBatch, aBackground, aForeGround, aWindow, type, aMessenger)
-        self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState}
+        self.__states = {self._startState, self._creditState, self._gameState, self._charSelectState, self._charSettings}
 
     def onEnter(self):
         pass

@@ -73,6 +73,7 @@ class CharSelectState(State, PyClickListener):
 
 
         self.backgroundBack = pyglet.graphics.OrderedGroup(-1)
+        self.foregroundThird = pyglet.graphics.OrderedGroup(3)
 
         # background
         scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
@@ -126,7 +127,7 @@ class CharSelectState(State, PyClickListener):
         #Todo add left image
 
         self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
         #leftlabel
 
@@ -152,7 +153,7 @@ class CharSelectState(State, PyClickListener):
         #Todo add right image
 
         self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
         #rightlabel
 
@@ -293,7 +294,7 @@ class CharSelectState(State, PyClickListener):
                 #Todo add left image
 
                 self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
                 #self.finishedPlayer1 = True
             elif self.Player1SymbiontButton.active == True:
@@ -318,7 +319,7 @@ class CharSelectState(State, PyClickListener):
                 #Todo add left image
 
                 self.character_image_big_left = pyglet.sprite.Sprite(gui_resources.symbiontBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
                 #self.finishedPlayer1 = True
 
@@ -357,7 +358,7 @@ class CharSelectState(State, PyClickListener):
                 #Todo add right image
 
                 self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.vikingBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
 
                 #self.finishedPlayer2 = True
@@ -383,7 +384,7 @@ class CharSelectState(State, PyClickListener):
                 #Todo add right image
 
                 self.character_image_big_right = pyglet.sprite.Sprite(gui_resources.symbiontBig, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self.foregroundSecond)
+                                                       batch=self._batch, group=self.foregroundThird)
 
                 #self.finishedPlayer2 = True
 

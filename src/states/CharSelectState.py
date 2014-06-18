@@ -71,10 +71,13 @@ class CharSelectState(State, PyClickListener):
         self.finishedPlayer1 = False
         self.finishedPlayer2 = False
 
+
+        self.backgroundBack = pyglet.graphics.OrderedGroup(-1)
+
         # background
         scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 2
         self.background_sprite = pyglet.sprite.Sprite(gui_resources.background, 0, 0, batch=self._batch,
-                                                      group=self._background)
+                                                      group=self.backgroundBack)
         #self.background_sprite.scale = scaleY
 
 
@@ -94,18 +97,20 @@ class CharSelectState(State, PyClickListener):
         self.chain_sprite3.scale = scaleY
         self.chain_sprite4.scale = scaleY
 
+        self.foregroundSecond = pyglet.graphics.OrderedGroup(2)
+
         #title
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.title_big.width) * scaleY / 2.0)
         spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.title_big.height) / 2.0) * 2.1
 
         self.title_sprite = pyglet.sprite.Sprite(gui_resources.title_big, spritePosX, spritePosY, batch=self._batch,
-                                                 group=self._foreground)
+                                                 group=self.foregroundSecond)
         self.title_sprite.scale = scaleY
         self.title_label = pyglet.text.Label(text="Select Your Character", font_name='Times New Roman', font_size=24,
                                              x=spritePosX + self.title_sprite.width / 2, y=spritePosY + 18,
                                              width=self.title_sprite.width, height=self.title_sprite.height,
                                              anchor_x='center', anchor_y='center', color=(0, 0, 0, 255),
-                                             batch=self._batch)
+                                             batch=self._batch, group=self.foregroundSecond)
 
         #leftbox
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.character_big.width * scaleY)) * 7.0 / 8.0
@@ -113,7 +118,7 @@ class CharSelectState(State, PyClickListener):
         spritePosY = 400 * scaleY
 
         self.character_big_left = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY,
-                                                       batch=self._batch, group=self._foreground)
+                                                       batch=self._batch, group=self.foregroundSecond)
         self.character_big_left.scale = scaleY
 
         #leftimage
@@ -128,7 +133,7 @@ class CharSelectState(State, PyClickListener):
                                                           width=self.character_big_left.width,
                                                           height=self.character_big_left.height,
                                                           anchor_x='right', anchor_y='top', color=(0, 0, 0, 255),
-                                                          batch=self._batch)
+                                                          batch=self._batch, group=self.foregroundSecond)
 
 
         #rightbox
@@ -136,7 +141,7 @@ class CharSelectState(State, PyClickListener):
         gui_resources.character_big.width * scaleY)) * 1.0 / 8.0
 
         self.character_big_right = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY,
-                                                        batch=self._batch, group=self._foreground)
+                                                        batch=self._batch, group=self.foregroundSecond)
         self.character_big_right.scale = scaleY
 
         #rightimage
@@ -150,7 +155,7 @@ class CharSelectState(State, PyClickListener):
                                                            width=self.character_big_right.width,
                                                            height=self.character_big_right.height,
                                                            anchor_x='left', anchor_y='top', color=(0, 0, 0, 255),
-                                                           batch=self._batch)
+                                                           batch=self._batch, group=self.foregroundSecond)
 
         #buttonbox
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.character_background.width) * scaleY / 2.0)
@@ -158,7 +163,7 @@ class CharSelectState(State, PyClickListener):
         spritePosY = 70
 
         self.character_background = pyglet.sprite.Sprite(gui_resources.character_background, spritePosX, spritePosY,
-                                                         batch=self._batch, group=self._background)
+                                                         batch=self._batch, group=self._foreground)
         self.character_background.scale = scaleY
 
         #buttons
@@ -182,17 +187,17 @@ class CharSelectState(State, PyClickListener):
         point4 = PyPoint((self._window.width / 1.5 * 7.0 / 10.0) - (gui_resources.character_small.width / 8.0),
                          spritePosY + gui_resources.character_small.height / 30.0)
         self.Player1VikingButton = PyButton('player1Viking', self, point1, self._batch, self.button_res,
-                                            self.button_res_active1, self._foreground,
+                                            self.button_res_active1, self.foregroundSecond,
                                             '')
         self.Player1SymbiontButton = PyButton('player1Symbiont', self, point2, self._batch, self.button_res,
                                               self.button_res_active1,
-                                              self._foreground, '')
+                                              self.foregroundSecond, '')
 
         self.Player2VikingButton = PyButton('player2Viking', self, point3, self._batch, self.button_res,
-                                            self.button_res_active2, self._foreground,
+                                            self.button_res_active2, self.foregroundSecond,
                                             '')
         self.Player2SymbiontButton = PyButton('player2Symbiont', self, point4, self._batch, self.button_res,
-                                              self.button_res_active2, self._foreground,
+                                              self.button_res_active2, self.foregroundSecond,
                                               '')
 
         self.Player1VikingButton.setActive(True)
@@ -364,3 +369,7 @@ class CharSelectState(State, PyClickListener):
         if self.inputHandler2.checkWalkRight(symbol):
             self.Player2VikingButton.setActive(False)
             self.Player2SymbiontButton.setActive(True)
+
+        if key.BACKSPACE == symbol:
+            startScreen = PyMessage(self._type, States.Start)
+            self._messenger.send(startScreen)

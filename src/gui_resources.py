@@ -30,6 +30,12 @@ win = pyglet.resource.image("win.png")
 creditScreen = pyglet.resource.image("CreditScreen.png")
 creditBackground = pyglet.resource.image("CreditBack.png")
 
+vikingBig = pyglet.resource.image("Viking.png")
+vikingSmall = pyglet.resource.image("Viking_small.png")
+
+symbiontBig = pyglet.resource.image("Symbiont.png")
+symbiontSmall = pyglet.resource.image("Symbiont_small.png")
+
 #backgrounds
 bg_assembly = pyglet.resource.image("assembly.jpg")
 bg_beach = pyglet.resource.image("beach.png")

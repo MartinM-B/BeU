@@ -91,7 +91,7 @@ class CharSelectState(State, PyClickListener):
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.title_big.width) * scaleY / 2.0)
         spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.title_big.height) / 2.0) * 2.1
 
-        self.title_sprite =  pyglet.sprite.Sprite(gui_resources.title_big, spritePosX, spritePosY, batch=self._batch, group=self._background)
+        self.title_sprite =  pyglet.sprite.Sprite(gui_resources.title_big, spritePosX, spritePosY, batch=self._batch, group=self._foreground)
         self.title_sprite.scale = scaleY
         self.title_label = pyglet.text.Label(text="Select Your Character", font_name='Times New Roman', font_size=24,
                                        x=spritePosX + self.title_sprite.width/2,y=spritePosY + 18,
@@ -102,7 +102,7 @@ class CharSelectState(State, PyClickListener):
         spritePosX = ((self._window.width / 1.5 / 2.0) - (gui_resources.character_big.width*scaleY))*7.0/8.0
         spritePosY = ((self._window.height / 1.5 / 2.0) - (gui_resources.character_big.height) / 2.0) * 5.5
 
-        self.character_big_left = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY, batch=self._batch, group=self._background)
+        self.character_big_left = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY, batch=self._batch, group=self._foreground)
         self.character_big_left.scale = scaleY
 
         #leftimage
@@ -120,7 +120,7 @@ class CharSelectState(State, PyClickListener):
         #rightbox
         spritePosX = (self._window.width / 1.5 / 2.0) + ((self._window.width / 1.5 / 2.0) - (gui_resources.character_big.width * scaleY)) *1.0/8.0
 
-        self.character_big_right = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY, batch=self._batch, group=self._background)
+        self.character_big_right = pyglet.sprite.Sprite(gui_resources.character_big, spritePosX, spritePosY, batch=self._batch, group=self._foreground)
         self.character_big_right.scale = scaleY
 
         #rightimage

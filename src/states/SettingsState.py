@@ -79,7 +79,7 @@ class SettingsState(State, PyClickListener):
         self.title_label = pyglet.text.Label(text="Settings", font_name='Times New Roman', font_size=24,
                                        x=spritePosX + self.title_sprite.width/2,y=spritePosY + 18,
                                        width=self.title_sprite.width, height=self.title_sprite.height,
-                                       anchor_x='center', anchor_y='center', color=(0, 0, 0, 255), batch=self._batch, halign='right')
+                                       anchor_x='center', anchor_y='center', color=(0, 0, 0, 255), batch=self._batch)
 
         self.back_sprite = pyglet.sprite.Sprite(gui_resources.credits, self._window.width*0.125, self._window.height*0.07, group=self._background, batch=self._batch)
         self.back_sprite.scale = scaleY
@@ -103,11 +103,11 @@ class SettingsState(State, PyClickListener):
 
         self.labelTime = pyglet.text.Label(text=str(self.settings._time), font_name='Times New Roman', font_size=24, x=x2, y=y2,
                                        width=30, height=30, anchor_x='left',
-                                       anchor_y='center', color=(0, 0, 0, 255), batch=self._batch, halign='right')
+                                       anchor_y='center', color=(0, 0, 0, 255), batch=self._batch)
 
         self.labelVolume = pyglet.text.Label(text=str(self.settings._volume), font_name='Times New Roman', font_size=24, x=x1, y=y1,
                                        width=100, height=300, anchor_x='left',
-                                       anchor_y='center', color=(0, 0, 0, 255), batch=self._batch, halign='right')
+                                       anchor_y='center', color=(0, 0, 0, 255), batch=self._batch)
 
 
         self.louderButton = PyButton('music_louder', self, point1, self._batch, button_res,

@@ -54,14 +54,19 @@ class StartState(State, PyClickListener):
         point2 = PyPoint(50, 180)
         point3 = PyPoint(50, 310)
 
-        self.background_sprite = pyglet.sprite.Sprite(gui_resources.creditBackground, 0, 0, batch=self._batch, group=self._background)
+        scaleY = (self._window.height / (gui_resources.creditScreen.height * 1.0)) / 1.5
 
-        self.creditButton = PyButton('credits', self, point1, self._batch, button_res, button_res_active, self._foreground,
-                                'Credits')
+        self.background_sprite = pyglet.sprite.Sprite(gui_resources.creditBackground, 0, 0, batch=self._batch,
+                                                      group=self._background)
+        self.background_sprite.scale = scaleY
+
+        self.creditButton = PyButton('credits', self, point1, self._batch, button_res, button_res_active,
+                                     self._foreground,
+                                     'Credits')
         self.settingsButton = PyButton('settings', self, point2, self._batch, button_res, button_res_active,
-                                  self._foreground, 'Settings')
+                                       self._foreground, 'Settings')
         self.gameButton = PyButton('fight', self, point3, self._batch, button_res, button_res_active, self._foreground,
-                              'Fight')
+                                   'Fight')
         self.gameButton.setActive(True)
         layouter.addButton(self.creditButton)
         layouter.addButton(self.settingsButton)

@@ -1,3 +1,5 @@
+from pyglet.window import key
+
 __author__ = 'florian'
 
 from src.Messenger.PyMessage import PyMessage
@@ -118,12 +120,9 @@ class SettingsState(State, PyClickListener):
                                      button_res_active, self._foreground, 'up', 0.8)
         self.timeDownButton = PyButton('time_Down', self, point4, self._batch, button_res,
                                         button_res_active, self._foreground, 'down', 0.8)
-        self.backButton = PyButton('back', self, point_back, self._batch, button_res,
-                                button_res_active, self._foreground, 'Back', 1)
 
 
         self.timeUpButton.setActive(True)
-        layouter.addButton(self.backButton)
         layouter.addButton(self.quieterButton)
         layouter.addButton(self.louderButton)
         layouter.addButton(self.timeDownButton)
@@ -145,7 +144,6 @@ class SettingsState(State, PyClickListener):
         self.chain_sprite2.delete()
         self.chain_sprite1.delete()
         self.background_sprite.delete()
-        self.backButton.delete()
         self.back_sprite.delete()
 
 
@@ -156,3 +154,6 @@ class SettingsState(State, PyClickListener):
     def handleKeyRelease(self, symbol, modifiers):
         print 'startState release'
         self._layouter.handleKeyRelease(symbol, modifiers)
+        if key.BACKSPACE == symbol:
+            startScreen = PyMessage(self._type, States.Start)
+            self._messenger.send(startScreen)
